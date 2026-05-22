@@ -14,6 +14,7 @@ export class PropertiesRepository implements IPropertiesRepository {
     status,
     address,
     description,
+    owner,
   }: PropertyDTO): Promise<Property> {
     const property: Property = {
       id: String(this.properties.length + 1),
@@ -25,6 +26,7 @@ export class PropertiesRepository implements IPropertiesRepository {
       address,
       status,
       description,
+      owner,
     }
 
     this.properties.push(property)

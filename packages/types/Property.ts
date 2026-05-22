@@ -1,5 +1,6 @@
 import { Address } from './Address'
 import { Base } from './Base'
+import { Owner } from './Owner'
 
 export enum EPropertyStatus {
   AVAILABLE = 'AVAILABLE',
@@ -15,4 +16,5 @@ export type Property = Base & {
   baseRentAmount: number
   solarEnergyActive: boolean
   status: EPropertyStatus
+  owner: Owner
 }

@@ -9,7 +9,7 @@ export enum EMaritalStatus {
   WIDOWER = 'WIDOWER',
 }
 
-export type Customer = Base & {
+export type Owner = Base & {
   id: string
   name: string
   document: string

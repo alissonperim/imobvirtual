@@ -3,10 +3,18 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { PropertiesModule } from './properties/properties.module'
 import { AddressesModule } from './addresses/addresses.module'
-import { CustomersModule } from './customers/customers.module'
+import { OwnersModule } from './owners/owners.module'
+import { RentalContractsModule } from './rental-contracts/rental-contracts.module'
+import { RentersModule } from './renters/renters.module'
 
 @Module({
-  imports: [PropertiesModule, AddressesModule, CustomersModule],
+  imports: [
+    PropertiesModule,
+    AddressesModule,
+    OwnersModule,
+    RentalContractsModule,
+    RentersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
