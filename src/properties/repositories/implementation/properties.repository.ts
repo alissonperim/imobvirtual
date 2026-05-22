@@ -1,7 +1,8 @@
 import { Property } from '@pkg/types'
 import { PropertyDTO } from 'src/properties/dto'
+import { IPropertiesRepository } from '../domain'
 
-export class CreatePropertyRepository {
+export class PropertiesRepository implements IPropertiesRepository {
   private properties: Property[] = []
 
   async create({
