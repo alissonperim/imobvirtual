@@ -1,2 +1,7 @@
 export * from './Address'
 export * from './Property'
+export * from './Otp'
+export * from './Account'
+export * from './Owner'
+export * from './RentalContract'
+export * from './Renter'

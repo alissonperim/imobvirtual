@@ -4,7 +4,7 @@ import type { IPropertiesRepository } from '../repositories/domain'
 import { PropertyDTO } from '../dto'
 
 @Injectable()
-export class CreatePropertyService {
+export class CreatePropertyUseCase {
   constructor(
     @Inject('PROPERTIES_REPOSITORY')
     private readonly repository: IPropertiesRepository,

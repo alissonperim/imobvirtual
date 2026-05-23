@@ -18,4 +18,5 @@ export type Owner = Base & {
   address: Address
   maritalStatus: EMaritalStatus
   email?: string
+  accountId: string
 }

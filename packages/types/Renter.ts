@@ -12,4 +12,5 @@ export type Renter = Base & {
   address: Address
   maritalStatus: EMaritalStatus
   rentalContracts?: RentalContract[]
+  accountId?: string
 }
