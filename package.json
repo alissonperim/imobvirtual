@@ -59,6 +59,9 @@
     ],
     "rootDir": "src",
     "testRegex": ".*\\.(spec|test)\\.ts$",
+    "moduleNameMapper": {
+      "^@pkg/(.*)$": "<rootDir>/../packages/$1/index.ts"
+    },
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

@@ -7,6 +7,7 @@ import { OwnersModule } from './owners/owners.module'
 import { RentalContractsModule } from './rental-contracts/rental-contracts.module'
 import { RentersModule } from './renters/renters.module'
 import { AuthModule } from './auth/auth.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
     RentalContractsModule,
     RentersModule,
     AuthModule,
+    AccountsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,14 +6,15 @@ export enum EOtpChannel {
   WHATSAPP = 'WHATSAPP',
 }
 
-export type OtpCode = Base & {
+export type Otp = Base & {
   id: string
   destination: string //email ou phoneNumber
   channel: EOtpChannel
+  accountId?: string
   codeHash: string
   expiresAt: Date
   attempts: number
-  consumedContext: {
+  consumedContext?: {
     ip?: string
     consumedAt: Date
     geolocation?: string

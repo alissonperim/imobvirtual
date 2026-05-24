@@ -6,7 +6,7 @@ export type RequestOtpInput = {
 }
 
 export type RequestOtpOutput = {
-  optChallangeId: string
+  otpChallengeId: string
   expiresInSeconds: number
 }
 
@@ -17,4 +17,12 @@ export type VerifyOtpInput = {
 
 export type VerifyOtpOutput = {
   accessToken: string
+}
+
+export type OtpCreateRepositoryInput = {
+  accountId: string
+  destination: string
+  channel: EOtpChannel
+  codeHash: string
+  expiresAt: Date
 }

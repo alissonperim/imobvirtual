@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { RequestOtpInput, RequestOtpOutput } from '../domain/otp'
-import { generateOtpCode } from '../services/otp-code-generator'
 import crypto from 'node:crypto'
+import { OtpService } from '../services/otp-service'
+import { IOtpChallengesRepository } from '../repositories/domain'
 
 export interface IRequestOptUseCase {
   execute(params: RequestOtpInput): Promise<RequestOtpOutput>
@@ -11,12 +12,14 @@ export interface IRequestOptUseCase {
 export class RequestOtpUseCase implements IRequestOptUseCase {
   constructor(
     private readonly accountsRepository: AccountsRepository,
-    private readonly otpChallengesRepository: OtpChallengesRepository,
-    private readonly otpSender: OtpSender,
+    private readonly otpRepository: IOtpChallengesRepository,
   ) {}
 
   async execute(input: RequestOtpInput): Promise<RequestOtpOutput> {
-    const destination = normalizeDestination(input.destination)
+    const destination = OtpService.normalizeDestination(
+      input.destination,
+      input.channel,
+    )
 
     const account =
       await this.accountsRepository.findActiveByDestination(destination)
@@ -25,31 +28,10 @@ export class RequestOtpUseCase implements IRequestOptUseCase {
       throw new Error('Account not found')
     }
 
-    await this.otpChallengesRepository.consumeActiveByAccountId(account.id)
+    await this.otpRepository.consumeActiveByAccountId(account.id)
 
-    const code = generateOtpCode()
+    const code = OtpService.generateCode()
     const codeHash = crypto.createHash('sha256').update(code).digest('base64')
-
-    const otpChallenge = {
-      id: crypto.randomUUID(),
-      accountId: account.id,
-      destination,
-      channel: input.channel,
-      codeHash,
-      attempts: 0,
-      maxAttempts: 5,
-      expiresAt: addMinutes(new Date(), 5),
-      consumedAt: null,
-      createdAt: new Date(),
-    }
-
-    await this.otpChallengesRepository.create(otpChallenge)
-
-    await this.otpSender.send({
-      destination,
-      channel: input.channel,
-      code,
-    })
 
     return {
       otpChallengeId: otpChallenge.id,
