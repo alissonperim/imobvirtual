@@ -10,7 +10,14 @@ const minutesToExpireOtp = Number(process.env.MINUTES_TO_EXPIRE_OTP)
 
 export class OtpService implements IOtpService {
   generateOtp(): { hash: string; code: string; expiresIn: number } {
-    const code = crypto.randomInt(6).toString()
+    const nums: number[] = []
+
+    for (let i = 0; i < 6; i++) {
+      const num = crypto.randomInt(0, 10)
+      nums.push(num)
+    }
+
+    const code = nums.join('')
     const hash = this.hashCode(code)
 
     return {

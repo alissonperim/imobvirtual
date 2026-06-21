@@ -1,15 +1,9 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Inject,
-  Injectable,
-} from '@nestjs/common'
+import { BadRequestException, Inject, Injectable } from '@nestjs/common'
 import { RequestOtpInput, RequestOtpOutput } from '../domain/otp'
 import type { IOtpService } from '../services/otp-service'
 import type { IOtpChallengesRepository } from '../repositories/domain'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import { Account, EOtpChannel } from '@pkg/types'
-import { Pagination } from '@pkg/utils'
 
 export interface IRequestOtpUseCase {
   execute(params: RequestOtpInput): Promise<RequestOtpOutput>
@@ -82,17 +76,12 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
       }
     }
 
-    const accounts: Pagination<Account> =
-      await this.accountsRepository.getByDestination(getByDestinationParams)
-
-    const account = accounts.data.at(0)
+    const account = await this.accountsRepository.getByDestination(
+      getByDestinationParams,
+    )
 
     if (!account) {
       throw new BadRequestException('Account not found')
-    }
-
-    if (accounts.data.length > 1) {
-      throw new ConflictException('Conflitct of accounts')
     }
 
     return account

@@ -1,7 +1,7 @@
 import { Account } from '@pkg/types'
 import { IAccountsRepository } from '../domain'
 import { randomUUID } from 'node:crypto'
-import { CreateAccountInput } from 'src/accounts/domain'
+import { CreateAccountInput, GetByDestinationInput } from 'src/accounts/domain'
 
 export class AccountsRepository implements IAccountsRepository {
   private readonly accounts: Account[] = []
@@ -19,5 +19,23 @@ export class AccountsRepository implements IAccountsRepository {
     this.accounts.push(account)
 
     return await Promise.resolve(account)
+  }
+
+  async getByDestination(
+    params: GetByDestinationInput,
+  ): Promise<Account | undefined> {
+    const account = this.accounts.find((t) => {
+      if (params.email) {
+        return t.email === params.email
+      }
+
+      if (params.phoneNumber) {
+        return t.phoneNumber === params.phoneNumber
+      }
+
+      return
+    })
+
+    return Promise.resolve(account)
   }
 }
