@@ -35,7 +35,7 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
     return await Promise.resolve(
       this.activeOtp.find(
         (o) =>
-          o.destination === destination && o.expiresAt.getTime() < Date.now(),
+          o.destination === destination && o.expiresAt.getTime() > Date.now(),
       ),
     )
   }

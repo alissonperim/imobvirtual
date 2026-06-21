@@ -4,6 +4,7 @@ import crypto from 'node:crypto'
 export interface IOtpService {
   generateOtp(): { hash: string; code: string; expiresIn: number }
   normalizeDestination(destination: string, channel: EOtpChannel): string
+  validateOtp(otpReceived: string, challengOtpHash: string): boolean
 }
 
 const minutesToExpireOtp = Number(process.env.MINUTES_TO_EXPIRE_OTP)
@@ -27,16 +28,26 @@ export class OtpService implements IOtpService {
     }
   }
 
+  validateOtp(otpReceived: string, challengOtpHash: string): boolean {
+    const hash = this.hashCode(otpReceived)
+
+    return challengOtpHash === hash
+  }
+
   normalizeDestination(destination: string, channel: EOtpChannel): string {
     if (channel === EOtpChannel.EMAIL) {
       return destination
     }
 
-    if (destination.length > 11) {
-      return destination.slice(3)
+    const normalizedDestination = destination.replace(/\D/g, '')
+    if (
+      normalizedDestination.length > 11 &&
+      normalizedDestination.startsWith('55')
+    ) {
+      return normalizedDestination.slice(2)
     }
 
-    return destination
+    return normalizedDestination
   }
 
   private hashCode(code: string): string {

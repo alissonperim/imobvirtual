@@ -38,4 +38,10 @@ export class AccountsRepository implements IAccountsRepository {
 
     return Promise.resolve(account)
   }
+
+  async getById(id: string): Promise<Account | undefined> {
+    const account = this.accounts.find((acc) => acc.id === id)
+
+    return account
+  }
 }

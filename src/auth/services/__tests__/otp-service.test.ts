@@ -31,6 +31,12 @@ describe('OtpService', () => {
       )
     })
 
+    it('should remove formatting from a phone number without a country code', () => {
+      expect(
+        sut.normalizeDestination('(62) 99982-4266', EOtpChannel.WHATSAPP),
+      ).toBe('62999824266')
+    })
+
     it('should not change an email destination', () => {
       const destination = 'mail@mail.com'
 
@@ -61,6 +67,20 @@ describe('OtpService', () => {
           hash: expectedHash,
         }),
       )
+    })
+  })
+
+  describe('validateOtp', () => {
+    it('should return true when the OTP matches the challenge hash', () => {
+      const hash = crypto.createHash('sha256').update('123456').digest('base64')
+
+      expect(sut.validateOtp('123456', hash)).toBe(true)
+    })
+
+    it('should return false when the OTP does not match the challenge hash', () => {
+      const hash = crypto.createHash('sha256').update('123456').digest('base64')
+
+      expect(sut.validateOtp('654321', hash)).toBe(false)
     })
   })
 })
