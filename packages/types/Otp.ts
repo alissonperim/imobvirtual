@@ -8,15 +8,11 @@ export enum EOtpChannel {
 
 export type Otp = Base & {
   id: string
-  destination: string //email ou phoneNumber
+  destination: string
   channel: EOtpChannel
-  accountId?: string
+  accountId: string
   codeHash: string
   expiresAt: Date
   attempts: number
-  consumedContext?: {
-    ip?: string
-    consumedAt: Date
-    geolocation?: string
-  }
+  consumedAt?: Date
 }

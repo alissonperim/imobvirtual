@@ -7,7 +7,7 @@ export type RequestOtpInput = {
 
 export type RequestOtpOutput = {
   otpChallengeId: string
-  expiresInSeconds: number
+  expiresIn: number
 }
 
 export type VerifyOtpInput = {

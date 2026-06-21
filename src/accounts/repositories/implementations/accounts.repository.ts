@@ -1,0 +1,23 @@
+import { Account } from '@pkg/types'
+import { IAccountsRepository } from '../domain'
+import { randomUUID } from 'node:crypto'
+import { CreateAccountInput } from 'src/accounts/domain'
+
+export class AccountsRepository implements IAccountsRepository {
+  private readonly accounts: Account[] = []
+  async create(params: CreateAccountInput): Promise<Account> {
+    const account: Account = {
+      id: randomUUID(),
+      role: params.role,
+      status: params.status,
+      email: params.email,
+      phoneNumber: params.phoneNumber,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+
+    this.accounts.push(account)
+
+    return await Promise.resolve(account)
+  }
+}
