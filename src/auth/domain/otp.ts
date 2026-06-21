@@ -11,8 +11,8 @@ export type RequestOtpOutput = {
 }
 
 export type VerifyOtpInput = {
-  otpChallengeId: string
-  code: string
+  otp: string
+  otpId: string
 }
 
 export type VerifyOtpOutput = {

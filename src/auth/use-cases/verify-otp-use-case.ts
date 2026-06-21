@@ -3,13 +3,10 @@ import type { IOtpChallengesRepository } from '../repositories/domain'
 import type { IOtpService } from '../services/otp-service'
 import type { ITokenService } from '../services/token-service'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
+import type { VerifyOtpInput } from '../domain/otp'
 
 export interface IVerifyOtpUseCase {
-  execute(
-    otp: string,
-    otpId: string,
-    accountId: string,
-  ): Promise<{ accessToken: string }>
+  execute(params: VerifyOtpInput): Promise<{ accessToken: string }>
 }
 
 @Injectable()
@@ -28,8 +25,8 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
     private readonly accountsRepository: IAccountsRepository,
   ) {}
 
-  async execute(otp: string, otpId: string): Promise<{ accessToken: string }> {
-    const challengOtp = await this.repository.findActiveById(otpId)
+  async execute(params: VerifyOtpInput): Promise<{ accessToken: string }> {
+    const challengOtp = await this.repository.findActiveById(params.otpId)
 
     if (!challengOtp) {
       throw new UnauthorizedException('Invalid OTP')
@@ -39,7 +36,10 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
       await this.repository.consume(challengOtp.id)
     }
 
-    const isOtpValid = this.service.validateOtp(otp, challengOtp.codeHash)
+    const isOtpValid = this.service.validateOtp(
+      params.otp,
+      challengOtp.codeHash,
+    )
 
     if (!isOtpValid) {
       throw new UnauthorizedException('Invalid OTP')

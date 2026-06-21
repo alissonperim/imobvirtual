@@ -76,7 +76,7 @@ describe('VerifyOtpUseCase', () => {
     accountsRepository.getById.mockResolvedValue(account)
     tokenService.generate.mockResolvedValue({ accessToken: 'access-token' })
 
-    const result = await sut.execute('123456', otpChallenge.id)
+    const result = await sut.execute({ otp: '123456', otpId: otpChallenge.id })
 
     expect(repository.findActiveById).toHaveBeenCalledWith(otpChallenge.id)
     expect(otpService.validateOtp).toHaveBeenCalledWith(
@@ -95,9 +95,9 @@ describe('VerifyOtpUseCase', () => {
   it('should reject when the challenge is not active', async () => {
     repository.findActiveById.mockResolvedValue(undefined)
 
-    await expect(sut.execute('123456', 'missing-id')).rejects.toThrow(
-      new UnauthorizedException('Invalid OTP'),
-    )
+    await expect(
+      sut.execute({ otp: '123456', otpId: 'missing-id' }),
+    ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
 
     expect(otpService.validateOtp).not.toHaveBeenCalled()
     expect(repository.consume).not.toHaveBeenCalled()
@@ -108,9 +108,9 @@ describe('VerifyOtpUseCase', () => {
     repository.findActiveById.mockResolvedValue(otpChallenge)
     otpService.validateOtp.mockReturnValue(false)
 
-    await expect(sut.execute('654321', otpChallenge.id)).rejects.toThrow(
-      new UnauthorizedException('Invalid OTP'),
-    )
+    await expect(
+      sut.execute({ otp: '654321', otpId: otpChallenge.id }),
+    ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
 
     expect(repository.consume).not.toHaveBeenCalled()
     expect(accountsRepository.getById).not.toHaveBeenCalled()
@@ -123,7 +123,7 @@ describe('VerifyOtpUseCase', () => {
     otpService.validateOtp.mockReturnValue(false)
 
     await expect(
-      sut.execute('654321', exhaustedChallenge.id),
+      sut.execute({ otp: '654321', otpId: exhaustedChallenge.id }),
     ).rejects.toBeInstanceOf(UnauthorizedException)
 
     expect(repository.consume).toHaveBeenCalledWith(exhaustedChallenge.id)
@@ -135,9 +135,9 @@ describe('VerifyOtpUseCase', () => {
     otpService.validateOtp.mockReturnValue(true)
     accountsRepository.getById.mockResolvedValue(undefined)
 
-    await expect(sut.execute('123456', otpChallenge.id)).rejects.toThrow(
-      new UnauthorizedException('Account not found'),
-    )
+    await expect(
+      sut.execute({ otp: '123456', otpId: otpChallenge.id }),
+    ).rejects.toThrow(new UnauthorizedException('Account not found'))
 
     expect(repository.consume).toHaveBeenCalledWith(otpChallenge.id)
     expect(tokenService.generate).not.toHaveBeenCalled()

@@ -15,7 +15,7 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@pkg/*": ["packages/*/index.ts"],
+      "@pkg/*": ["packages/*"],
       "@app/*": ["src/*"]
     },
     "incremental": true,
