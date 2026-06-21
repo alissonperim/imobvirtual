@@ -10,7 +10,7 @@ const minutesToExpireOtp = Number(process.env.MINUTES_TO_EXPIRE_OTP)
 
 export class OtpService implements IOtpService {
   generateOtp(): { hash: string; code: string; expiresIn: number } {
-    const code = this.generateCode()
+    const code = crypto.randomInt(6).toString()
     const hash = this.hashCode(code)
 
     return {
@@ -18,17 +18,6 @@ export class OtpService implements IOtpService {
       hash,
       expiresIn: minutesToExpireOtp ?? 6,
     }
-  }
-
-  private generateCode(): string {
-    const nums: number[] = []
-
-    for (let i = 0; i < 6; i++) {
-      const num: number = Math.floor(Math.random() * 10)
-      nums.push(num)
-    }
-
-    return nums.join('')
   }
 
   normalizeDestination(destination: string, channel: EOtpChannel): string {

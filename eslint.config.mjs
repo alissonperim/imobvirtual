@@ -32,6 +32,7 @@ export default [
       'prettier/prettier': ['error', { endOfLine: 'auto', semi: false }],
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
     },
   },
 ]
