@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common'
 import { RequestOtpInput, RequestOtpOutput } from '../domain/otp'
-import type { IOtpService } from '../services/otp-service'
-import type { IOtpChallengesRepository } from '../repositories/domain'
+import type { IOtpService } from '../services/otp.service'
+import type { IOtpChallengesRepository } from '../repositories/otp.domain'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import { Account, EOtpChannel } from '@pkg/types'
 

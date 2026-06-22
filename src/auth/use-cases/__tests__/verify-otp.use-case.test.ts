@@ -8,16 +8,18 @@ import {
   type Account,
   type Otp,
 } from '@pkg/types'
-import type { IOtpChallengesRepository } from '../../repositories/domain'
-import type { IOtpService } from '../../services/otp-service'
-import type { ITokenService } from '../../services/token-service'
-import { VerifyOtpUseCase } from '../verify-otp-use-case'
+import type { IOtpChallengesRepository } from '../../repositories/otp.domain'
+import type { IOtpService } from '../../services/otp.service'
+import type { ITokenService } from '../../services/token.service'
+import { VerifyOtpUseCase } from '../verify-otp.use-case'
+import type { IRefreshTokenSessionsRepository } from '../../repositories/session.domain'
 
 describe('VerifyOtpUseCase', () => {
   let repository: jest.Mocked<IOtpChallengesRepository>
   let otpService: jest.Mocked<IOtpService>
   let tokenService: jest.Mocked<ITokenService>
   let accountsRepository: jest.Mocked<IAccountsRepository>
+  let refreshTokenSessionsRepository: jest.Mocked<IRefreshTokenSessionsRepository>
   let sut: VerifyOtpUseCase
 
   const account: Account = {
@@ -56,17 +58,26 @@ describe('VerifyOtpUseCase', () => {
     }
     tokenService = {
       generate: jest.fn(),
+      generateRefreshToken: jest.fn(),
+      hashRefreshToken: jest.fn(),
     }
     accountsRepository = {
       create: jest.fn(),
       getByDestination: jest.fn(),
       getById: jest.fn(),
     }
+    refreshTokenSessionsRepository = {
+      create: jest.fn(),
+      findActiveByTokenHash: jest.fn(),
+      rotate: jest.fn(),
+      revoke: jest.fn(),
+    }
     sut = new VerifyOtpUseCase(
       repository,
       otpService,
       tokenService,
       accountsRepository,
+      refreshTokenSessionsRepository,
     )
   })
 
@@ -75,6 +86,11 @@ describe('VerifyOtpUseCase', () => {
     otpService.validateOtp.mockReturnValue(true)
     accountsRepository.getById.mockResolvedValue(account)
     tokenService.generate.mockResolvedValue({ accessToken: 'access-token' })
+    tokenService.generateRefreshToken.mockReturnValue({
+      refreshToken: 'refresh-token',
+      tokenHash: 'refresh-token-hash',
+      expiresAt: new Date('2026-02-01T00:00:00.000Z'),
+    })
 
     const result = await sut.execute({ otp: '123456', otpId: otpChallenge.id })
 
@@ -88,8 +104,18 @@ describe('VerifyOtpUseCase', () => {
     expect(tokenService.generate).toHaveBeenCalledWith({
       clientId: account.id,
       role: account.role,
+      sessionId: expect.any(String),
     })
-    expect(result).toEqual({ accessToken: 'access-token' })
+    expect(refreshTokenSessionsRepository.create).toHaveBeenCalledWith({
+      id: expect.any(String),
+      accountId: account.id,
+      tokenHash: 'refresh-token-hash',
+      expiresAt: new Date('2026-02-01T00:00:00.000Z'),
+    })
+    expect(result).toEqual({
+      accessToken: 'access-token',
+      refreshToken: 'refresh-token',
+    })
   })
 
   it('should reject when the challenge is not active', async () => {

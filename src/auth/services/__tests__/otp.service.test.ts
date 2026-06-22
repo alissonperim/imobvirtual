@@ -1,6 +1,6 @@
 import { EOtpChannel } from '@pkg/types'
 import crypto from 'node:crypto'
-import { OtpService } from '../otp-service'
+import { OtpService } from '../otp.service'
 
 describe('OtpService', () => {
   let sut: OtpService

@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common'
-import { OtpService } from './services/otp-service'
-import { OtpChallengesRepository } from './repositories/implementations/otp-challenge-repository'
-import { TokenService } from './services/token-service'
+import { OtpService } from './services/otp.service'
+import { OtpChallengesRepository } from './repositories/implementations/otp.repository'
+import { TokenService } from './services/token.service'
 import { AuthController } from './auth.controllers'
-import { RequestOtpUseCase } from './use-cases/request-otp-use-case'
-import { VerifyOtpUseCase } from './use-cases/verify-otp-use-case'
+import { RequestOtpUseCase } from './use-cases/request-otp.use-case'
+import { VerifyOtpUseCase } from './use-cases/verify-otp.use-case'
 import { AccountsModule } from '@app/accounts/accounts.module'
+import { RefreshTokenSessionsRepository } from './repositories/implementations/sessions.repository'
+import { RefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 
 @Module({
   providers: [
@@ -18,6 +20,10 @@ import { AccountsModule } from '@app/accounts/accounts.module'
       useClass: OtpChallengesRepository,
     },
     {
+      provide: 'REFRESH_TOKEN_SESSIONS_REPOSITORY',
+      useClass: RefreshTokenSessionsRepository,
+    },
+    {
       provide: 'ACCESS_TOKEN_SERVICE',
       useClass: TokenService,
     },
@@ -28,6 +34,10 @@ import { AccountsModule } from '@app/accounts/accounts.module'
     {
       provide: 'VERIFY_OTP_USE_CASE',
       useClass: VerifyOtpUseCase,
+    },
+    {
+      provide: 'REFRESH_TOKEN_USE_CASE',
+      useClass: RefreshTokenUseCase,
     },
   ],
   controllers: [AuthController],

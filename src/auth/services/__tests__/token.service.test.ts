@@ -1,9 +1,8 @@
 import { EAccountRole } from '@pkg/types'
-import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import jwt from 'jsonwebtoken'
-import { TokenService } from '../token-service'
+import { TokenService } from '../token.service'
 
 describe('TokenService', () => {
   let sut: TokenService
@@ -25,7 +24,6 @@ describe('TokenService', () => {
       const privateKeyPath = path.resolve(process.cwd(), 'private_key.pem')
 
       jest.spyOn(Date, 'now').mockReturnValue(generationTimeInMilliseconds)
-      jest.spyOn(crypto, 'randomUUID').mockReturnValue(sessionId)
       const readFileSpy = jest
         .spyOn(fs, 'readFileSync')
         .mockReturnValue(privateKey)
@@ -36,6 +34,7 @@ describe('TokenService', () => {
       const result = await sut.generate({
         clientId: 'account-id',
         role: EAccountRole.OWNER,
+        sessionId,
       })
 
       expect(readFileSpy).toHaveBeenCalledWith(privateKeyPath)
@@ -64,8 +63,20 @@ describe('TokenService', () => {
         sut.generate({
           clientId: 'account-id',
           role: EAccountRole.RENTER,
+          sessionId: 'session-id',
         }),
       ).rejects.toThrow('Private key not found')
+    })
+  })
+
+  describe('generateRefreshToken', () => {
+    it('should generate an opaque refresh token and its hash', () => {
+      const result = sut.generateRefreshToken()
+
+      expect(result.refreshToken).toBeTruthy()
+      expect(result.tokenHash).toBe(sut.hashRefreshToken(result.refreshToken))
+      expect(result.tokenHash).not.toBe(result.refreshToken)
+      expect(result.expiresAt.getTime()).toBeGreaterThan(Date.now())
     })
   })
 })

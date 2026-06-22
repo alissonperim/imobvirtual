@@ -1,5 +1,5 @@
 import { Otp } from '@pkg/types'
-import { IOtpChallengesRepository } from '../domain'
+import { IOtpChallengesRepository } from '../otp.domain'
 import { randomUUID as uuid } from 'node:crypto'
 import { OtpCreateRepositoryInput } from '../../domain/otp'
 

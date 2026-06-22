@@ -1,6 +1,8 @@
 import { Body, Controller, Inject, Injectable, Post } from '@nestjs/common'
-import type { IRequestOtpUseCase } from './use-cases/request-otp-use-case'
-import type { IVerifyOtpUseCase } from './use-cases/verify-otp-use-case'
+import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
+import type { IVerifyOtpUseCase } from './use-cases/verify-otp.use-case'
+import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
+import type { RefreshTokenInput, TokenPair } from './domain/session'
 import type {
   RequestOtpInput,
   RequestOtpOutput,
@@ -17,6 +19,9 @@ export class AuthController {
 
     @Inject('VERIFY_OTP_USE_CASE')
     private readonly verifyOtpUseCase: IVerifyOtpUseCase,
+
+    @Inject('REFRESH_TOKEN_USE_CASE')
+    private readonly refreshTokenUseCase: IRefreshTokenUseCase,
   ) {}
 
   @Post('/otp')
@@ -33,5 +38,10 @@ export class AuthController {
     params: VerifyOtpInput,
   ): Promise<VerifyOtpOutput> {
     return this.verifyOtpUseCase.execute(params)
+  }
+
+  @Post('/refresh')
+  async refresh(@Body() params: RefreshTokenInput): Promise<TokenPair> {
+    return this.refreshTokenUseCase.execute(params)
   }
 }

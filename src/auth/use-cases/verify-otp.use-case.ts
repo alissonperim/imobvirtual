@@ -1,12 +1,16 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
-import type { IOtpChallengesRepository } from '../repositories/domain'
-import type { IOtpService } from '../services/otp-service'
-import type { ITokenService } from '../services/token-service'
+import type { IOtpChallengesRepository } from '../repositories/otp.domain'
+import type { IOtpService } from '../services/otp.service'
+import type { ITokenService } from '../services/token.service'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import type { VerifyOtpInput } from '../domain/otp'
+import type { IRefreshTokenSessionsRepository } from '../repositories/session.domain'
+import { randomUUID } from 'node:crypto'
 
 export interface IVerifyOtpUseCase {
-  execute(params: VerifyOtpInput): Promise<{ accessToken: string }>
+  execute(
+    params: VerifyOtpInput,
+  ): Promise<{ accessToken: string; refreshToken: string }>
 }
 
 @Injectable()
@@ -23,9 +27,14 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
 
     @Inject('ACCOUNTS_REPOSITORY')
     private readonly accountsRepository: IAccountsRepository,
+
+    @Inject('REFRESH_TOKEN_SESSIONS_REPOSITORY')
+    private readonly refreshTokenSessionsRepository: IRefreshTokenSessionsRepository,
   ) {}
 
-  async execute(params: VerifyOtpInput): Promise<{ accessToken: string }> {
+  async execute(
+    params: VerifyOtpInput,
+  ): Promise<{ accessToken: string; refreshToken: string }> {
     const challengOtp = await this.repository.findActiveById(params.otpId)
 
     if (!challengOtp) {
@@ -52,11 +61,25 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
       throw new UnauthorizedException('Account not found')
     }
 
-    const accessToken = this.tokenService.generate({
-      clientId: account.id,
-      role: account.role,
+    const sessionId = randomUUID()
+    const refreshTokenData = this.tokenService.generateRefreshToken()
+
+    await this.refreshTokenSessionsRepository.create({
+      id: sessionId,
+      accountId: account.id,
+      tokenHash: refreshTokenData.tokenHash,
+      expiresAt: refreshTokenData.expiresAt,
     })
 
-    return accessToken
+    const { accessToken } = await this.tokenService.generate({
+      clientId: account.id,
+      role: account.role,
+      sessionId,
+    })
+
+    return {
+      accessToken,
+      refreshToken: refreshTokenData.refreshToken,
+    }
   }
 }

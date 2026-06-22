@@ -8,9 +8,9 @@ import {
   type Account,
   type Otp,
 } from '@pkg/types'
-import type { IOtpChallengesRepository } from '../../repositories/domain'
-import type { IOtpService } from '../../services/otp-service'
-import { RequestOtpUseCase } from '../request-otp-use-case'
+import type { IOtpChallengesRepository } from '../../repositories/otp.domain'
+import type { IOtpService } from '../../services/otp.service'
+import { RequestOtpUseCase } from '../request-otp.use-case'
 
 describe('RequestOtpUseCase', () => {
   let accountsRepository: jest.Mocked<IAccountsRepository>

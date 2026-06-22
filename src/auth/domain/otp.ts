@@ -17,6 +17,7 @@ export type VerifyOtpInput = {
 
 export type VerifyOtpOutput = {
   accessToken: string
+  refreshToken: string
 }
 
 export type OtpCreateRepositoryInput = {
