@@ -10,7 +10,6 @@ export class AccountsRepository implements IAccountsRepository {
       id: randomUUID(),
       role: params.role,
       status: params.status,
-      email: params.email,
       phoneNumber: params.phoneNumber,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -25,15 +24,7 @@ export class AccountsRepository implements IAccountsRepository {
     params: GetByDestinationInput,
   ): Promise<Account | undefined> {
     const account = this.accounts.find((t) => {
-      if (params.email) {
-        return t.email === params.email
-      }
-
-      if (params.phoneNumber) {
-        return t.phoneNumber === params.phoneNumber
-      }
-
-      return
+      return t.phoneNumber === params.phoneNumber
     })
 
     return Promise.resolve(account)

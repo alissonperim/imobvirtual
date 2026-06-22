@@ -15,6 +15,7 @@ describe('RefreshTokenUseCase', () => {
   const account: Account = {
     id: 'account-id',
     role: EAccountRole.OWNER,
+    phoneNumber: '5562900000000',
     status: EAccountStatus.ACTIVE,
     createdAt: new Date('2026-01-01T00:00:00.000Z'),
     updatedAt: new Date('2026-01-01T00:00:00.000Z'),

@@ -5,26 +5,27 @@ import {
   EAccountRole,
   EAccountStatus,
   EOtpChannel,
+  EOtpPurpose,
   type Account,
   type Otp,
 } from '@pkg/types'
 import type { IOtpChallengesRepository } from '../../repositories/otp.domain'
 import type { IOtpService } from '../../services/otp.service'
 import type { ITokenService } from '../../services/token.service'
-import { VerifyOtpUseCase } from '../verify-otp.use-case'
+import { VerifySignInOtpUseCase } from '../verify-sign-in-otp.use-case'
 import type { IRefreshTokenSessionsRepository } from '../../repositories/session.domain'
 
-describe('VerifyOtpUseCase', () => {
+describe('VerifySignInOtpUseCase', () => {
   let repository: jest.Mocked<IOtpChallengesRepository>
   let otpService: jest.Mocked<IOtpService>
   let tokenService: jest.Mocked<ITokenService>
   let accountsRepository: jest.Mocked<IAccountsRepository>
   let refreshTokenSessionsRepository: jest.Mocked<IRefreshTokenSessionsRepository>
-  let sut: VerifyOtpUseCase
+  let sut: VerifySignInOtpUseCase
 
   const account: Account = {
     id: 'account-id',
-    email: 'user@example.com',
+    phoneNumber: '62999824266',
     role: EAccountRole.OWNER,
     status: EAccountStatus.ACTIVE,
     createdAt: new Date('2026-01-01T00:00:00.000Z'),
@@ -34,8 +35,9 @@ describe('VerifyOtpUseCase', () => {
   const otpChallenge: Otp = {
     id: 'otp-challenge-id',
     accountId: account.id,
-    destination: account.email as string,
-    channel: EOtpChannel.EMAIL,
+    destination: account.phoneNumber,
+    purpose: EOtpPurpose.SIGN_IN,
+    channel: EOtpChannel.SMS,
     codeHash: 'otp-hash',
     expiresAt: new Date('2026-01-01T00:15:00.000Z'),
     attempts: 0,
@@ -72,7 +74,7 @@ describe('VerifyOtpUseCase', () => {
       rotate: jest.fn(),
       revoke: jest.fn(),
     }
-    sut = new VerifyOtpUseCase(
+    sut = new VerifySignInOtpUseCase(
       repository,
       otpService,
       tokenService,
@@ -127,6 +129,22 @@ describe('VerifyOtpUseCase', () => {
 
     expect(otpService.validateOtp).not.toHaveBeenCalled()
     expect(repository.consume).not.toHaveBeenCalled()
+    expect(repository.incrementAttempts).not.toHaveBeenCalled()
+    expect(tokenService.generate).not.toHaveBeenCalled()
+  })
+
+  it('should reject a challenge created for sign-up', async () => {
+    repository.findActiveById.mockResolvedValue({
+      ...otpChallenge,
+      accountId: undefined,
+      purpose: EOtpPurpose.SIGN_UP,
+    })
+
+    await expect(
+      sut.execute({ otp: '123456', otpId: otpChallenge.id }),
+    ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
+
+    expect(otpService.validateOtp).not.toHaveBeenCalled()
     expect(tokenService.generate).not.toHaveBeenCalled()
   })
 
@@ -139,6 +157,7 @@ describe('VerifyOtpUseCase', () => {
     ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
 
     expect(repository.consume).not.toHaveBeenCalled()
+    expect(repository.incrementAttempts).toHaveBeenCalledWith(otpChallenge.id)
     expect(accountsRepository.getById).not.toHaveBeenCalled()
     expect(tokenService.generate).not.toHaveBeenCalled()
   })

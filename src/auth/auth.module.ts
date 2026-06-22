@@ -4,10 +4,11 @@ import { OtpChallengesRepository } from './repositories/implementations/otp.repo
 import { TokenService } from './services/token.service'
 import { AuthController } from './auth.controllers'
 import { RequestOtpUseCase } from './use-cases/request-otp.use-case'
-import { VerifyOtpUseCase } from './use-cases/verify-otp.use-case'
+import { VerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
 import { AccountsModule } from '@app/accounts/accounts.module'
 import { RefreshTokenSessionsRepository } from './repositories/implementations/sessions.repository'
 import { RefreshTokenUseCase } from './use-cases/refresh-token.use-case'
+import { VerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
 
 @Module({
   providers: [
@@ -32,8 +33,12 @@ import { RefreshTokenUseCase } from './use-cases/refresh-token.use-case'
       useClass: RequestOtpUseCase,
     },
     {
-      provide: 'VERIFY_OTP_USE_CASE',
-      useClass: VerifyOtpUseCase,
+      provide: 'VERIFY_SIGN_IN_OTP_USE_CASE',
+      useClass: VerifySignInOtpUseCase,
+    },
+    {
+      provide: 'VERIFY_SIGN_UP_OTP_USE_CASE',
+      useClass: VerifySignUpOtpUseCase,
     },
     {
       provide: 'REFRESH_TOKEN_USE_CASE',

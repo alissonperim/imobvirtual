@@ -13,8 +13,7 @@ export enum EAccountStatus {
 
 export type Account = Base & {
   id: string
-  email?: string
-  phoneNumber?: string
+  phoneNumber: string
   role: EAccountRole
   status: EAccountStatus
   lastLoginAt?: Date

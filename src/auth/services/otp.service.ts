@@ -1,16 +1,27 @@
-import { EOtpChannel } from '@pkg/types'
 import crypto from 'node:crypto'
 
+export type GeneratedOtp = {
+  hash: string
+  code: string
+  expiresAt: Date
+  expiresInSeconds: number
+}
+
 export interface IOtpService {
-  generateOtp(): { hash: string; code: string; expiresIn: number }
-  normalizeDestination(destination: string, channel: EOtpChannel): string
+  generateOtp(): GeneratedOtp
+  normalizeDestination(destination: string): string
   validateOtp(otpReceived: string, challengOtpHash: string): boolean
 }
 
-const minutesToExpireOtp = Number(process.env.MINUTES_TO_EXPIRE_OTP)
+const configuredExpirationMinutes = Number(process.env.MINUTES_TO_EXPIRE_OTP)
+const expirationMinutes =
+  Number.isFinite(configuredExpirationMinutes) &&
+  configuredExpirationMinutes > 0
+    ? configuredExpirationMinutes
+    : 6
 
 export class OtpService implements IOtpService {
-  generateOtp(): { hash: string; code: string; expiresIn: number } {
+  generateOtp(): GeneratedOtp {
     const nums: number[] = []
 
     for (let i = 0; i < 6; i++) {
@@ -20,11 +31,13 @@ export class OtpService implements IOtpService {
 
     const code = nums.join('')
     const hash = this.hashCode(code)
+    const expiresInSeconds = expirationMinutes * 60
 
     return {
       code,
       hash,
-      expiresIn: minutesToExpireOtp ?? 6,
+      expiresAt: new Date(Date.now() + expiresInSeconds * 1000),
+      expiresInSeconds,
     }
   }
 
@@ -34,11 +47,7 @@ export class OtpService implements IOtpService {
     return challengOtpHash === hash
   }
 
-  normalizeDestination(destination: string, channel: EOtpChannel): string {
-    if (channel === EOtpChannel.EMAIL) {
-      return destination
-    }
-
+  normalizeDestination(destination: string): string {
     const normalizedDestination = destination.replace(/\D/g, '')
     if (
       normalizedDestination.length > 11 &&

@@ -1,9 +1,14 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common'
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  Injectable,
+} from '@nestjs/common'
 import { RequestOtpInput, RequestOtpOutput } from '../domain/otp'
 import type { IOtpService } from '../services/otp.service'
 import type { IOtpChallengesRepository } from '../repositories/otp.domain'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
-import { Account, EOtpChannel } from '@pkg/types'
+import { EOtpPurpose } from '@pkg/types'
 
 export interface IRequestOtpUseCase {
   execute(params: RequestOtpInput): Promise<RequestOtpOutput>
@@ -23,67 +28,35 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
   ) {}
 
   async execute(input: RequestOtpInput): Promise<RequestOtpOutput> {
-    const destination = this.otpService.normalizeDestination(
-      input.destination,
-      input.channel,
-    )
+    const destination = this.otpService.normalizeDestination(input.destination)
 
-    const account = await this.getAccountByDestination(
-      destination,
-      input.channel,
-    )
+    const account = await this.accountsRepository.getByDestination({
+      phoneNumber: destination,
+    })
 
-    if (!account) {
-      throw new Error('Account not found')
+    if (!account && input.purpose === EOtpPurpose.SIGN_IN) {
+      throw new BadRequestException('Account not found')
+    }
+
+    if (account && input.purpose === EOtpPurpose.SIGN_UP) {
+      throw new ConflictException('Account already exists')
     }
 
     const otp = this.otpService.generateOtp()
 
     const otpChallenge = await this.otpRepository.create({
-      accountId: account.id,
-      destination: input.destination,
+      accountId: account ? account.id : undefined,
+      destination,
       channel: input.channel,
       codeHash: otp.hash,
-      expiresAt: new Date(otp.expiresIn),
+      expiresAt: otp.expiresAt,
+      purpose: input.purpose,
     })
-
-    // Salvar os dados do otp no banco de dados
 
     return {
       otpChallengeId: otpChallenge.id,
-      expiresIn: otp.expiresIn,
+      expiresIn: otp.expiresInSeconds,
+      purpose: otpChallenge.purpose,
     }
-  }
-
-  private async getAccountByDestination(
-    destination: string,
-    channel: EOtpChannel,
-  ): Promise<Account> {
-    let getByDestinationParams:
-      | {
-          email?: string
-          phoneNumber?: string
-        }
-      | undefined = undefined
-
-    if (channel === EOtpChannel.EMAIL) {
-      getByDestinationParams = {
-        email: destination,
-      }
-    } else {
-      getByDestinationParams = {
-        phoneNumber: destination,
-      }
-    }
-
-    const account = await this.accountsRepository.getByDestination(
-      getByDestinationParams,
-    )
-
-    if (!account) {
-      throw new BadRequestException('Account not found')
-    }
-
-    return account
   }
 }

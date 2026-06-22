@@ -1,18 +1,25 @@
-import { EOtpChannel } from '@pkg/types'
+import { EAccountRole, EOtpChannel, EOtpPurpose } from '@pkg/types'
 
 export type RequestOtpInput = {
   destination: string
+  purpose: EOtpPurpose
   channel: EOtpChannel
 }
 
 export type RequestOtpOutput = {
   otpChallengeId: string
   expiresIn: number
+  purpose: EOtpPurpose
 }
 
-export type VerifyOtpInput = {
+export type VerifySignInOtpInput = {
   otp: string
   otpId: string
+}
+
+export type VerifySignUpOtpInput = VerifySignInOtpInput & {
+  role: EAccountRole
+  name: string
 }
 
 export type VerifyOtpOutput = {
@@ -21,9 +28,10 @@ export type VerifyOtpOutput = {
 }
 
 export type OtpCreateRepositoryInput = {
-  accountId: string
+  accountId?: string
   destination: string
   channel: EOtpChannel
   codeHash: string
   expiresAt: Date
+  purpose: EOtpPurpose
 }

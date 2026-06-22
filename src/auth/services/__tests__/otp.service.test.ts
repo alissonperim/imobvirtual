@@ -1,4 +1,3 @@
-import { EOtpChannel } from '@pkg/types'
 import crypto from 'node:crypto'
 import { OtpService } from '../otp.service'
 
@@ -14,42 +13,25 @@ describe('OtpService', () => {
   })
 
   describe('normalizeDestination', () => {
-    it.each([EOtpChannel.SMS, EOtpChannel.WHATSAPP])(
-      'should remove the country code from a phone number sent through %s',
-      (channel) => {
-        expect(sut.normalizeDestination('+5562999824266', channel)).toBe(
-          '62999824266',
-        )
-      },
-    )
+    it('should remove the country code from a Brazilian phone number', () => {
+      expect(sut.normalizeDestination('+5562999824266')).toBe('62999824266')
+    })
 
     it('should keep a phone number that is already normalized', () => {
-      const destination = '62999824266'
-
-      expect(sut.normalizeDestination(destination, EOtpChannel.SMS)).toBe(
-        destination,
-      )
+      expect(sut.normalizeDestination('62999824266')).toBe('62999824266')
     })
 
-    it('should remove formatting from a phone number without a country code', () => {
-      expect(
-        sut.normalizeDestination('(62) 99982-4266', EOtpChannel.WHATSAPP),
-      ).toBe('62999824266')
-    })
-
-    it('should not change an email destination', () => {
-      const destination = 'mail@mail.com'
-
-      expect(sut.normalizeDestination(destination, EOtpChannel.EMAIL)).toBe(
-        destination,
-      )
+    it('should remove phone number formatting', () => {
+      expect(sut.normalizeDestination('(62) 99982-4266')).toBe('62999824266')
     })
   })
 
   describe('generateOtp', () => {
-    it('should generate a six-digit code and its SHA-256 hash', () => {
+    it('should generate a six-digit code, hash and expiration', () => {
+      const now = 1_700_000_000_000
       const randomNumbers = [0, 1, 2, 7, 8, 9]
-      const spyOnCrypto = jest
+      jest.spyOn(Date, 'now').mockReturnValue(now)
+      const randomIntSpy = jest
         .spyOn(crypto, 'randomInt')
         .mockImplementation(() => randomNumbers.shift() as number)
 
@@ -59,14 +41,14 @@ describe('OtpService', () => {
         .update('012789')
         .digest('base64')
 
-      expect(spyOnCrypto).toHaveBeenCalledTimes(6)
-      expect(spyOnCrypto).toHaveBeenCalledWith(0, 10)
-      expect(otp).toEqual(
-        expect.objectContaining({
-          code: '012789',
-          hash: expectedHash,
-        }),
-      )
+      expect(randomIntSpy).toHaveBeenCalledTimes(6)
+      expect(randomIntSpy).toHaveBeenCalledWith(0, 10)
+      expect(otp).toEqual({
+        code: '012789',
+        hash: expectedHash,
+        expiresAt: new Date(now + 6 * 60 * 1000),
+        expiresInSeconds: 6 * 60,
+      })
     })
   })
 

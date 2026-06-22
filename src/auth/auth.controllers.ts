@@ -1,13 +1,15 @@
 import { Body, Controller, Inject, Injectable, Post } from '@nestjs/common'
 import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
-import type { IVerifyOtpUseCase } from './use-cases/verify-otp.use-case'
+import type { IVerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
+import type { IVerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 import type { RefreshTokenInput, TokenPair } from './domain/session'
 import type {
   RequestOtpInput,
   RequestOtpOutput,
-  VerifyOtpInput,
+  VerifySignInOtpInput,
   VerifyOtpOutput,
+  VerifySignUpOtpInput,
 } from './domain/otp'
 
 @Controller('auth')
@@ -17,8 +19,11 @@ export class AuthController {
     @Inject('REQUEST_OTP_USE_CASE')
     private readonly requestOtpUseCase: IRequestOtpUseCase,
 
-    @Inject('VERIFY_OTP_USE_CASE')
-    private readonly verifyOtpUseCase: IVerifyOtpUseCase,
+    @Inject('VERIFY_SIGN_IN_OTP_USE_CASE')
+    private readonly verifySignInOtpUseCase: IVerifySignInOtpUseCase,
+
+    @Inject('VERIFY_SIGN_UP_OTP_USE_CASE')
+    private readonly verifySignUpOtpUseCase: IVerifySignUpOtpUseCase,
 
     @Inject('REFRESH_TOKEN_USE_CASE')
     private readonly refreshTokenUseCase: IRefreshTokenUseCase,
@@ -32,12 +37,20 @@ export class AuthController {
     return this.requestOtpUseCase.execute(params)
   }
 
-  @Post('/otp-challenge')
-  async challengeOtp(
+  @Post('/sign-in/otp-challenge')
+  async signInChallengeOtp(
     @Body()
-    params: VerifyOtpInput,
+    params: VerifySignInOtpInput,
   ): Promise<VerifyOtpOutput> {
-    return this.verifyOtpUseCase.execute(params)
+    return this.verifySignInOtpUseCase.execute(params)
+  }
+
+  @Post('/sign-up/otp-challenge')
+  async signUpChallengeOtp(
+    @Body()
+    params: VerifySignUpOtpInput,
+  ): Promise<VerifyOtpOutput> {
+    return this.verifySignUpOtpUseCase.execute(params)
   }
 
   @Post('/refresh')

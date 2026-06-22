@@ -3,18 +3,19 @@ import type { IOtpChallengesRepository } from '../repositories/otp.domain'
 import type { IOtpService } from '../services/otp.service'
 import type { ITokenService } from '../services/token.service'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
-import type { VerifyOtpInput } from '../domain/otp'
+import type { VerifySignInOtpInput } from '../domain/otp'
 import type { IRefreshTokenSessionsRepository } from '../repositories/session.domain'
 import { randomUUID } from 'node:crypto'
+import { EOtpPurpose } from '@pkg/types'
 
-export interface IVerifyOtpUseCase {
+export interface IVerifySignInOtpUseCase {
   execute(
-    params: VerifyOtpInput,
+    params: VerifySignInOtpInput,
   ): Promise<{ accessToken: string; refreshToken: string }>
 }
 
 @Injectable()
-export class VerifyOtpUseCase implements IVerifyOtpUseCase {
+export class VerifySignInOtpUseCase implements IVerifySignInOtpUseCase {
   constructor(
     @Inject('OTP_REPOSITORY')
     private readonly repository: IOtpChallengesRepository,
@@ -33,7 +34,7 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
   ) {}
 
   async execute(
-    params: VerifyOtpInput,
+    params: VerifySignInOtpInput,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const challengOtp = await this.repository.findActiveById(params.otpId)
 
@@ -41,8 +42,13 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
       throw new UnauthorizedException('Invalid OTP')
     }
 
+    if (challengOtp.purpose !== EOtpPurpose.SIGN_IN || !challengOtp.accountId) {
+      throw new UnauthorizedException('Invalid OTP')
+    }
+
     if (challengOtp.attempts >= 3) {
       await this.repository.consume(challengOtp.id)
+      throw new UnauthorizedException('Invalid OTP')
     }
 
     const isOtpValid = this.service.validateOtp(
@@ -51,6 +57,7 @@ export class VerifyOtpUseCase implements IVerifyOtpUseCase {
     )
 
     if (!isOtpValid) {
+      await this.repository.incrementAttempts(challengOtp.id)
       throw new UnauthorizedException('Invalid OTP')
     }
 
