@@ -10,26 +10,27 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
     accountId,
     channel,
     codeHash,
+    purpose,
     destination,
     expiresAt,
-    purpose,
   }: OtpCreateRepositoryInput): Promise<Otp> {
     const otpChallenge: Otp = {
       id: uuid(),
       accountId,
-      destination,
       purpose,
+      destination,
       channel,
       codeHash,
       expiresAt,
       attempts: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
+      deletedAt: new Date(),
     }
 
     this.activeOtp.push(otpChallenge)
 
-    return otpChallenge
+    return await Promise.resolve(otpChallenge)
   }
 
   async findActiveByDestination(destination: string): Promise<Otp | undefined> {
@@ -42,17 +43,20 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
   }
 
   async consumeActiveByAccountId(accountId: string): Promise<void> {
-    const now = new Date()
+    await Promise.resolve(() => {
+      this.activeOtp.forEach((otp) => {
+        const now = new Date()
 
-    this.activeOtp.forEach((otp) => {
-      if (
-        otp.accountId === accountId &&
-        otp.expiresAt.getTime() > now.getTime() &&
-        !otp.consumedAt
-      ) {
-        otp.consumedAt = now
-        otp.updatedAt = now
-      }
+        if (
+          otp.accountId === accountId &&
+          otp.expiresAt.getTime() > now.getTime()
+        ) {
+          if (!otp.consumedAt) {
+            otp.consumedAt = now
+            otp.updatedAt = now
+          }
+        }
+      })
     })
   }
 
@@ -81,7 +85,6 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
           otp.expiresAt.getTime() > now.getTime()
         ) {
           otp.attempts += 1
-          otp.updatedAt = now
         }
       }),
     )
