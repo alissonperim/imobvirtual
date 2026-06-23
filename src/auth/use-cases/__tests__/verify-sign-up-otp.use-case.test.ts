@@ -103,6 +103,7 @@ describe('VerifySignUpOtpUseCase', () => {
       phoneNumber: challenge.destination,
       role: EAccountRole.RENTER,
       status: EAccountStatus.ACTIVE,
+      name: 'Maria',
     })
     expect(otpRepository.consume).toHaveBeenCalledWith(challenge.id)
     expect(sessionsRepository.create).toHaveBeenCalledWith({

@@ -1,0 +1,215 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id          String        @id @default(uuid())
+  phoneNumber String        @unique
+  role        AccountRole
+  status      AccountStatus
+  lastLoginAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  createdBy   String?
+  updatedBy   String?
+
+  owner    Owner?
+  renter   Renter?
+  sessions RefreshTokenSession[]
+  otps     OtpChallenge[]
+
+  @@map("accounts")
+}
+
+model OtpChallenge {
+  id          String     @id @default(uuid())
+  destination String
+  purpose     OtpPurpose
+  channel     OtpChannel
+  accountId   String?
+  codeHash    String
+  expiresAt   DateTime
+  attempts    Int        @default(0)
+  consumedAt  DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  account Account? @relation(fields: [accountId], references: [id])
+
+  @@map("otp_challenges")
+}
+
+model RefreshTokenSession {
+  id        String    @id
+  accountId String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  account Account @relation(fields: [accountId], references: [id])
+
+  @@map("refresh_token_sessions")
+}
+
+model Address {
+  id           String    @id @default(uuid())
+  street       String
+  neighborhood String
+  postalCode   String
+  complement   String
+  city         String
+  state        String
+  number       String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+  createdBy    String?
+  updatedBy    String?
+
+  owner    Owner?
+  renter   Renter?
+  property Property?
+
+  @@map("addresses")
+}
+
+model Owner {
+  id            String        @id @default(uuid())
+  name          String
+  document      String        @unique
+  phoneNumber   String
+  email         String?
+  maritalStatus MaritalStatus
+  accountId     String        @unique
+  addressId     String        @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+  createdBy     String?
+  updatedBy     String?
+
+  account         Account          @relation(fields: [accountId], references: [id])
+  address         Address          @relation(fields: [addressId], references: [id])
+  properties      Property[]
+  rentalContracts RentalContract[]
+
+  @@map("owners")
+}
+
+model Renter {
+  id            String        @id @default(uuid())
+  name          String
+  document      String        @unique
+  phoneNumber   String
+  email         String?
+  maritalStatus MaritalStatus
+  accountId     String?       @unique
+  addressId     String        @unique
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deletedAt     DateTime?
+  createdBy     String?
+  updatedBy     String?
+
+  account         Account?         @relation(fields: [accountId], references: [id])
+  address         Address          @relation(fields: [addressId], references: [id])
+  rentalContracts RentalContract[]
+
+  @@map("renters")
+}
+
+model Property {
+  id                String         @id @default(uuid())
+  name              String
+  description       String?
+  baseRentAmount    Decimal        @db.Decimal(10, 2)
+  solarEnergyActive Boolean        @default(false)
+  status            PropertyStatus
+  ownerId           String
+  addressId         String?        @unique
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  deletedAt         DateTime?
+  createdBy         String?
+  updatedBy         String?
+
+  owner           Owner            @relation(fields: [ownerId], references: [id])
+  address         Address?         @relation(fields: [addressId], references: [id])
+  rentalContracts RentalContract[]
+
+  @@map("properties")
+}
+
+model RentalContract {
+  id          String               @id @default(uuid())
+  ownerId     String
+  renterId    String
+  propertyId  String
+  startDate   DateTime
+  endDate     DateTime?
+  rentAmount  Decimal              @db.Decimal(10, 2)
+  dueDay      Int
+  status      RentalContractStatus
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  deletedAt   DateTime?
+  createdBy   String?
+  updatedBy   String?
+
+  owner    Owner    @relation(fields: [ownerId], references: [id])
+  renter   Renter   @relation(fields: [renterId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@map("rental_contracts")
+}
+
+enum AccountRole {
+  OWNER
+  RENTER
+}
+
+enum AccountStatus {
+  ACTIVE
+  BLOCKED
+  PENDING
+}
+
+enum OtpPurpose {
+  SIGN_IN
+  SIGN_UP
+  CHANGE_EMAIL
+  CHANGE_PHONE
+  PASSWORD_RECOVERY
+}
+
+enum OtpChannel {
+  SMS
+  WHATSAPP
+}
+
+enum MaritalStatus {
+  MARIED
+  SINGLE
+  DIVORCED
+  WIDOWER
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  RENTED
+  MAINTENANCE
+}
+
+enum RentalContractStatus {
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
