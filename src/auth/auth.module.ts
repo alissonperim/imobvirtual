@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { JwtAuthGuard } from './guards/jwt-auth.guard'
 import { OtpService } from './services/otp.service'
 import { OtpChallengesRepository } from './repositories/implementations/otp.repository'
 import { TokenService } from './services/token.service'
@@ -47,5 +48,6 @@ import { VerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
   ],
   controllers: [AuthController],
   imports: [AccountsModule],
+  exports: [JwtAuthGuard],
 })
 export class AuthModule {}

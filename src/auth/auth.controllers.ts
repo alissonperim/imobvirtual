@@ -1,4 +1,5 @@
 import { Body, Controller, Inject, Injectable, Post } from '@nestjs/common'
+import { Public } from './decorators/public.decorator'
 import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
 import type { IVerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
 import type { IVerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
@@ -12,6 +13,7 @@ import type {
   VerifySignUpOtpInput,
 } from './domain/otp'
 
+@Public()
 @Controller('auth')
 @Injectable()
 export class AuthController {
