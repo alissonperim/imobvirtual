@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { Account, EAccountRole, EAccountStatus } from '@pkg/types'
 import { PrismaService } from '@app/prisma/prisma.service'
 import type { IAccountsRepository } from '../domain'
-import type { CreateAccountInput, GetByDestinationInput } from '@app/accounts/domain'
+import type {
+  CreateAccountInput,
+  GetByDestinationInput,
+} from '@app/accounts/domain'
 
 @Injectable()
 export class AccountsRepository implements IAccountsRepository {
@@ -19,10 +22,17 @@ export class AccountsRepository implements IAccountsRepository {
     return this.toAccount(row)
   }
 
-  async getByDestination(params: GetByDestinationInput): Promise<Account | undefined> {
+  async getByDestination(
+    params: GetByDestinationInput,
+  ): Promise<Account | undefined> {
     const row = await this.prisma.account.findFirst({
       where: { phoneNumber: params.phoneNumber, deletedAt: null },
     })
+
+    if (!row) {
+      return
+    }
+
     return row ? this.toAccount(row) : undefined
   }
 
