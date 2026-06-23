@@ -1,38 +1,29 @@
-import type {
-  CreateRefreshTokenSessionInput,
-  RefreshTokenSession,
-} from '../../domain/session'
+import { Injectable } from '@nestjs/common'
+import { PrismaService } from '@app/prisma/prisma.service'
 import type { IRefreshTokenSessionsRepository } from '../session.domain'
+import type { CreateRefreshTokenSessionInput, RefreshTokenSession } from '../../domain/session'
 
+@Injectable()
 export class RefreshTokenSessionsRepository implements IRefreshTokenSessionsRepository {
-  private readonly sessions: RefreshTokenSession[] = []
+  constructor(private readonly prisma: PrismaService) {}
 
-  async create(
-    params: CreateRefreshTokenSessionInput,
-  ): Promise<RefreshTokenSession> {
-    const now = new Date()
-    const session: RefreshTokenSession = {
-      ...params,
-      createdAt: now,
-      updatedAt: now,
-    }
-
-    this.sessions.push(session)
-
-    return session
+  async create(params: CreateRefreshTokenSessionInput): Promise<RefreshTokenSession> {
+    const row = await this.prisma.refreshTokenSession.create({
+      data: {
+        id: params.id,
+        accountId: params.accountId,
+        tokenHash: params.tokenHash,
+        expiresAt: params.expiresAt,
+      },
+    })
+    return this.toSession(row)
   }
 
-  async findActiveByTokenHash(
-    tokenHash: string,
-  ): Promise<RefreshTokenSession | undefined> {
-    const now = Date.now()
-
-    return this.sessions.find(
-      (session) =>
-        session.tokenHash === tokenHash &&
-        !session.revokedAt &&
-        session.expiresAt.getTime() > now,
-    )
+  async findActiveByTokenHash(tokenHash: string): Promise<RefreshTokenSession | undefined> {
+    const row = await this.prisma.refreshTokenSession.findFirst({
+      where: { tokenHash, revokedAt: null, expiresAt: { gt: new Date() } },
+    })
+    return row ? this.toSession(row) : undefined
   }
 
   async rotate(
@@ -41,36 +32,42 @@ export class RefreshTokenSessionsRepository implements IRefreshTokenSessionsRepo
     newTokenHash: string,
     newExpiresAt: Date,
   ): Promise<boolean> {
-    const session = this.sessions.find(
-      (candidate) =>
-        candidate.id === sessionId &&
-        candidate.tokenHash === currentTokenHash &&
-        !candidate.revokedAt &&
-        candidate.expiresAt.getTime() > Date.now(),
-    )
-
-    if (!session) {
-      return false
-    }
-
-    session.tokenHash = newTokenHash
-    session.expiresAt = newExpiresAt
-    session.updatedAt = new Date()
-
-    return true
+    const result = await this.prisma.refreshTokenSession.updateMany({
+      where: {
+        id: sessionId,
+        tokenHash: currentTokenHash,
+        revokedAt: null,
+        expiresAt: { gt: new Date() },
+      },
+      data: { tokenHash: newTokenHash, expiresAt: newExpiresAt },
+    })
+    return result.count > 0
   }
 
   async revoke(sessionId: string): Promise<void> {
-    const session = this.sessions.find(
-      (candidate) => candidate.id === sessionId,
-    )
+    await this.prisma.refreshTokenSession.update({
+      where: { id: sessionId },
+      data: { revokedAt: new Date() },
+    })
+  }
 
-    if (!session || session.revokedAt) {
-      return
+  private toSession(row: {
+    id: string
+    accountId: string
+    tokenHash: string
+    expiresAt: Date
+    revokedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+  }): RefreshTokenSession {
+    return {
+      id: row.id,
+      accountId: row.accountId,
+      tokenHash: row.tokenHash,
+      expiresAt: row.expiresAt,
+      revokedAt: row.revokedAt ?? undefined,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
     }
-
-    const now = new Date()
-    session.revokedAt = now
-    session.updatedAt = now
   }
 }

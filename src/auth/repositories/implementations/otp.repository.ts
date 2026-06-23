@@ -1,109 +1,80 @@
-import { Otp } from '@pkg/types'
-import { IOtpChallengesRepository } from '../otp.domain'
-import { randomUUID as uuid } from 'node:crypto'
-import { OtpCreateRepositoryInput } from '../../domain/otp'
+import { Injectable } from '@nestjs/common'
+import { Otp, EOtpChannel, EOtpPurpose } from '@pkg/types'
+import { PrismaService } from '@app/prisma/prisma.service'
+import type { IOtpChallengesRepository } from '../otp.domain'
+import type { OtpCreateRepositoryInput } from '../../domain/otp'
 
+@Injectable()
 export class OtpChallengesRepository implements IOtpChallengesRepository {
-  private readonly activeOtp: Otp[] = []
+  constructor(private readonly prisma: PrismaService) {}
 
-  async create({
-    accountId,
-    channel,
-    codeHash,
-    purpose,
-    destination,
-    expiresAt,
-  }: OtpCreateRepositoryInput): Promise<Otp> {
-    const otpChallenge: Otp = {
-      id: uuid(),
-      accountId,
-      purpose,
-      destination,
-      channel,
-      codeHash,
-      expiresAt,
-      attempts: 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      deletedAt: new Date(),
-    }
-
-    this.activeOtp.push(otpChallenge)
-
-    return await Promise.resolve(otpChallenge)
+  async create(params: OtpCreateRepositoryInput): Promise<Otp> {
+    const row = await this.prisma.otpChallenge.create({
+      data: {
+        accountId: params.accountId,
+        destination: params.destination,
+        channel: params.channel,
+        codeHash: params.codeHash,
+        expiresAt: params.expiresAt,
+        purpose: params.purpose,
+      },
+    })
+    return this.toOtp(row)
   }
 
-  async findActiveByDestination(destination: string): Promise<Otp | undefined> {
-    return await Promise.resolve(
-      this.activeOtp.find(
-        (o) =>
-          o.destination === destination && o.expiresAt.getTime() > Date.now(),
-      ),
-    )
+  async findActiveById(id: string): Promise<Otp | undefined> {
+    const row = await this.prisma.otpChallenge.findFirst({
+      where: { id, expiresAt: { gt: new Date() }, consumedAt: null },
+    })
+    return row ? this.toOtp(row) : undefined
   }
 
-  async consumeActiveByAccountId(accountId: string): Promise<void> {
-    await Promise.resolve(() => {
-      this.activeOtp.forEach((otp) => {
-        const now = new Date()
-
-        if (
-          otp.accountId === accountId &&
-          otp.expiresAt.getTime() > now.getTime()
-        ) {
-          if (!otp.consumedAt) {
-            otp.consumedAt = now
-            otp.updatedAt = now
-          }
-        }
-      })
+  async incrementAttempts(id: string): Promise<void> {
+    await this.prisma.otpChallenge.update({
+      where: { id },
+      data: { attempts: { increment: 1 } },
     })
   }
 
-  findActiveById(id: string): Promise<Otp | undefined> {
-    const now = new Date()
-
-    return Promise.resolve(
-      this.activeOtp.find(
-        (otp) =>
-          otp.id === id &&
-          !otp.consumedAt &&
-          otp.expiresAt.getTime() > now.getTime(),
-      ),
-    )
+  async consume(id: string): Promise<void> {
+    await this.prisma.otpChallenge.update({
+      where: { id },
+      data: { consumedAt: new Date() },
+    })
   }
 
-  incrementAttempts(id: string): Promise<void> {
-    const now = new Date()
-
-    Promise.resolve(
-      this.activeOtp.forEach((otp) => {
-        if (
-          otp.id === id &&
-          !otp.consumedAt &&
-          otp.attempts < 5 &&
-          otp.expiresAt.getTime() > now.getTime()
-        ) {
-          otp.attempts += 1
-        }
-      }),
-    )
-
-    return Promise.resolve()
+  async consumeActiveByAccountId(accountId: string): Promise<void> {
+    await this.prisma.otpChallenge.updateMany({
+      where: { accountId, consumedAt: null, expiresAt: { gt: new Date() } },
+      data: { consumedAt: new Date() },
+    })
   }
 
-  consume(id: string): Promise<void> {
-    const otpChallenge = this.activeOtp.find((challenge) => challenge.id === id)
-
-    if (!otpChallenge || otpChallenge.consumedAt) {
-      return Promise.resolve()
+  private toOtp(row: {
+    id: string
+    destination: string
+    purpose: string
+    channel: string
+    accountId: string | null
+    codeHash: string
+    expiresAt: Date
+    attempts: number
+    consumedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+  }): Otp {
+    return {
+      id: row.id,
+      destination: row.destination,
+      purpose: row.purpose as EOtpPurpose,
+      channel: row.channel as EOtpChannel,
+      accountId: row.accountId ?? undefined,
+      codeHash: row.codeHash,
+      expiresAt: row.expiresAt,
+      attempts: row.attempts,
+      consumedAt: row.consumedAt ?? undefined,
+      createdAt: row.createdAt,
+      updatedAt: row.updatedAt,
     }
-
-    const now = new Date()
-
-    otpChallenge.consumedAt = now
-    otpChallenge.updatedAt = now
-
-    return Promise.resolve()
   }
 }
