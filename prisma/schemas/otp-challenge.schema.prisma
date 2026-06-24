@@ -1,5 +1,5 @@
 model OtpChallenge {
-  id          String     @id @default(uuid())
+  id          String     @id @default(nanoid())
   destination String
   purpose     OtpPurpose
   channel     OtpChannel

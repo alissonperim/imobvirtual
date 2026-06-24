@@ -1,5 +1,5 @@
 model RentalContract {
-  id          String               @id @default(uuid())
+  id          String               @id @default(nanoid())
   ownerId     String
   renterId    String
   propertyId  String

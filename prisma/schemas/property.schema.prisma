@@ -1,5 +1,5 @@
 model Property {
-  id                String         @id @default(uuid())
+  id                String         @id @default(nanoid())
   name              String
   description       String?
   baseRentAmount    Decimal        @db.Decimal(10, 2)
