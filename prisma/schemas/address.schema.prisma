@@ -1,0 +1,21 @@
+model Address {
+  id           String    @id @default(nanoid())
+  street       String
+  neighborhood String
+  postalCode   String
+  complement   String
+  city         String
+  state        String
+  number       String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+  createdBy    String?
+  updatedBy    String?
+
+  owner    Owner?
+  renter   Renter?
+  property Property?
+
+  @@map("addresses")
+}

@@ -24,6 +24,7 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.1.21",
     "@prisma/client": "^5",
+    "@prisma/config": "^7.8.0",
     "jsonwebtoken": "^9.0.3",
     "prisma": "^5",
     "reflect-metadata": "^0.2.2",
@@ -61,19 +62,25 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
-    "testRegex": ".*\\.(spec|test)\\.ts$",
+    "rootDir": ".",
+    "testRegex": "(src|packages)/.*\\.(spec|test)\\.ts$",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/",
+      "/.claude/"
+    ],
     "moduleNameMapper": {
-      "^@pkg/(.*)$": "<rootDir>/../packages/$1/index.ts",
-      "^@app/(.*)$": "<rootDir>/$1"
+      "^@pkg/(.*)$": "<rootDir>/packages/$1/index.ts",
+      "^@app/(.*)$": "<rootDir>/src/$1"
     },
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.(t|j)s",
+      "packages/**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "coverage",
     "testEnvironment": "node"
   }
 }

@@ -5,7 +5,6 @@ import { AppService } from './app.service'
 import { PrismaModule } from './prisma/prisma.module'
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard'
 import { PropertiesModule } from './properties/properties.module'
-import { AddressesModule } from './addresses/addresses.module'
 import { OwnersModule } from './owners/owners.module'
 import { RentalContractsModule } from './rental-contracts/rental-contracts.module'
 import { RentersModule } from './renters/renters.module'
@@ -16,7 +15,6 @@ import { AccountsModule } from './accounts/accounts.module'
   imports: [
     PrismaModule,
     PropertiesModule,
-    AddressesModule,
     OwnersModule,
     RentalContractsModule,
     RentersModule,
@@ -24,9 +22,6 @@ import { AccountsModule } from './accounts/accounts.module'
     AccountsModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    { provide: APP_GUARD, useClass: JwtAuthGuard },
-  ],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {}

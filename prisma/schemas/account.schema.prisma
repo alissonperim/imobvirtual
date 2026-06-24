@@ -1,0 +1,19 @@
+model Account {
+  id          String        @id @default(nanoid())
+  phoneNumber String        @unique
+  role        AccountRole
+  status      AccountStatus
+  lastLoginAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  createdBy   String?
+  updatedBy   String?
+
+  owner    Owner?
+  renter   Renter?
+  sessions RefreshTokenSession[]
+  otps     OtpChallenge[]
+
+  @@map("accounts")
+}

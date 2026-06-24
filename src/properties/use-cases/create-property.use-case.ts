@@ -1,17 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { Property } from '@pkg/types'
 import type { IPropertiesRepository } from '../repositories/domain'
-import { PropertyDTO } from '../dto'
+import type { CreatePropertyInput } from '../dto'
+
+export interface ICreatePropertyUseCase {
+  execute(params: CreatePropertyInput): Promise<Property>
+}
 
 @Injectable()
-export class CreatePropertyUseCase {
+export class CreatePropertyUseCase implements ICreatePropertyUseCase {
   constructor(
     @Inject('PROPERTIES_REPOSITORY')
     private readonly repository: IPropertiesRepository,
   ) {}
 
-  async execute(params: PropertyDTO): Promise<Property> {
-    const property = await this.repository.create(params)
-    return await Promise.resolve(property)
+  async execute(params: CreatePropertyInput): Promise<Property> {
+    return this.repository.create(params)
   }
 }

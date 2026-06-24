@@ -1,0 +1,25 @@
+model Property {
+  id                String         @id @default(uuid())
+  name              String
+  description       String?
+  baseRentAmount    Decimal        @db.Decimal(10, 2)
+  solarEnergyActive Boolean        @default(false)
+  status            PropertyStatus
+  ownerId           String
+  addressId         String?        @unique
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  deletedAt         DateTime?
+  createdBy         String?
+  updatedBy         String?
+
+  owner           Owner            @relation(fields: [ownerId], references: [id])
+  address         Address?         @relation(fields: [addressId], references: [id])
+  rentalContracts RentalContract[]
+
+  @@index([ownerId])
+  @@index([status])
+  @@index([deletedAt, createdAt])
+  @@index([ownerId, status, deletedAt])
+  @@map("properties")
+}
