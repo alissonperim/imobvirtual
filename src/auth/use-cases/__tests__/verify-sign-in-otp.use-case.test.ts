@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { UnauthorizedException } from '@nestjs/common'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import {

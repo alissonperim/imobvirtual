@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { Prisma } from '@prisma/client'
 import { EMaritalStatus, EPropertyStatus } from '@pkg/types'
 import type { PrismaService } from '@app/prisma/prisma.service'
@@ -97,7 +96,9 @@ describe('PropertiesRepository', () => {
     })
 
     it('should map null description to undefined', async () => {
-      prisma.property.create.mockResolvedValue(makePropertyRow({ description: null }))
+      prisma.property.create.mockResolvedValue(
+        makePropertyRow({ description: null }),
+      )
 
       const result = await sut.create({
         name: 'Casa Verde',
@@ -111,7 +112,9 @@ describe('PropertiesRepository', () => {
     })
 
     it('should map null address to undefined', async () => {
-      prisma.property.create.mockResolvedValue(makePropertyRow({ address: null }))
+      prisma.property.create.mockResolvedValue(
+        makePropertyRow({ address: null }),
+      )
 
       const result = await sut.create({
         name: 'Casa Verde',
@@ -126,7 +129,10 @@ describe('PropertiesRepository', () => {
 
     it('should map address nullable fields when address is present', async () => {
       const row = makePropertyRow({
-        address: makeAddressRow({ deletedAt: new Date('2026-06-01'), createdBy: 'user-1' }),
+        address: makeAddressRow({
+          deletedAt: new Date('2026-06-01'),
+          createdBy: 'user-1',
+        }),
       })
       prisma.property.create.mockResolvedValue(row)
 
@@ -160,7 +166,9 @@ describe('PropertiesRepository', () => {
 
     it('should map owner email when present', async () => {
       prisma.property.create.mockResolvedValue(
-        makePropertyRow({ owner: makeOwnerRow({ email: 'owner@example.com' }) }),
+        makePropertyRow({
+          owner: makeOwnerRow({ email: 'owner@example.com' }),
+        }),
       )
 
       const result = await sut.create({
@@ -374,9 +382,9 @@ describe('PropertiesRepository', () => {
       const unexpectedError = new Error('database connection failed')
       prisma.property.update.mockRejectedValue(unexpectedError)
 
-      await expect(sut.update('property-id', { name: 'Casa Azul' })).rejects.toThrow(
-        'database connection failed',
-      )
+      await expect(
+        sut.update('property-id', { name: 'Casa Azul' }),
+      ).rejects.toThrow('database connection failed')
     })
 
     it('should call prisma.update with where deletedAt:null', async () => {
@@ -386,7 +394,10 @@ describe('PropertiesRepository', () => {
 
       expect(prisma.property.update).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ id: 'property-id', deletedAt: null }),
+          where: expect.objectContaining({
+            id: 'property-id',
+            deletedAt: null,
+          }),
         }),
       )
     })
@@ -425,7 +436,10 @@ describe('PropertiesRepository', () => {
 
       expect(prisma.property.update).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ id: 'property-id', deletedAt: null }),
+          where: expect.objectContaining({
+            id: 'property-id',
+            deletedAt: null,
+          }),
           data: expect.objectContaining({ deletedAt: expect.any(Date) }),
         }),
       )

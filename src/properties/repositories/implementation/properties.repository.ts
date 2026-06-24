@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { Property, EPropertyStatus, EMaritalStatus } from '@pkg/types'
 import type { Address } from '@pkg/types'
-import type { Pagination } from '@pkg/utils'
+import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { PrismaService } from '@app/prisma/prisma.service'
 import type { IPropertiesRepository } from '../domain'
 import type {
@@ -144,21 +144,7 @@ export class PropertiesRepository implements IPropertiesRepository {
       const row = await this.prisma.property.update({
         where: { id, deletedAt: null },
         data: {
-          ...(params.name !== undefined && { name: params.name }),
-          ...(params.description !== undefined && {
-            description: params.description,
-          }),
-          ...(params.baseRentAmount !== undefined && {
-            baseRentAmount: params.baseRentAmount,
-          }),
-          ...(params.solarEnergyActive !== undefined && {
-            solarEnergyActive: params.solarEnergyActive,
-          }),
-          ...(params.status !== undefined && { status: params.status }),
-          ...(params.addressId !== undefined && {
-            addressId: params.addressId,
-          }),
-          updatedBy: params.updatedBy,
+          ...removeUndefinedValues(params),
         },
         include,
       })

@@ -92,7 +92,10 @@ describe('OtpChallengesRepository', () => {
 
     expect(prisma.otpChallenge.updateMany).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: expect.objectContaining({ accountId: 'account-id', consumedAt: null }),
+        where: expect.objectContaining({
+          accountId: 'account-id',
+          consumedAt: null,
+        }),
         data: expect.objectContaining({ consumedAt: expect.any(Date) }),
       }),
     )

@@ -10,7 +10,11 @@ jest.mock('node:fs', () => ({
 
 jest.mock('jsonwebtoken')
 
-const makeContext = (authHeader?: string, handler = jest.fn(), controller = jest.fn()) =>
+const makeContext = (
+  authHeader?: string,
+  handler = jest.fn(),
+  controller = jest.fn(),
+) =>
   ({
     getHandler: () => handler,
     getClass: () => controller,
@@ -27,7 +31,9 @@ describe('JwtAuthGuard', () => {
   let guard: JwtAuthGuard
 
   beforeEach(() => {
-    reflector = { getAllAndOverride: jest.fn() } as unknown as jest.Mocked<Reflector>
+    reflector = {
+      getAllAndOverride: jest.fn(),
+    } as unknown as jest.Mocked<Reflector>
     guard = new JwtAuthGuard(reflector)
   })
 
@@ -42,7 +48,9 @@ describe('JwtAuthGuard', () => {
   it('should throw when Authorization header is missing', () => {
     reflector.getAllAndOverride.mockReturnValue(false)
 
-    expect(() => guard.canActivate(makeContext())).toThrow(UnauthorizedException)
+    expect(() => guard.canActivate(makeContext())).toThrow(
+      UnauthorizedException,
+    )
   })
 
   it('should throw when the token is not a Bearer token', () => {
@@ -77,7 +85,10 @@ describe('JwtAuthGuard', () => {
     reflector.getAllAndOverride.mockReturnValue(false)
     ;(jwt.verify as jest.Mock).mockReturnValue(claims)
 
-    const request = { headers: { authorization: 'Bearer valid-token' }, user: undefined }
+    const request = {
+      headers: { authorization: 'Bearer valid-token' },
+      user: undefined,
+    }
     const ctx = {
       getHandler: jest.fn(),
       getClass: jest.fn(),

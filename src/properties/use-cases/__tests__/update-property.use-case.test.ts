@@ -41,7 +41,11 @@ describe('UpdatePropertyUseCase', () => {
     createdAt: now,
     updatedAt: now,
   }
-  const updatedProperty = { ...property, name: 'Casa Azul', updatedAt: new Date() }
+  const updatedProperty = {
+    ...property,
+    name: 'Casa Azul',
+    updatedAt: new Date(),
+  }
 
   beforeEach(() => {
     repository = {
@@ -57,7 +61,10 @@ describe('UpdatePropertyUseCase', () => {
   it('should update and return the property', async () => {
     repository.update.mockResolvedValue(updatedProperty)
 
-    const result = await sut.execute('property-id', { name: 'Casa Azul', updatedBy: 'account-id' })
+    const result = await sut.execute('property-id', {
+      name: 'Casa Azul',
+      updatedBy: 'account-id',
+    })
 
     expect(repository.update).toHaveBeenCalledWith('property-id', {
       name: 'Casa Azul',
@@ -70,7 +77,11 @@ describe('UpdatePropertyUseCase', () => {
   it('should throw NotFoundException when update returns null (record not found)', async () => {
     repository.update.mockResolvedValue(null)
 
-    await expect(sut.execute('missing-id', { name: 'Casa Azul' })).rejects.toThrow(NotFoundException)
-    expect(repository.update).toHaveBeenCalledWith('missing-id', { name: 'Casa Azul' })
+    await expect(
+      sut.execute('missing-id', { name: 'Casa Azul' }),
+    ).rejects.toThrow(NotFoundException)
+    expect(repository.update).toHaveBeenCalledWith('missing-id', {
+      name: 'Casa Azul',
+    })
   })
 })

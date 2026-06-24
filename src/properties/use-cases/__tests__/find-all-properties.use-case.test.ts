@@ -39,7 +39,10 @@ describe('FindAllPropertiesUseCase', () => {
   })
 
   it('should pass filters to the repository', async () => {
-    await sut.execute({ ownerId: 'owner-id', status: EPropertyStatus.AVAILABLE })
+    await sut.execute({
+      ownerId: 'owner-id',
+      status: EPropertyStatus.AVAILABLE,
+    })
 
     expect(repository.findAll).toHaveBeenCalledWith({
       ownerId: 'owner-id',

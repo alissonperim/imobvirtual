@@ -15,7 +15,11 @@ import { Property } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
 import { CurrentUser } from '@app/auth/decorators/current-user.decorator'
 import type { AccessToken } from '@app/auth/domain/session'
-import type { CreatePropertyInput, FindAllPropertiesInput, UpdatePropertyInput } from './dto'
+import type {
+  CreatePropertyInput,
+  FindAllPropertiesInput,
+  UpdatePropertyInput,
+} from './dto'
 import { CreatePropertyUseCase } from './use-cases/create-property.use-case'
 import { FindAllPropertiesUseCase } from './use-cases/find-all-properties.use-case'
 import { FindPropertyByIdUseCase } from './use-cases/find-property-by-id.use-case'
@@ -33,7 +37,9 @@ export class PropertiesController {
   ) {}
 
   @Get()
-  async findAll(@Query() filters: FindAllPropertiesInput): Promise<Pagination<Property>> {
+  async findAll(
+    @Query() filters: FindAllPropertiesInput,
+  ): Promise<Pagination<Property>> {
     return this.findAllUseCase.execute(filters)
   }
 

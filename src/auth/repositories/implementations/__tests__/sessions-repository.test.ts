@@ -25,7 +25,9 @@ describe('RefreshTokenSessionsRepository', () => {
         update: jest.fn(),
       },
     }
-    repository = new RefreshTokenSessionsRepository(prisma as unknown as PrismaService)
+    repository = new RefreshTokenSessionsRepository(
+      prisma as unknown as PrismaService,
+    )
   })
 
   it('should map the created row to a RefreshTokenSession domain object', async () => {
@@ -62,7 +64,11 @@ describe('RefreshTokenSessionsRepository', () => {
     expect(wasRotated).toBe(true)
     expect(prisma.refreshTokenSession.updateMany).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: expect.objectContaining({ id: 'session-id', tokenHash: 'old-hash', revokedAt: null }),
+        where: expect.objectContaining({
+          id: 'session-id',
+          tokenHash: 'old-hash',
+          revokedAt: null,
+        }),
         data: expect.objectContaining({ tokenHash: 'new-hash' }),
       }),
     )
@@ -71,13 +77,20 @@ describe('RefreshTokenSessionsRepository', () => {
   it('should return false when no session matches on rotate', async () => {
     prisma.refreshTokenSession.updateMany.mockResolvedValue({ count: 0 })
 
-    const wasRotated = await repository.rotate('session-id', 'wrong-hash', 'new-hash', new Date())
+    const wasRotated = await repository.rotate(
+      'session-id',
+      'wrong-hash',
+      'new-hash',
+      new Date(),
+    )
 
     expect(wasRotated).toBe(false)
   })
 
   it('should call update with revokedAt on revoke', async () => {
-    prisma.refreshTokenSession.update.mockResolvedValue(makeRow({ revokedAt: new Date() }))
+    prisma.refreshTokenSession.update.mockResolvedValue(
+      makeRow({ revokedAt: new Date() }),
+    )
 
     await repository.revoke('session-id')
 

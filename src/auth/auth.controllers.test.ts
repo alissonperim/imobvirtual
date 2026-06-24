@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { EAccountRole, EOtpChannel, EOtpPurpose } from '@pkg/types'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'

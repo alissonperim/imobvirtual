@@ -15,7 +15,9 @@ export class FindAllPropertiesUseCase implements IFindAllPropertiesUseCase {
     private readonly repository: IPropertiesRepository,
   ) {}
 
-  async execute(filters: FindAllPropertiesInput): Promise<Pagination<Property>> {
+  async execute(
+    filters: FindAllPropertiesInput,
+  ): Promise<Pagination<Property>> {
     return this.repository.findAll(filters)
   }
 }

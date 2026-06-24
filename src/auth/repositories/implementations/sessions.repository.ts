@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '@app/prisma/prisma.service'
 import type { IRefreshTokenSessionsRepository } from '../session.domain'
-import type { CreateRefreshTokenSessionInput, RefreshTokenSession } from '../../domain/session'
+import type {
+  CreateRefreshTokenSessionInput,
+  RefreshTokenSession,
+} from '../../domain/session'
 
 @Injectable()
 export class RefreshTokenSessionsRepository implements IRefreshTokenSessionsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(params: CreateRefreshTokenSessionInput): Promise<RefreshTokenSession> {
+  async create(
+    params: CreateRefreshTokenSessionInput,
+  ): Promise<RefreshTokenSession> {
     const row = await this.prisma.refreshTokenSession.create({
       data: {
         id: params.id,
@@ -19,7 +24,9 @@ export class RefreshTokenSessionsRepository implements IRefreshTokenSessionsRepo
     return this.toSession(row)
   }
 
-  async findActiveByTokenHash(tokenHash: string): Promise<RefreshTokenSession | undefined> {
+  async findActiveByTokenHash(
+    tokenHash: string,
+  ): Promise<RefreshTokenSession | undefined> {
     const row = await this.prisma.refreshTokenSession.findFirst({
       where: { tokenHash, revokedAt: null, expiresAt: { gt: new Date() } },
     })
