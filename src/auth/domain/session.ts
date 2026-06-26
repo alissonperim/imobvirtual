@@ -1,4 +1,5 @@
 import { EAccountRole } from '@pkg/types'
+import { IsString } from 'class-validator'
 
 export type AccessToken = {
   role: EAccountRole
@@ -21,8 +22,9 @@ export type TokenPair = {
   refreshToken: string
 }
 
-export type RefreshTokenInput = {
-  refreshToken: string
+export class RefreshTokenInput {
+  @IsString()
+  refreshToken!: string
 }
 
 export type RefreshTokenSession = {

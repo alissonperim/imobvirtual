@@ -69,7 +69,7 @@ export class OwnersRepository implements IOwnersRepository {
     try {
       const row = await this.prisma.owner.update({
         where: { id, deletedAt: null },
-        data: { ...removeUndefinedValues(params) },
+        data: { ...removeUndefinedValues(params as Record<string, unknown>) },
         include,
       })
       return mapOwner(row)

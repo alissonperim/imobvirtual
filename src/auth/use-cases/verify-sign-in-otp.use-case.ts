@@ -1,4 +1,4 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
+import { Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common'
 import type { IOtpChallengesRepository } from '../repositories/otp.domain'
 import type { IOtpService } from '../services/otp.service'
 import type { ITokenService } from '../services/token.service'
@@ -16,6 +16,8 @@ export interface IVerifySignInOtpUseCase {
 
 @Injectable()
 export class VerifySignInOtpUseCase implements IVerifySignInOtpUseCase {
+  private readonly logger = new Logger(VerifySignInOtpUseCase.name)
+
   constructor(
     @Inject('OTP_REPOSITORY')
     private readonly repository: IOtpChallengesRepository,
@@ -83,6 +85,9 @@ export class VerifySignInOtpUseCase implements IVerifySignInOtpUseCase {
       role: account.role,
       sessionId,
     })
+
+    this.logger.log(`[DEV] accessToken: ${accessToken}`)
+    this.logger.log(`[DEV] refreshToken: ${refreshTokenData.refreshToken}`)
 
     return {
       accessToken,

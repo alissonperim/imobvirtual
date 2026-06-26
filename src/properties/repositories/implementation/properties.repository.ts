@@ -144,7 +144,7 @@ export class PropertiesRepository implements IPropertiesRepository {
       const row = await this.prisma.property.update({
         where: { id, deletedAt: null },
         data: {
-          ...removeUndefinedValues(params),
+          ...removeUndefinedValues(params as Record<string, unknown>),
         },
         include,
       })

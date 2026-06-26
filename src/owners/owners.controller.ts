@@ -14,11 +14,8 @@ import { Owner } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
 import { CurrentUser } from '@app/auth/decorators/current-user.decorator'
 import type { AccessToken } from '@app/auth/domain/session'
-import type {
-  CreateOwnerInput,
-  FindAllOwnersInput,
-  UpdateOwnerInput,
-} from './dto'
+import { CreateOwnerInput, UpdateOwnerInput } from './dto'
+import type { FindAllOwnersInput } from './dto'
 import { CreateOwnerUseCase } from './use-cases/create-owner.use-case'
 import { FindAllOwnersUseCase } from './use-cases/find-all-owners.use-case'
 import { FindOwnerByIdUseCase } from './use-cases/find-owner-by-id.use-case'

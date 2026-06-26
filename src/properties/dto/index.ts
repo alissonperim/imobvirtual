@@ -1,23 +1,35 @@
 import { EPropertyStatus } from '@pkg/types'
+import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator'
+import { PartialType } from '@nestjs/mapped-types'
 
-export type CreatePropertyInput = {
-  name: string
+export class CreatePropertyInput {
+  @IsString()
+  name!: string
+
+  @IsString({ validateIf: (value) => !!value })
   description?: string
-  baseRentAmount: number
-  solarEnergyActive: boolean
-  status: EPropertyStatus
-  ownerId: string
+
+  @IsNumber()
+  baseRentAmount!: number
+
+  @IsBoolean()
+  solarEnergyActive!: boolean
+
+  @IsEnum(EPropertyStatus)
+  status!: EPropertyStatus
+
+  @IsString()
+  ownerId!: string
+
+  @IsString({ validateIf: (value) => !!value })
   addressId?: string
+
+  @IsString({ validateIf: (value) => !!value })
   createdBy?: string
 }
 
-export type UpdatePropertyInput = {
-  name?: string
-  description?: string
-  baseRentAmount?: number
-  solarEnergyActive?: boolean
-  status?: EPropertyStatus
-  addressId?: string
+export class UpdatePropertyInput extends PartialType(CreatePropertyInput) {
+  @IsString({ validateIf: (value) => !!value })
   updatedBy?: string
 }
 

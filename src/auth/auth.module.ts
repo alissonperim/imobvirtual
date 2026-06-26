@@ -45,6 +45,7 @@ import { VerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
       provide: 'REFRESH_TOKEN_USE_CASE',
       useClass: RefreshTokenUseCase,
     },
+    JwtAuthGuard,
   ],
   controllers: [AuthController],
   imports: [AccountsModule],

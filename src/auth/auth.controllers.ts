@@ -4,14 +4,14 @@ import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
 import type { IVerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
 import type { IVerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
-import type { RefreshTokenInput, TokenPair } from './domain/session'
-import type {
+import { RefreshTokenInput } from './domain/session'
+import type { TokenPair } from './domain/session'
+import {
   RequestOtpInput,
-  RequestOtpOutput,
   VerifySignInOtpInput,
-  VerifyOtpOutput,
   VerifySignUpOtpInput,
 } from './domain/otp'
+import type { RequestOtpOutput, VerifyOtpOutput } from './domain/otp'
 
 @Public()
 @Controller('auth')
@@ -39,7 +39,7 @@ export class AuthController {
     return this.requestOtpUseCase.execute(params)
   }
 
-  @Post('/sign-in/otp-challenge')
+  @Post('/signin/otp-challenge')
   async signInChallengeOtp(
     @Body()
     params: VerifySignInOtpInput,
@@ -47,7 +47,7 @@ export class AuthController {
     return this.verifySignInOtpUseCase.execute(params)
   }
 
-  @Post('/sign-up/otp-challenge')
+  @Post('/signup/otp-challenge')
   async signUpChallengeOtp(
     @Body()
     params: VerifySignUpOtpInput,

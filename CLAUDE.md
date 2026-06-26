@@ -17,6 +17,7 @@ pnpm run format       # format with prettier
 ```
 
 To run a single test file:
+
 ```bash
 pnpm jest src/auth/use-cases/__tests__/request-otp.use-case.test.ts
 ```
@@ -27,10 +28,10 @@ This is a **NestJS** application following Clean Architecture. Business logic li
 
 ### Path aliases
 
-| Alias | Resolves to | Purpose |
-|-------|-------------|---------|
+| Alias    | Resolves to  | Purpose                |
+| -------- | ------------ | ---------------------- |
 | `@pkg/*` | `packages/*` | Shared types and utils |
-| `@app/*` | `src/*` | Application source |
+| `@app/*` | `src/*`      | Application source     |
 
 ### Module structure
 
@@ -68,8 +69,8 @@ Inject them with `@Inject('OTP_SERVICE')` and type them against the interface. T
 Authentication is OTP-only (no passwords):
 
 1. `POST /auth/otp` — request a 6-digit OTP for sign-in or sign-up
-2. `POST /auth/sign-in/otp-challenge` — verify OTP → returns access token + refresh token
-3. `POST /auth/sign-up/otp-challenge` — verify OTP + provide `name`/`role` → creates account + returns tokens
+2. `POST /auth/signin/otp-challenge` — verify OTP → returns access token + refresh token
+3. `POST /auth/signup/otp-challenge` — verify OTP + provide `name`/`role` → creates account + returns tokens
 4. `POST /auth/refresh` — exchange refresh token for a new token pair
 
 **Access token**: RS256 JWT, 15-minute TTL. The private key is read at runtime from `private_key.pem` at the project root.  
@@ -90,3 +91,4 @@ Domain entities and enums live here and are imported via `@pkg/types`. Key enums
 - Unit tests use `jest.Mocked<IInterface>` for all dependencies — no NestJS testing module.
 - Use-cases are instantiated directly: `new UseCase(mockA, mockB, mockC)`.
 - Test files match `*.test.ts` or `*.spec.ts` and live in `__tests__/` subdirectories alongside the files they test.
+- Repositories must be tested too

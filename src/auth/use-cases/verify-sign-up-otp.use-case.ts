@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common'
 import type { IOtpChallengesRepository } from '../repositories/otp.domain'
@@ -21,6 +22,8 @@ export interface IVerifySignUpOtpUseCase {
 
 @Injectable()
 export class VerifySignUpOtpUseCase implements IVerifySignUpOtpUseCase {
+  private readonly logger = new Logger(VerifySignUpOtpUseCase.name)
+
   constructor(
     @Inject('OTP_REPOSITORY')
     private readonly repository: IOtpChallengesRepository,
@@ -93,6 +96,9 @@ export class VerifySignUpOtpUseCase implements IVerifySignUpOtpUseCase {
       role: account.role,
       sessionId,
     })
+
+    this.logger.log(`[DEV] accessToken: ${accessToken}`)
+    this.logger.log(`[DEV] refreshToken: ${refreshTokenData.refreshToken}`)
 
     return {
       accessToken,

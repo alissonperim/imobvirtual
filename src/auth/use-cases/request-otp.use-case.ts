@@ -3,6 +3,7 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  Logger,
 } from '@nestjs/common'
 import { RequestOtpInput, RequestOtpOutput } from '../domain/otp'
 import type { IOtpService } from '../services/otp.service'
@@ -16,6 +17,8 @@ export interface IRequestOtpUseCase {
 
 @Injectable()
 export class RequestOtpUseCase implements IRequestOtpUseCase {
+  private readonly logger = new Logger(RequestOtpUseCase.name)
+
   constructor(
     @Inject('ACCOUNTS_REPOSITORY')
     private readonly accountsRepository: IAccountsRepository,
@@ -43,6 +46,7 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
     }
 
     const otp = this.otpService.generateOtp()
+    this.logger.log(`[DEV] OTP code: ${otp.code}`)
 
     const otpChallenge = await this.otpRepository.create({
       accountId: account ? account.id : undefined,
