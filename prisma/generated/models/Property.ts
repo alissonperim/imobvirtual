@@ -27,117 +27,123 @@ export type AggregateProperty = {
 }
 
 export type PropertyAvgAggregateOutputType = {
-  baseRentAmount: runtime.Decimal | null
+  base_rent_amount: runtime.Decimal | null
 }
 
 export type PropertySumAggregateOutputType = {
-  baseRentAmount: runtime.Decimal | null
+  base_rent_amount: runtime.Decimal | null
 }
 
 export type PropertyMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  baseRentAmount: runtime.Decimal | null
-  solarEnergyActive: boolean | null
+  base_rent_amount: runtime.Decimal | null
+  solar_energy_active: boolean | null
   status: $Enums.PropertyStatus | null
-  ownerId: string | null
-  addressId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  owner_id: string | null
+  address_id: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type PropertyMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
-  baseRentAmount: runtime.Decimal | null
-  solarEnergyActive: boolean | null
+  base_rent_amount: runtime.Decimal | null
+  solar_energy_active: boolean | null
   status: $Enums.PropertyStatus | null
-  ownerId: string | null
-  addressId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  owner_id: string | null
+  address_id: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type PropertyCountAggregateOutputType = {
   id: number
   name: number
   description: number
-  baseRentAmount: number
-  solarEnergyActive: number
+  base_rent_amount: number
+  solar_energy_active: number
   status: number
-  ownerId: number
-  addressId: number
-  createdAt: number
-  updatedAt: number
-  deletedAt: number
-  createdBy: number
-  updatedBy: number
+  owner_id: number
+  address_id: number
+  created_at: number
+  updated_at: number
+  deleted_at: number
+  created_by: number
+  updated_by: number
+  deleted_by: number
   _all: number
 }
 
 
 export type PropertyAvgAggregateInputType = {
-  baseRentAmount?: true
+  base_rent_amount?: true
 }
 
 export type PropertySumAggregateInputType = {
-  baseRentAmount?: true
+  base_rent_amount?: true
 }
 
 export type PropertyMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  baseRentAmount?: true
-  solarEnergyActive?: true
+  base_rent_amount?: true
+  solar_energy_active?: true
   status?: true
-  ownerId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  owner_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type PropertyMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  baseRentAmount?: true
-  solarEnergyActive?: true
+  base_rent_amount?: true
+  solar_energy_active?: true
   status?: true
-  ownerId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  owner_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type PropertyCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
-  baseRentAmount?: true
-  solarEnergyActive?: true
+  base_rent_amount?: true
+  solar_energy_active?: true
   status?: true
-  ownerId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  owner_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
   _all?: true
 }
 
@@ -231,16 +237,17 @@ export type PropertyGroupByOutputType = {
   id: string
   name: string
   description: string | null
-  baseRentAmount: runtime.Decimal
-  solarEnergyActive: boolean
+  base_rent_amount: runtime.Decimal
+  solar_energy_active: boolean
   status: $Enums.PropertyStatus
-  ownerId: string
-  addressId: string | null
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  owner_id: string
+  address_id: string | null
+  created_at: Date
+  updated_at: Date
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
   _count: PropertyCountAggregateOutputType | null
   _avg: PropertyAvgAggregateOutputType | null
   _sum: PropertySumAggregateOutputType | null
@@ -270,76 +277,80 @@ export type PropertyWhereInput = {
   id?: Prisma.StringFilter<"Property"> | string
   name?: Prisma.StringFilter<"Property"> | string
   description?: Prisma.StringNullableFilter<"Property"> | string | null
-  baseRentAmount?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFilter<"Property"> | boolean
+  base_rent_amount?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFilter<"Property"> | string
-  addressId?: Prisma.StringNullableFilter<"Property"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Property"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Property"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Property"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Property"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Property"> | string | null
+  owner_id?: Prisma.StringFilter<"Property"> | string
+  address_id?: Prisma.StringNullableFilter<"Property"> | string | null
+  created_at?: Prisma.DateTimeFilter<"Property"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Property"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Property"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Property"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Property"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Property"> | string | null
   owner?: Prisma.XOR<Prisma.OwnerScalarRelationFilter, Prisma.OwnerWhereInput>
   address?: Prisma.XOR<Prisma.AddressNullableScalarRelationFilter, Prisma.AddressWhereInput> | null
-  rentalContracts?: Prisma.RentalContractListRelationFilter
+  contracts?: Prisma.ContractListRelationFilter
 }
 
 export type PropertyOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  baseRentAmount?: Prisma.SortOrder
-  solarEnergyActive?: Prisma.SortOrder
+  base_rent_amount?: Prisma.SortOrder
+  solar_energy_active?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  owner_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   owner?: Prisma.OwnerOrderByWithRelationInput
   address?: Prisma.AddressOrderByWithRelationInput
-  rentalContracts?: Prisma.RentalContractOrderByRelationAggregateInput
+  contracts?: Prisma.ContractOrderByRelationAggregateInput
 }
 
 export type PropertyWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  addressId?: string
+  address_id?: string
   AND?: Prisma.PropertyWhereInput | Prisma.PropertyWhereInput[]
   OR?: Prisma.PropertyWhereInput[]
   NOT?: Prisma.PropertyWhereInput | Prisma.PropertyWhereInput[]
   name?: Prisma.StringFilter<"Property"> | string
   description?: Prisma.StringNullableFilter<"Property"> | string | null
-  baseRentAmount?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFilter<"Property"> | boolean
+  base_rent_amount?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFilter<"Property"> | string
-  createdAt?: Prisma.DateTimeFilter<"Property"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Property"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Property"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Property"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Property"> | string | null
+  owner_id?: Prisma.StringFilter<"Property"> | string
+  created_at?: Prisma.DateTimeFilter<"Property"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Property"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Property"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Property"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Property"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Property"> | string | null
   owner?: Prisma.XOR<Prisma.OwnerScalarRelationFilter, Prisma.OwnerWhereInput>
   address?: Prisma.XOR<Prisma.AddressNullableScalarRelationFilter, Prisma.AddressWhereInput> | null
-  rentalContracts?: Prisma.RentalContractListRelationFilter
-}, "id" | "addressId">
+  contracts?: Prisma.ContractListRelationFilter
+}, "id" | "address_id">
 
 export type PropertyOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  baseRentAmount?: Prisma.SortOrder
-  solarEnergyActive?: Prisma.SortOrder
+  base_rent_amount?: Prisma.SortOrder
+  solar_energy_active?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  owner_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PropertyCountOrderByAggregateInput
   _avg?: Prisma.PropertyAvgOrderByAggregateInput
   _max?: Prisma.PropertyMaxOrderByAggregateInput
@@ -354,135 +365,148 @@ export type PropertyScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Property"> | string
   name?: Prisma.StringWithAggregatesFilter<"Property"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
-  baseRentAmount?: Prisma.DecimalWithAggregatesFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolWithAggregatesFilter<"Property"> | boolean
+  base_rent_amount?: Prisma.DecimalWithAggregatesFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolWithAggregatesFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusWithAggregatesFilter<"Property"> | $Enums.PropertyStatus
-  ownerId?: Prisma.StringWithAggregatesFilter<"Property"> | string
-  addressId?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Property"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Property"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Property"> | Date | string | null
-  createdBy?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
-  updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
+  owner_id?: Prisma.StringWithAggregatesFilter<"Property"> | string
+  address_id?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Property"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"Property"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Property"> | Date | string | null
+  created_by?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
+  updated_by?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
+  deleted_by?: Prisma.StringNullableWithAggregatesFilter<"Property"> | string | null
 }
 
 export type PropertyCreateInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner: Prisma.OwnerCreateNestedOneWithoutPropertiesInput
   address?: Prisma.AddressCreateNestedOneWithoutPropertyInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutPropertyInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  ownerId: string
-  addressId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutPropertyInput
+  owner_id: string
+  address_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUpdateOneRequiredWithoutPropertiesNestedInput
   address?: Prisma.AddressUpdateOneWithoutPropertyNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutPropertyNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutPropertyNestedInput
+  owner_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyCreateManyInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  ownerId: string
-  addressId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  owner_id: string
+  address_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type PropertyUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PropertyUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PropertyNullableScalarRelationFilter = {
   is?: Prisma.PropertyWhereInput | null
   isNot?: Prisma.PropertyWhereInput | null
+}
+
+export type PropertyScalarRelationFilter = {
+  is?: Prisma.PropertyWhereInput
+  isNot?: Prisma.PropertyWhereInput
 }
 
 export type PropertyListRelationFilter = {
@@ -499,61 +523,59 @@ export type PropertyCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  baseRentAmount?: Prisma.SortOrder
-  solarEnergyActive?: Prisma.SortOrder
+  base_rent_amount?: Prisma.SortOrder
+  solar_energy_active?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  owner_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type PropertyAvgOrderByAggregateInput = {
-  baseRentAmount?: Prisma.SortOrder
+  base_rent_amount?: Prisma.SortOrder
 }
 
 export type PropertyMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  baseRentAmount?: Prisma.SortOrder
-  solarEnergyActive?: Prisma.SortOrder
+  base_rent_amount?: Prisma.SortOrder
+  solar_energy_active?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  owner_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type PropertyMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  baseRentAmount?: Prisma.SortOrder
-  solarEnergyActive?: Prisma.SortOrder
+  base_rent_amount?: Prisma.SortOrder
+  solar_energy_active?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  ownerId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  owner_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type PropertySumOrderByAggregateInput = {
-  baseRentAmount?: Prisma.SortOrder
-}
-
-export type PropertyScalarRelationFilter = {
-  is?: Prisma.PropertyWhereInput
-  isNot?: Prisma.PropertyWhereInput
+  base_rent_amount?: Prisma.SortOrder
 }
 
 export type PropertyCreateNestedOneWithoutAddressInput = {
@@ -586,6 +608,20 @@ export type PropertyUncheckedUpdateOneWithoutAddressNestedInput = {
   delete?: Prisma.PropertyWhereInput | boolean
   connect?: Prisma.PropertyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutAddressInput, Prisma.PropertyUpdateWithoutAddressInput>, Prisma.PropertyUncheckedUpdateWithoutAddressInput>
+}
+
+export type PropertyCreateNestedOneWithoutContractsInput = {
+  create?: Prisma.XOR<Prisma.PropertyCreateWithoutContractsInput, Prisma.PropertyUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutContractsInput
+  connect?: Prisma.PropertyWhereUniqueInput
+}
+
+export type PropertyUpdateOneRequiredWithoutContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.PropertyCreateWithoutContractsInput, Prisma.PropertyUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutContractsInput
+  upsert?: Prisma.PropertyUpsertWithoutContractsInput
+  connect?: Prisma.PropertyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutContractsInput, Prisma.PropertyUpdateWithoutContractsInput>, Prisma.PropertyUncheckedUpdateWithoutContractsInput>
 }
 
 export type PropertyCreateNestedManyWithoutOwnerInput = {
@@ -630,14 +666,6 @@ export type PropertyUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.PropertyScalarWhereInput | Prisma.PropertyScalarWhereInput[]
 }
 
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
@@ -646,50 +674,38 @@ export type EnumPropertyStatusFieldUpdateOperationsInput = {
   set?: $Enums.PropertyStatus
 }
 
-export type PropertyCreateNestedOneWithoutRentalContractsInput = {
-  create?: Prisma.XOR<Prisma.PropertyCreateWithoutRentalContractsInput, Prisma.PropertyUncheckedCreateWithoutRentalContractsInput>
-  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutRentalContractsInput
-  connect?: Prisma.PropertyWhereUniqueInput
-}
-
-export type PropertyUpdateOneRequiredWithoutRentalContractsNestedInput = {
-  create?: Prisma.XOR<Prisma.PropertyCreateWithoutRentalContractsInput, Prisma.PropertyUncheckedCreateWithoutRentalContractsInput>
-  connectOrCreate?: Prisma.PropertyCreateOrConnectWithoutRentalContractsInput
-  upsert?: Prisma.PropertyUpsertWithoutRentalContractsInput
-  connect?: Prisma.PropertyWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.PropertyUpdateToOneWithWhereWithoutRentalContractsInput, Prisma.PropertyUpdateWithoutRentalContractsInput>, Prisma.PropertyUncheckedUpdateWithoutRentalContractsInput>
-}
-
 export type PropertyCreateWithoutAddressInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner: Prisma.OwnerCreateNestedOneWithoutPropertiesInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutPropertyInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutAddressInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  ownerId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutPropertyInput
+  owner_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutAddressInput = {
@@ -712,64 +728,152 @@ export type PropertyUpdateWithoutAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUpdateOneRequiredWithoutPropertiesNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutPropertyNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutPropertyNestedInput
+  owner_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutPropertyNestedInput
+}
+
+export type PropertyCreateWithoutContractsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
+  status: $Enums.PropertyStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  owner: Prisma.OwnerCreateNestedOneWithoutPropertiesInput
+  address?: Prisma.AddressCreateNestedOneWithoutPropertyInput
+}
+
+export type PropertyUncheckedCreateWithoutContractsInput = {
+  id?: string
+  name: string
+  description?: string | null
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
+  status: $Enums.PropertyStatus
+  owner_id: string
+  address_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+}
+
+export type PropertyCreateOrConnectWithoutContractsInput = {
+  where: Prisma.PropertyWhereUniqueInput
+  create: Prisma.XOR<Prisma.PropertyCreateWithoutContractsInput, Prisma.PropertyUncheckedCreateWithoutContractsInput>
+}
+
+export type PropertyUpsertWithoutContractsInput = {
+  update: Prisma.XOR<Prisma.PropertyUpdateWithoutContractsInput, Prisma.PropertyUncheckedUpdateWithoutContractsInput>
+  create: Prisma.XOR<Prisma.PropertyCreateWithoutContractsInput, Prisma.PropertyUncheckedCreateWithoutContractsInput>
+  where?: Prisma.PropertyWhereInput
+}
+
+export type PropertyUpdateToOneWithWhereWithoutContractsInput = {
+  where?: Prisma.PropertyWhereInput
+  data: Prisma.XOR<Prisma.PropertyUpdateWithoutContractsInput, Prisma.PropertyUncheckedUpdateWithoutContractsInput>
+}
+
+export type PropertyUpdateWithoutContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.OwnerUpdateOneRequiredWithoutPropertiesNestedInput
+  address?: Prisma.AddressUpdateOneWithoutPropertyNestedInput
+}
+
+export type PropertyUncheckedUpdateWithoutContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
+  owner_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PropertyCreateWithoutOwnerInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   address?: Prisma.AddressCreateNestedOneWithoutPropertyInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutPropertyInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyUncheckedCreateWithoutOwnerInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  addressId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutPropertyInput
+  address_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutPropertyInput
 }
 
 export type PropertyCreateOrConnectWithoutOwnerInput = {
@@ -805,158 +909,83 @@ export type PropertyScalarWhereInput = {
   id?: Prisma.StringFilter<"Property"> | string
   name?: Prisma.StringFilter<"Property"> | string
   description?: Prisma.StringNullableFilter<"Property"> | string | null
-  baseRentAmount?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFilter<"Property"> | boolean
+  base_rent_amount?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFilter<"Property"> | boolean
   status?: Prisma.EnumPropertyStatusFilter<"Property"> | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFilter<"Property"> | string
-  addressId?: Prisma.StringNullableFilter<"Property"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Property"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Property"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Property"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Property"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Property"> | string | null
-}
-
-export type PropertyCreateWithoutRentalContractsInput = {
-  id?: string
-  name: string
-  description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
-  status: $Enums.PropertyStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  owner: Prisma.OwnerCreateNestedOneWithoutPropertiesInput
-  address?: Prisma.AddressCreateNestedOneWithoutPropertyInput
-}
-
-export type PropertyUncheckedCreateWithoutRentalContractsInput = {
-  id?: string
-  name: string
-  description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
-  status: $Enums.PropertyStatus
-  ownerId: string
-  addressId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-}
-
-export type PropertyCreateOrConnectWithoutRentalContractsInput = {
-  where: Prisma.PropertyWhereUniqueInput
-  create: Prisma.XOR<Prisma.PropertyCreateWithoutRentalContractsInput, Prisma.PropertyUncheckedCreateWithoutRentalContractsInput>
-}
-
-export type PropertyUpsertWithoutRentalContractsInput = {
-  update: Prisma.XOR<Prisma.PropertyUpdateWithoutRentalContractsInput, Prisma.PropertyUncheckedUpdateWithoutRentalContractsInput>
-  create: Prisma.XOR<Prisma.PropertyCreateWithoutRentalContractsInput, Prisma.PropertyUncheckedCreateWithoutRentalContractsInput>
-  where?: Prisma.PropertyWhereInput
-}
-
-export type PropertyUpdateToOneWithWhereWithoutRentalContractsInput = {
-  where?: Prisma.PropertyWhereInput
-  data: Prisma.XOR<Prisma.PropertyUpdateWithoutRentalContractsInput, Prisma.PropertyUncheckedUpdateWithoutRentalContractsInput>
-}
-
-export type PropertyUpdateWithoutRentalContractsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  owner?: Prisma.OwnerUpdateOneRequiredWithoutPropertiesNestedInput
-  address?: Prisma.AddressUpdateOneWithoutPropertyNestedInput
-}
-
-export type PropertyUncheckedUpdateWithoutRentalContractsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_id?: Prisma.StringFilter<"Property"> | string
+  address_id?: Prisma.StringNullableFilter<"Property"> | string | null
+  created_at?: Prisma.DateTimeFilter<"Property"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Property"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Property"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Property"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Property"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Property"> | string | null
 }
 
 export type PropertyCreateManyOwnerInput = {
   id?: string
   name: string
   description?: string | null
-  baseRentAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: boolean
+  base_rent_amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: boolean
   status: $Enums.PropertyStatus
-  addressId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  address_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type PropertyUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.AddressUpdateOneWithoutPropertyNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutPropertyNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  addressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutPropertyNestedInput
+  address_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutPropertyNestedInput
 }
 
 export type PropertyUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  baseRentAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  solarEnergyActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  base_rent_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  solar_energy_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumPropertyStatusFieldUpdateOperationsInput | $Enums.PropertyStatus
-  addressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -965,11 +994,11 @@ export type PropertyUncheckedUpdateManyWithoutOwnerInput = {
  */
 
 export type PropertyCountOutputType = {
-  rentalContracts: number
+  contracts: number
 }
 
 export type PropertyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rentalContracts?: boolean | PropertyCountOutputTypeCountRentalContractsArgs
+  contracts?: boolean | PropertyCountOutputTypeCountContractsArgs
 }
 
 /**
@@ -985,8 +1014,8 @@ export type PropertyCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
 /**
  * PropertyCountOutputType without action
  */
-export type PropertyCountOutputTypeCountRentalContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RentalContractWhereInput
+export type PropertyCountOutputTypeCountContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractWhereInput
 }
 
 
@@ -994,19 +1023,20 @@ export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   name?: boolean
   description?: boolean
-  baseRentAmount?: boolean
-  solarEnergyActive?: boolean
+  base_rent_amount?: boolean
+  solar_energy_active?: boolean
   status?: boolean
-  ownerId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  owner_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   owner?: boolean | Prisma.OwnerDefaultArgs<ExtArgs>
   address?: boolean | Prisma.Property$addressArgs<ExtArgs>
-  rentalContracts?: boolean | Prisma.Property$rentalContractsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Property$contractsArgs<ExtArgs>
   _count?: boolean | Prisma.PropertyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["property"]>
 
@@ -1014,16 +1044,17 @@ export type PropertySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   name?: boolean
   description?: boolean
-  baseRentAmount?: boolean
-  solarEnergyActive?: boolean
+  base_rent_amount?: boolean
+  solar_energy_active?: boolean
   status?: boolean
-  ownerId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  owner_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   owner?: boolean | Prisma.OwnerDefaultArgs<ExtArgs>
   address?: boolean | Prisma.Property$addressArgs<ExtArgs>
 }, ExtArgs["result"]["property"]>
@@ -1032,16 +1063,17 @@ export type PropertySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   name?: boolean
   description?: boolean
-  baseRentAmount?: boolean
-  solarEnergyActive?: boolean
+  base_rent_amount?: boolean
+  solar_energy_active?: boolean
   status?: boolean
-  ownerId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  owner_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   owner?: boolean | Prisma.OwnerDefaultArgs<ExtArgs>
   address?: boolean | Prisma.Property$addressArgs<ExtArgs>
 }, ExtArgs["result"]["property"]>
@@ -1050,23 +1082,24 @@ export type PropertySelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
-  baseRentAmount?: boolean
-  solarEnergyActive?: boolean
+  base_rent_amount?: boolean
+  solar_energy_active?: boolean
   status?: boolean
-  ownerId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  owner_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }
 
-export type PropertyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "baseRentAmount" | "solarEnergyActive" | "status" | "ownerId" | "addressId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["property"]>
+export type PropertyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "base_rent_amount" | "solar_energy_active" | "status" | "owner_id" | "address_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["property"]>
 export type PropertyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.OwnerDefaultArgs<ExtArgs>
   address?: boolean | Prisma.Property$addressArgs<ExtArgs>
-  rentalContracts?: boolean | Prisma.Property$rentalContractsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Property$contractsArgs<ExtArgs>
   _count?: boolean | Prisma.PropertyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PropertyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1083,22 +1116,23 @@ export type $PropertyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     owner: Prisma.$OwnerPayload<ExtArgs>
     address: Prisma.$AddressPayload<ExtArgs> | null
-    rentalContracts: Prisma.$RentalContractPayload<ExtArgs>[]
+    contracts: Prisma.$ContractPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     description: string | null
-    baseRentAmount: runtime.Decimal
-    solarEnergyActive: boolean
+    base_rent_amount: runtime.Decimal
+    solar_energy_active: boolean
     status: $Enums.PropertyStatus
-    ownerId: string
-    addressId: string | null
-    createdAt: Date
-    updatedAt: Date
-    deletedAt: Date | null
-    createdBy: string | null
-    updatedBy: string | null
+    owner_id: string
+    address_id: string | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
   }, ExtArgs["result"]["property"]>
   composites: {}
 }
@@ -1495,7 +1529,7 @@ export interface Prisma__PropertyClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.OwnerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OwnerDefaultArgs<ExtArgs>>): Prisma.Prisma__OwnerClient<runtime.Types.Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   address<T extends Prisma.Property$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$addressArgs<ExtArgs>>): Prisma.Prisma__AddressClient<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  rentalContracts<T extends Prisma.Property$rentalContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$rentalContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RentalContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contracts<T extends Prisma.Property$contractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Property$contractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1528,16 +1562,17 @@ export interface PropertyFieldRefs {
   readonly id: Prisma.FieldRef<"Property", 'String'>
   readonly name: Prisma.FieldRef<"Property", 'String'>
   readonly description: Prisma.FieldRef<"Property", 'String'>
-  readonly baseRentAmount: Prisma.FieldRef<"Property", 'Decimal'>
-  readonly solarEnergyActive: Prisma.FieldRef<"Property", 'Boolean'>
+  readonly base_rent_amount: Prisma.FieldRef<"Property", 'Decimal'>
+  readonly solar_energy_active: Prisma.FieldRef<"Property", 'Boolean'>
   readonly status: Prisma.FieldRef<"Property", 'PropertyStatus'>
-  readonly ownerId: Prisma.FieldRef<"Property", 'String'>
-  readonly addressId: Prisma.FieldRef<"Property", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Property", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Property", 'DateTime'>
-  readonly deletedAt: Prisma.FieldRef<"Property", 'DateTime'>
-  readonly createdBy: Prisma.FieldRef<"Property", 'String'>
-  readonly updatedBy: Prisma.FieldRef<"Property", 'String'>
+  readonly owner_id: Prisma.FieldRef<"Property", 'String'>
+  readonly address_id: Prisma.FieldRef<"Property", 'String'>
+  readonly created_at: Prisma.FieldRef<"Property", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"Property", 'DateTime'>
+  readonly deleted_at: Prisma.FieldRef<"Property", 'DateTime'>
+  readonly created_by: Prisma.FieldRef<"Property", 'String'>
+  readonly updated_by: Prisma.FieldRef<"Property", 'String'>
+  readonly deleted_by: Prisma.FieldRef<"Property", 'String'>
 }
     
 
@@ -1958,27 +1993,27 @@ export type Property$addressArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Property.rentalContracts
+ * Property.contracts
  */
-export type Property$rentalContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Property$contractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the RentalContract
+   * Select specific fields to fetch from the Contract
    */
-  select?: Prisma.RentalContractSelect<ExtArgs> | null
+  select?: Prisma.ContractSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the RentalContract
+   * Omit specific fields from the Contract
    */
-  omit?: Prisma.RentalContractOmit<ExtArgs> | null
+  omit?: Prisma.ContractOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.RentalContractInclude<ExtArgs> | null
-  where?: Prisma.RentalContractWhereInput
-  orderBy?: Prisma.RentalContractOrderByWithRelationInput | Prisma.RentalContractOrderByWithRelationInput[]
-  cursor?: Prisma.RentalContractWhereUniqueInput
+  include?: Prisma.ContractInclude<ExtArgs> | null
+  where?: Prisma.ContractWhereInput
+  orderBy?: Prisma.ContractOrderByWithRelationInput | Prisma.ContractOrderByWithRelationInput[]
+  cursor?: Prisma.ContractWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.RentalContractScalarFieldEnum | Prisma.RentalContractScalarFieldEnum[]
+  distinct?: Prisma.ContractScalarFieldEnum | Prisma.ContractScalarFieldEnum[]
 }
 
 /**

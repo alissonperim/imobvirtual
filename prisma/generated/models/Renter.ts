@@ -28,48 +28,51 @@ export type RenterMinAggregateOutputType = {
   id: string | null
   name: string | null
   document: string | null
-  phoneNumber: string | null
+  phone_number: string | null
   email: string | null
-  maritalStatus: $Enums.MaritalStatus | null
-  accountId: string | null
-  addressId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  marital_status: $Enums.MaritalStatus | null
+  account_id: string | null
+  address_id: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type RenterMaxAggregateOutputType = {
   id: string | null
   name: string | null
   document: string | null
-  phoneNumber: string | null
+  phone_number: string | null
   email: string | null
-  maritalStatus: $Enums.MaritalStatus | null
-  accountId: string | null
-  addressId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  marital_status: $Enums.MaritalStatus | null
+  account_id: string | null
+  address_id: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type RenterCountAggregateOutputType = {
   id: number
   name: number
   document: number
-  phoneNumber: number
+  phone_number: number
   email: number
-  maritalStatus: number
-  accountId: number
-  addressId: number
-  createdAt: number
-  updatedAt: number
-  deletedAt: number
-  createdBy: number
-  updatedBy: number
+  marital_status: number
+  account_id: number
+  address_id: number
+  created_at: number
+  updated_at: number
+  deleted_at: number
+  created_by: number
+  updated_by: number
+  deleted_by: number
   _all: number
 }
 
@@ -78,48 +81,51 @@ export type RenterMinAggregateInputType = {
   id?: true
   name?: true
   document?: true
-  phoneNumber?: true
+  phone_number?: true
   email?: true
-  maritalStatus?: true
-  accountId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  marital_status?: true
+  account_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type RenterMaxAggregateInputType = {
   id?: true
   name?: true
   document?: true
-  phoneNumber?: true
+  phone_number?: true
   email?: true
-  maritalStatus?: true
-  accountId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  marital_status?: true
+  account_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type RenterCountAggregateInputType = {
   id?: true
   name?: true
   document?: true
-  phoneNumber?: true
+  phone_number?: true
   email?: true
-  maritalStatus?: true
-  accountId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  marital_status?: true
+  account_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
   _all?: true
 }
 
@@ -199,16 +205,17 @@ export type RenterGroupByOutputType = {
   id: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string | null
-  addressId: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id: string | null
+  address_id: string
+  created_at: Date
+  updated_at: Date
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
   _count: RenterCountAggregateOutputType | null
   _min: RenterMinAggregateOutputType | null
   _max: RenterMaxAggregateOutputType | null
@@ -236,76 +243,80 @@ export type RenterWhereInput = {
   id?: Prisma.StringFilter<"Renter"> | string
   name?: Prisma.StringFilter<"Renter"> | string
   document?: Prisma.StringFilter<"Renter"> | string
-  phoneNumber?: Prisma.StringFilter<"Renter"> | string
+  phone_number?: Prisma.StringFilter<"Renter"> | string
   email?: Prisma.StringNullableFilter<"Renter"> | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFilter<"Renter"> | $Enums.MaritalStatus
-  accountId?: Prisma.StringNullableFilter<"Renter"> | string | null
-  addressId?: Prisma.StringFilter<"Renter"> | string
-  createdAt?: Prisma.DateTimeFilter<"Renter"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Renter"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Renter"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Renter"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Renter"> | string | null
+  marital_status?: Prisma.EnumMaritalStatusFilter<"Renter"> | $Enums.MaritalStatus
+  account_id?: Prisma.StringNullableFilter<"Renter"> | string | null
+  address_id?: Prisma.StringFilter<"Renter"> | string
+  created_at?: Prisma.DateTimeFilter<"Renter"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Renter"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Renter"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Renter"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Renter"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Renter"> | string | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   address?: Prisma.XOR<Prisma.AddressScalarRelationFilter, Prisma.AddressWhereInput>
-  rentalContracts?: Prisma.RentalContractListRelationFilter
+  contracts?: Prisma.ContractListRelationFilter
 }
 
 export type RenterOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrderInput | Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   account?: Prisma.AccountOrderByWithRelationInput
   address?: Prisma.AddressOrderByWithRelationInput
-  rentalContracts?: Prisma.RentalContractOrderByRelationAggregateInput
+  contracts?: Prisma.ContractOrderByRelationAggregateInput
 }
 
 export type RenterWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   document?: string
-  accountId?: string
-  addressId?: string
+  account_id?: string
+  address_id?: string
   AND?: Prisma.RenterWhereInput | Prisma.RenterWhereInput[]
   OR?: Prisma.RenterWhereInput[]
   NOT?: Prisma.RenterWhereInput | Prisma.RenterWhereInput[]
   name?: Prisma.StringFilter<"Renter"> | string
-  phoneNumber?: Prisma.StringFilter<"Renter"> | string
+  phone_number?: Prisma.StringFilter<"Renter"> | string
   email?: Prisma.StringNullableFilter<"Renter"> | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFilter<"Renter"> | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFilter<"Renter"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Renter"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Renter"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Renter"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Renter"> | string | null
+  marital_status?: Prisma.EnumMaritalStatusFilter<"Renter"> | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFilter<"Renter"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Renter"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Renter"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Renter"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Renter"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Renter"> | string | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   address?: Prisma.XOR<Prisma.AddressScalarRelationFilter, Prisma.AddressWhereInput>
-  rentalContracts?: Prisma.RentalContractListRelationFilter
-}, "id" | "document" | "accountId" | "addressId">
+  contracts?: Prisma.ContractListRelationFilter
+}, "id" | "document" | "account_id" | "address_id">
 
 export type RenterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrderInput | Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.RenterCountOrderByAggregateInput
   _max?: Prisma.RenterMaxOrderByAggregateInput
   _min?: Prisma.RenterMinOrderByAggregateInput
@@ -318,130 +329,138 @@ export type RenterScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Renter"> | string
   name?: Prisma.StringWithAggregatesFilter<"Renter"> | string
   document?: Prisma.StringWithAggregatesFilter<"Renter"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"Renter"> | string
+  phone_number?: Prisma.StringWithAggregatesFilter<"Renter"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusWithAggregatesFilter<"Renter"> | $Enums.MaritalStatus
-  accountId?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
-  addressId?: Prisma.StringWithAggregatesFilter<"Renter"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Renter"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Renter"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Renter"> | Date | string | null
-  createdBy?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
-  updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
+  marital_status?: Prisma.EnumMaritalStatusWithAggregatesFilter<"Renter"> | $Enums.MaritalStatus
+  account_id?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
+  address_id?: Prisma.StringWithAggregatesFilter<"Renter"> | string
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Renter"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"Renter"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Renter"> | Date | string | null
+  created_by?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
+  updated_by?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
+  deleted_by?: Prisma.StringNullableWithAggregatesFilter<"Renter"> | string | null
 }
 
 export type RenterCreateInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account?: Prisma.AccountCreateNestedOneWithoutRenterInput
   address: Prisma.AddressCreateNestedOneWithoutRenterInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutRenterInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutRenterInput
 }
 
 export type RenterUncheckedCreateInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId?: string | null
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutRenterInput
+  marital_status: $Enums.MaritalStatus
+  account_id?: string | null
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutRenterInput
 }
 
 export type RenterUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneWithoutRenterNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutRenterNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutRenterNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutRenterNestedInput
 }
 
 export type RenterUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutRenterNestedInput
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutRenterNestedInput
 }
 
 export type RenterCreateManyInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId?: string | null
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id?: string | null
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type RenterUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RenterUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type RenterNullableScalarRelationFilter = {
@@ -458,48 +477,51 @@ export type RenterCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type RenterMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type RenterMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type RenterCreateNestedOneWithoutAccountInput = {
@@ -566,50 +588,52 @@ export type RenterUncheckedUpdateOneWithoutAddressNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RenterUpdateToOneWithWhereWithoutAddressInput, Prisma.RenterUpdateWithoutAddressInput>, Prisma.RenterUncheckedUpdateWithoutAddressInput>
 }
 
-export type RenterCreateNestedOneWithoutRentalContractsInput = {
-  create?: Prisma.XOR<Prisma.RenterCreateWithoutRentalContractsInput, Prisma.RenterUncheckedCreateWithoutRentalContractsInput>
-  connectOrCreate?: Prisma.RenterCreateOrConnectWithoutRentalContractsInput
+export type RenterCreateNestedOneWithoutContractsInput = {
+  create?: Prisma.XOR<Prisma.RenterCreateWithoutContractsInput, Prisma.RenterUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.RenterCreateOrConnectWithoutContractsInput
   connect?: Prisma.RenterWhereUniqueInput
 }
 
-export type RenterUpdateOneRequiredWithoutRentalContractsNestedInput = {
-  create?: Prisma.XOR<Prisma.RenterCreateWithoutRentalContractsInput, Prisma.RenterUncheckedCreateWithoutRentalContractsInput>
-  connectOrCreate?: Prisma.RenterCreateOrConnectWithoutRentalContractsInput
-  upsert?: Prisma.RenterUpsertWithoutRentalContractsInput
+export type RenterUpdateOneRequiredWithoutContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.RenterCreateWithoutContractsInput, Prisma.RenterUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.RenterCreateOrConnectWithoutContractsInput
+  upsert?: Prisma.RenterUpsertWithoutContractsInput
   connect?: Prisma.RenterWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.RenterUpdateToOneWithWhereWithoutRentalContractsInput, Prisma.RenterUpdateWithoutRentalContractsInput>, Prisma.RenterUncheckedUpdateWithoutRentalContractsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RenterUpdateToOneWithWhereWithoutContractsInput, Prisma.RenterUpdateWithoutContractsInput>, Prisma.RenterUncheckedUpdateWithoutContractsInput>
 }
 
 export type RenterCreateWithoutAccountInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   address: Prisma.AddressCreateNestedOneWithoutRenterInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutRenterInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutRenterInput
 }
 
 export type RenterUncheckedCreateWithoutAccountInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutRenterInput
+  marital_status: $Enums.MaritalStatus
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutRenterInput
 }
 
 export type RenterCreateOrConnectWithoutAccountInput = {
@@ -632,64 +656,68 @@ export type RenterUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.AddressUpdateOneRequiredWithoutRenterNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutRenterNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutRenterNestedInput
 }
 
 export type RenterUncheckedUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutRenterNestedInput
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutRenterNestedInput
 }
 
 export type RenterCreateWithoutAddressInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account?: Prisma.AccountCreateNestedOneWithoutRenterInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutRenterInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutRenterInput
 }
 
 export type RenterUncheckedCreateWithoutAddressInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutRenterInput
+  marital_status: $Enums.MaritalStatus
+  account_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutRenterInput
 }
 
 export type RenterCreateOrConnectWithoutAddressInput = {
@@ -712,112 +740,118 @@ export type RenterUpdateWithoutAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneWithoutRenterNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutRenterNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutRenterNestedInput
 }
 
 export type RenterUncheckedUpdateWithoutAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutRenterNestedInput
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutRenterNestedInput
 }
 
-export type RenterCreateWithoutRentalContractsInput = {
+export type RenterCreateWithoutContractsInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account?: Prisma.AccountCreateNestedOneWithoutRenterInput
   address: Prisma.AddressCreateNestedOneWithoutRenterInput
 }
 
-export type RenterUncheckedCreateWithoutRentalContractsInput = {
+export type RenterUncheckedCreateWithoutContractsInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId?: string | null
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id?: string | null
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
-export type RenterCreateOrConnectWithoutRentalContractsInput = {
+export type RenterCreateOrConnectWithoutContractsInput = {
   where: Prisma.RenterWhereUniqueInput
-  create: Prisma.XOR<Prisma.RenterCreateWithoutRentalContractsInput, Prisma.RenterUncheckedCreateWithoutRentalContractsInput>
+  create: Prisma.XOR<Prisma.RenterCreateWithoutContractsInput, Prisma.RenterUncheckedCreateWithoutContractsInput>
 }
 
-export type RenterUpsertWithoutRentalContractsInput = {
-  update: Prisma.XOR<Prisma.RenterUpdateWithoutRentalContractsInput, Prisma.RenterUncheckedUpdateWithoutRentalContractsInput>
-  create: Prisma.XOR<Prisma.RenterCreateWithoutRentalContractsInput, Prisma.RenterUncheckedCreateWithoutRentalContractsInput>
+export type RenterUpsertWithoutContractsInput = {
+  update: Prisma.XOR<Prisma.RenterUpdateWithoutContractsInput, Prisma.RenterUncheckedUpdateWithoutContractsInput>
+  create: Prisma.XOR<Prisma.RenterCreateWithoutContractsInput, Prisma.RenterUncheckedCreateWithoutContractsInput>
   where?: Prisma.RenterWhereInput
 }
 
-export type RenterUpdateToOneWithWhereWithoutRentalContractsInput = {
+export type RenterUpdateToOneWithWhereWithoutContractsInput = {
   where?: Prisma.RenterWhereInput
-  data: Prisma.XOR<Prisma.RenterUpdateWithoutRentalContractsInput, Prisma.RenterUncheckedUpdateWithoutRentalContractsInput>
+  data: Prisma.XOR<Prisma.RenterUpdateWithoutContractsInput, Prisma.RenterUncheckedUpdateWithoutContractsInput>
 }
 
-export type RenterUpdateWithoutRentalContractsInput = {
+export type RenterUpdateWithoutContractsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneWithoutRenterNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutRenterNestedInput
 }
 
-export type RenterUncheckedUpdateWithoutRentalContractsInput = {
+export type RenterUncheckedUpdateWithoutContractsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -826,11 +860,11 @@ export type RenterUncheckedUpdateWithoutRentalContractsInput = {
  */
 
 export type RenterCountOutputType = {
-  rentalContracts: number
+  contracts: number
 }
 
 export type RenterCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rentalContracts?: boolean | RenterCountOutputTypeCountRentalContractsArgs
+  contracts?: boolean | RenterCountOutputTypeCountContractsArgs
 }
 
 /**
@@ -846,8 +880,8 @@ export type RenterCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * RenterCountOutputType without action
  */
-export type RenterCountOutputTypeCountRentalContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RentalContractWhereInput
+export type RenterCountOutputTypeCountContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractWhereInput
 }
 
 
@@ -855,19 +889,20 @@ export type RenterSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.Renter$accountArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
-  rentalContracts?: boolean | Prisma.Renter$rentalContractsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Renter$contractsArgs<ExtArgs>
   _count?: boolean | Prisma.RenterCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["renter"]>
 
@@ -875,16 +910,17 @@ export type RenterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.Renter$accountArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["renter"]>
@@ -893,16 +929,17 @@ export type RenterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.Renter$accountArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["renter"]>
@@ -911,23 +948,24 @@ export type RenterSelectScalar = {
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }
 
-export type RenterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "document" | "phoneNumber" | "email" | "maritalStatus" | "accountId" | "addressId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["renter"]>
+export type RenterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "document" | "phone_number" | "email" | "marital_status" | "account_id" | "address_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["renter"]>
 export type RenterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.Renter$accountArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
-  rentalContracts?: boolean | Prisma.Renter$rentalContractsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Renter$contractsArgs<ExtArgs>
   _count?: boolean | Prisma.RenterCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RenterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -944,22 +982,23 @@ export type $RenterPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     account: Prisma.$AccountPayload<ExtArgs> | null
     address: Prisma.$AddressPayload<ExtArgs>
-    rentalContracts: Prisma.$RentalContractPayload<ExtArgs>[]
+    contracts: Prisma.$ContractPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     document: string
-    phoneNumber: string
+    phone_number: string
     email: string | null
-    maritalStatus: $Enums.MaritalStatus
-    accountId: string | null
-    addressId: string
-    createdAt: Date
-    updatedAt: Date
-    deletedAt: Date | null
-    createdBy: string | null
-    updatedBy: string | null
+    marital_status: $Enums.MaritalStatus
+    account_id: string | null
+    address_id: string
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
   }, ExtArgs["result"]["renter"]>
   composites: {}
 }
@@ -1356,7 +1395,7 @@ export interface Prisma__RenterClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   account<T extends Prisma.Renter$accountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Renter$accountArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   address<T extends Prisma.AddressDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AddressDefaultArgs<ExtArgs>>): Prisma.Prisma__AddressClient<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  rentalContracts<T extends Prisma.Renter$rentalContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Renter$rentalContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RentalContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contracts<T extends Prisma.Renter$contractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Renter$contractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1389,16 +1428,17 @@ export interface RenterFieldRefs {
   readonly id: Prisma.FieldRef<"Renter", 'String'>
   readonly name: Prisma.FieldRef<"Renter", 'String'>
   readonly document: Prisma.FieldRef<"Renter", 'String'>
-  readonly phoneNumber: Prisma.FieldRef<"Renter", 'String'>
+  readonly phone_number: Prisma.FieldRef<"Renter", 'String'>
   readonly email: Prisma.FieldRef<"Renter", 'String'>
-  readonly maritalStatus: Prisma.FieldRef<"Renter", 'MaritalStatus'>
-  readonly accountId: Prisma.FieldRef<"Renter", 'String'>
-  readonly addressId: Prisma.FieldRef<"Renter", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Renter", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Renter", 'DateTime'>
-  readonly deletedAt: Prisma.FieldRef<"Renter", 'DateTime'>
-  readonly createdBy: Prisma.FieldRef<"Renter", 'String'>
-  readonly updatedBy: Prisma.FieldRef<"Renter", 'String'>
+  readonly marital_status: Prisma.FieldRef<"Renter", 'MaritalStatus'>
+  readonly account_id: Prisma.FieldRef<"Renter", 'String'>
+  readonly address_id: Prisma.FieldRef<"Renter", 'String'>
+  readonly created_at: Prisma.FieldRef<"Renter", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"Renter", 'DateTime'>
+  readonly deleted_at: Prisma.FieldRef<"Renter", 'DateTime'>
+  readonly created_by: Prisma.FieldRef<"Renter", 'String'>
+  readonly updated_by: Prisma.FieldRef<"Renter", 'String'>
+  readonly deleted_by: Prisma.FieldRef<"Renter", 'String'>
 }
     
 
@@ -1819,27 +1859,27 @@ export type Renter$accountArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Renter.rentalContracts
+ * Renter.contracts
  */
-export type Renter$rentalContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Renter$contractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the RentalContract
+   * Select specific fields to fetch from the Contract
    */
-  select?: Prisma.RentalContractSelect<ExtArgs> | null
+  select?: Prisma.ContractSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the RentalContract
+   * Omit specific fields from the Contract
    */
-  omit?: Prisma.RentalContractOmit<ExtArgs> | null
+  omit?: Prisma.ContractOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.RentalContractInclude<ExtArgs> | null
-  where?: Prisma.RentalContractWhereInput
-  orderBy?: Prisma.RentalContractOrderByWithRelationInput | Prisma.RentalContractOrderByWithRelationInput[]
-  cursor?: Prisma.RentalContractWhereUniqueInput
+  include?: Prisma.ContractInclude<ExtArgs> | null
+  where?: Prisma.ContractWhereInput
+  orderBy?: Prisma.ContractOrderByWithRelationInput | Prisma.ContractOrderByWithRelationInput[]
+  cursor?: Prisma.ContractWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.RentalContractScalarFieldEnum | Prisma.RentalContractScalarFieldEnum[]
+  distinct?: Prisma.ContractScalarFieldEnum | Prisma.ContractScalarFieldEnum[]
 }
 
 /**

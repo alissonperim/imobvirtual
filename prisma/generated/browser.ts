@@ -28,6 +28,11 @@ export type Account = Prisma.AccountModel
  */
 export type Address = Prisma.AddressModel
 /**
+ * Model Contract
+ * 
+ */
+export type Contract = Prisma.ContractModel
+/**
  * Model OtpChallenge
  * 
  */
@@ -43,17 +48,12 @@ export type Owner = Prisma.OwnerModel
  */
 export type Property = Prisma.PropertyModel
 /**
- * Model RefreshTokenSession
- * 
- */
-export type RefreshTokenSession = Prisma.RefreshTokenSessionModel
-/**
- * Model RentalContract
- * 
- */
-export type RentalContract = Prisma.RentalContractModel
-/**
  * Model Renter
  * 
  */
 export type Renter = Prisma.RenterModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel

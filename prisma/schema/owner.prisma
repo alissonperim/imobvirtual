@@ -1,22 +1,23 @@
 model Owner {
-  id            String        @id @default(nanoid())
-  name          String
-  document      String        @unique
-  phoneNumber   String
-  email         String?
-  maritalStatus MaritalStatus
-  accountId     String        @unique
-  addressId     String        @unique
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  deletedAt     DateTime?
-  createdBy     String?
-  updatedBy     String?
+  id              String        @id @default(nanoid())
+  name            String
+  document        String        @unique
+  phone_number    String
+  email           String?
+  marital_status MaritalStatus
+  account_id      String        @unique
+  address_id      String        @unique
+  created_at      DateTime      @default(now())
+  updated_at      DateTime      @updatedAt
+  deleted_at      DateTime?
+  created_by      String?       
+  updated_by      String?       
+  deleted_by      String?
 
-  account         Account          @relation(fields: [accountId], references: [id])
-  address         Address          @relation(fields: [addressId], references: [id])
+  account         Account          @relation(fields: [account_id], references: [id])
+  address         Address          @relation(fields: [address_id], references: [id])
   properties      Property[]
-  rentalContracts RentalContract[]
+  contracts       Contract[]
 
   @@map("owners")
 }

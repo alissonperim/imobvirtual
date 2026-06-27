@@ -53,12 +53,12 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Account: 'Account',
   Address: 'Address',
+  Contract: 'Contract',
   OtpChallenge: 'OtpChallenge',
   Owner: 'Owner',
   Property: 'Property',
-  RefreshTokenSession: 'RefreshTokenSession',
-  RentalContract: 'RentalContract',
-  Renter: 'Renter'
+  Renter: 'Renter',
+  Session: 'Session'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -79,15 +79,16 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const AccountScalarFieldEnum = {
   id: 'id',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   role: 'role',
   status: 'status',
-  lastLoginAt: 'lastLoginAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  last_login_at: 'last_login_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -97,19 +98,38 @@ export const AddressScalarFieldEnum = {
   id: 'id',
   street: 'street',
   neighborhood: 'neighborhood',
-  postalCode: 'postalCode',
+  postal_code: 'postal_code',
   complement: 'complement',
   city: 'city',
   state: 'state',
   number: 'number',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+export const ContractScalarFieldEnum = {
+  id: 'id',
+  owner_id: 'owner_id',
+  renter_id: 'renter_id',
+  property_id: 'property_id',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  rent_amount: 'rent_amount',
+  due_day: 'due_day',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
 
 
 export const OtpChallengeScalarFieldEnum = {
@@ -117,13 +137,17 @@ export const OtpChallengeScalarFieldEnum = {
   destination: 'destination',
   purpose: 'purpose',
   channel: 'channel',
-  accountId: 'accountId',
-  codeHash: 'codeHash',
-  expiresAt: 'expiresAt',
+  account_id: 'account_id',
+  code_hash: 'code_hash',
+  expires_at: 'expires_at',
   attempts: 'attempts',
-  consumedAt: 'consumedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  consumed_at: 'consumed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type OtpChallengeScalarFieldEnum = (typeof OtpChallengeScalarFieldEnum)[keyof typeof OtpChallengeScalarFieldEnum]
@@ -133,16 +157,17 @@ export const OwnerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   document: 'document',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   email: 'email',
-  maritalStatus: 'maritalStatus',
-  accountId: 'accountId',
-  addressId: 'addressId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  marital_status: 'marital_status',
+  account_id: 'account_id',
+  address_id: 'address_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type OwnerScalarFieldEnum = (typeof OwnerScalarFieldEnum)[keyof typeof OwnerScalarFieldEnum]
@@ -152,71 +177,54 @@ export const PropertyScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  baseRentAmount: 'baseRentAmount',
-  solarEnergyActive: 'solarEnergyActive',
+  base_rent_amount: 'base_rent_amount',
+  solar_energy_active: 'solar_energy_active',
   status: 'status',
-  ownerId: 'ownerId',
-  addressId: 'addressId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  owner_id: 'owner_id',
+  address_id: 'address_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
-
-
-export const RefreshTokenSessionScalarFieldEnum = {
-  id: 'id',
-  accountId: 'accountId',
-  tokenHash: 'tokenHash',
-  expiresAt: 'expiresAt',
-  revokedAt: 'revokedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RefreshTokenSessionScalarFieldEnum = (typeof RefreshTokenSessionScalarFieldEnum)[keyof typeof RefreshTokenSessionScalarFieldEnum]
-
-
-export const RentalContractScalarFieldEnum = {
-  id: 'id',
-  ownerId: 'ownerId',
-  renterId: 'renterId',
-  propertyId: 'propertyId',
-  startDate: 'startDate',
-  endDate: 'endDate',
-  rentAmount: 'rentAmount',
-  dueDay: 'dueDay',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
-} as const
-
-export type RentalContractScalarFieldEnum = (typeof RentalContractScalarFieldEnum)[keyof typeof RentalContractScalarFieldEnum]
 
 
 export const RenterScalarFieldEnum = {
   id: 'id',
   name: 'name',
   document: 'document',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   email: 'email',
-  maritalStatus: 'maritalStatus',
-  accountId: 'accountId',
-  addressId: 'addressId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  marital_status: 'marital_status',
+  account_id: 'account_id',
+  address_id: 'address_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type RenterScalarFieldEnum = (typeof RenterScalarFieldEnum)[keyof typeof RenterScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
 export const SortOrder = {

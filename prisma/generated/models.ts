@@ -10,10 +10,10 @@
  */
 export type * from './models/Account.js'
 export type * from './models/Address.js'
+export type * from './models/Contract.js'
 export type * from './models/OtpChallenge.js'
 export type * from './models/Owner.js'
 export type * from './models/Property.js'
-export type * from './models/RefreshTokenSession.js'
-export type * from './models/RentalContract.js'
 export type * from './models/Renter.js'
+export type * from './models/Session.js'
 export type * from './commonInputTypes.js'

@@ -26,82 +26,88 @@ export type AggregateAccount = {
 
 export type AccountMinAggregateOutputType = {
   id: string | null
-  phoneNumber: string | null
+  phone_number: string | null
   role: $Enums.AccountRole | null
   status: $Enums.AccountStatus | null
-  lastLoginAt: Date | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  last_login_at: Date | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type AccountMaxAggregateOutputType = {
   id: string | null
-  phoneNumber: string | null
+  phone_number: string | null
   role: $Enums.AccountRole | null
   status: $Enums.AccountStatus | null
-  lastLoginAt: Date | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  last_login_at: Date | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type AccountCountAggregateOutputType = {
   id: number
-  phoneNumber: number
+  phone_number: number
   role: number
   status: number
-  lastLoginAt: number
-  createdAt: number
-  updatedAt: number
-  deletedAt: number
-  createdBy: number
-  updatedBy: number
+  last_login_at: number
+  created_at: number
+  updated_at: number
+  deleted_at: number
+  created_by: number
+  updated_by: number
+  deleted_by: number
   _all: number
 }
 
 
 export type AccountMinAggregateInputType = {
   id?: true
-  phoneNumber?: true
+  phone_number?: true
   role?: true
   status?: true
-  lastLoginAt?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  last_login_at?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type AccountMaxAggregateInputType = {
   id?: true
-  phoneNumber?: true
+  phone_number?: true
   role?: true
   status?: true
-  lastLoginAt?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  last_login_at?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type AccountCountAggregateInputType = {
   id?: true
-  phoneNumber?: true
+  phone_number?: true
   role?: true
   status?: true
-  lastLoginAt?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  last_login_at?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
   _all?: true
 }
 
@@ -179,15 +185,16 @@ export type AccountGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type AccountGroupByOutputType = {
   id: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt: Date | null
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  last_login_at: Date | null
+  created_at: Date
+  updated_at: Date
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
   _count: AccountCountAggregateOutputType | null
   _min: AccountMinAggregateOutputType | null
   _max: AccountMaxAggregateOutputType | null
@@ -213,69 +220,73 @@ export type AccountWhereInput = {
   OR?: Prisma.AccountWhereInput[]
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   id?: Prisma.StringFilter<"Account"> | string
-  phoneNumber?: Prisma.StringFilter<"Account"> | string
+  phone_number?: Prisma.StringFilter<"Account"> | string
   role?: Prisma.EnumAccountRoleFilter<"Account"> | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFilter<"Account"> | $Enums.AccountStatus
-  lastLoginAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Account"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Account"> | string | null
+  last_login_at?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Account"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Account"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Account"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Account"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Account"> | string | null
   owner?: Prisma.XOR<Prisma.OwnerNullableScalarRelationFilter, Prisma.OwnerWhereInput> | null
   renter?: Prisma.XOR<Prisma.RenterNullableScalarRelationFilter, Prisma.RenterWhereInput> | null
-  sessions?: Prisma.RefreshTokenSessionListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   otps?: Prisma.OtpChallengeListRelationFilter
 }
 
 export type AccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   owner?: Prisma.OwnerOrderByWithRelationInput
   renter?: Prisma.RenterOrderByWithRelationInput
-  sessions?: Prisma.RefreshTokenSessionOrderByRelationAggregateInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
   otps?: Prisma.OtpChallengeOrderByRelationAggregateInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  phoneNumber?: string
+  phone_number?: string
   AND?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   OR?: Prisma.AccountWhereInput[]
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   role?: Prisma.EnumAccountRoleFilter<"Account"> | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFilter<"Account"> | $Enums.AccountStatus
-  lastLoginAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"Account"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Account"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Account"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Account"> | string | null
+  last_login_at?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"Account"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Account"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Account"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Account"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Account"> | string | null
   owner?: Prisma.XOR<Prisma.OwnerNullableScalarRelationFilter, Prisma.OwnerWhereInput> | null
   renter?: Prisma.XOR<Prisma.RenterNullableScalarRelationFilter, Prisma.RenterWhereInput> | null
-  sessions?: Prisma.RefreshTokenSessionListRelationFilter
+  sessions?: Prisma.SessionListRelationFilter
   otps?: Prisma.OtpChallengeListRelationFilter
-}, "id" | "phoneNumber">
+}, "id" | "phone_number">
 
 export type AccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AccountCountOrderByAggregateInput
   _max?: Prisma.AccountMaxOrderByAggregateInput
   _min?: Prisma.AccountMinOrderByAggregateInput
@@ -286,161 +297,172 @@ export type AccountScalarWhereWithAggregatesInput = {
   OR?: Prisma.AccountScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AccountScalarWhereWithAggregatesInput | Prisma.AccountScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Account"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"Account"> | string
+  phone_number?: Prisma.StringWithAggregatesFilter<"Account"> | string
   role?: Prisma.EnumAccountRoleWithAggregatesFilter<"Account"> | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusWithAggregatesFilter<"Account"> | $Enums.AccountStatus
-  lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
-  createdBy?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
-  updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  last_login_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+  created_by?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  updated_by?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  deleted_by?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
 }
 
 export type AccountCreateInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner?: Prisma.OwnerCreateNestedOneWithoutAccountInput
   renter?: Prisma.RenterCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionCreateNestedManyWithoutAccountInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutAccountInput
   otps?: Prisma.OtpChallengeCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner?: Prisma.OwnerUncheckedCreateNestedOneWithoutAccountInput
   renter?: Prisma.RenterUncheckedCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedCreateNestedManyWithoutAccountInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutAccountInput
   otps?: Prisma.OtpChallengeUncheckedCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUpdateOneWithoutAccountNestedInput
   renter?: Prisma.RenterUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUpdateManyWithoutAccountNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutAccountNestedInput
   otps?: Prisma.OtpChallengeUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUncheckedUpdateOneWithoutAccountNestedInput
   renter?: Prisma.RenterUncheckedUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedUpdateManyWithoutAccountNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutAccountNestedInput
   otps?: Prisma.OtpChallengeUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountCreateManyInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type AccountUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccountUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type AccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  lastLoginAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  last_login_at?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type AccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  lastLoginAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  last_login_at?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type AccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  lastLoginAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  last_login_at?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type AccountNullableScalarRelationFilter = {
@@ -507,20 +529,6 @@ export type AccountUpdateOneRequiredWithoutOwnerNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutOwnerInput, Prisma.AccountUpdateWithoutOwnerInput>, Prisma.AccountUncheckedUpdateWithoutOwnerInput>
 }
 
-export type AccountCreateNestedOneWithoutSessionsInput = {
-  create?: Prisma.XOR<Prisma.AccountCreateWithoutSessionsInput, Prisma.AccountUncheckedCreateWithoutSessionsInput>
-  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutSessionsInput
-  connect?: Prisma.AccountWhereUniqueInput
-}
-
-export type AccountUpdateOneRequiredWithoutSessionsNestedInput = {
-  create?: Prisma.XOR<Prisma.AccountCreateWithoutSessionsInput, Prisma.AccountUncheckedCreateWithoutSessionsInput>
-  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutSessionsInput
-  upsert?: Prisma.AccountUpsertWithoutSessionsInput
-  connect?: Prisma.AccountWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutSessionsInput, Prisma.AccountUpdateWithoutSessionsInput>, Prisma.AccountUncheckedUpdateWithoutSessionsInput>
-}
-
 export type AccountCreateNestedOneWithoutRenterInput = {
   create?: Prisma.XOR<Prisma.AccountCreateWithoutRenterInput, Prisma.AccountUncheckedCreateWithoutRenterInput>
   connectOrCreate?: Prisma.AccountCreateOrConnectWithoutRenterInput
@@ -537,36 +545,52 @@ export type AccountUpdateOneWithoutRenterNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutRenterInput, Prisma.AccountUpdateWithoutRenterInput>, Prisma.AccountUncheckedUpdateWithoutRenterInput>
 }
 
+export type AccountCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutSessionsInput, Prisma.AccountUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutSessionsInput, Prisma.AccountUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.AccountUpsertWithoutSessionsInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutSessionsInput, Prisma.AccountUpdateWithoutSessionsInput>, Prisma.AccountUncheckedUpdateWithoutSessionsInput>
+}
+
 export type AccountCreateWithoutOtpsInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner?: Prisma.OwnerCreateNestedOneWithoutAccountInput
   renter?: Prisma.RenterCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionCreateNestedManyWithoutAccountInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutOtpsInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner?: Prisma.OwnerUncheckedCreateNestedOneWithoutAccountInput
   renter?: Prisma.RenterUncheckedCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedCreateNestedManyWithoutAccountInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutAccountInput
 }
 
 export type AccountCreateOrConnectWithoutOtpsInput = {
@@ -587,65 +611,69 @@ export type AccountUpdateToOneWithWhereWithoutOtpsInput = {
 
 export type AccountUpdateWithoutOtpsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUpdateOneWithoutAccountNestedInput
   renter?: Prisma.RenterUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUpdateManyWithoutAccountNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutOtpsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUncheckedUpdateOneWithoutAccountNestedInput
   renter?: Prisma.RenterUncheckedUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedUpdateManyWithoutAccountNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountCreateWithoutOwnerInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   renter?: Prisma.RenterCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionCreateNestedManyWithoutAccountInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutAccountInput
   otps?: Prisma.OtpChallengeCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutOwnerInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   renter?: Prisma.RenterUncheckedCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedCreateNestedManyWithoutAccountInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutAccountInput
   otps?: Prisma.OtpChallengeUncheckedCreateNestedManyWithoutAccountInput
 }
 
@@ -667,47 +695,134 @@ export type AccountUpdateToOneWithWhereWithoutOwnerInput = {
 
 export type AccountUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   renter?: Prisma.RenterUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUpdateManyWithoutAccountNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutAccountNestedInput
   otps?: Prisma.OtpChallengeUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   renter?: Prisma.RenterUncheckedUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedUpdateManyWithoutAccountNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutAccountNestedInput
+  otps?: Prisma.OtpChallengeUncheckedUpdateManyWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutRenterInput = {
+  id?: string
+  phone_number: string
+  role: $Enums.AccountRole
+  status: $Enums.AccountStatus
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  owner?: Prisma.OwnerCreateNestedOneWithoutAccountInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutAccountInput
+  otps?: Prisma.OtpChallengeCreateNestedManyWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutRenterInput = {
+  id?: string
+  phone_number: string
+  role: $Enums.AccountRole
+  status: $Enums.AccountStatus
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  owner?: Prisma.OwnerUncheckedCreateNestedOneWithoutAccountInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutAccountInput
+  otps?: Prisma.OtpChallengeUncheckedCreateNestedManyWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutRenterInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutRenterInput, Prisma.AccountUncheckedCreateWithoutRenterInput>
+}
+
+export type AccountUpsertWithoutRenterInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutRenterInput, Prisma.AccountUncheckedUpdateWithoutRenterInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutRenterInput, Prisma.AccountUncheckedCreateWithoutRenterInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutRenterInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutRenterInput, Prisma.AccountUncheckedUpdateWithoutRenterInput>
+}
+
+export type AccountUpdateWithoutRenterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
+  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.OwnerUpdateOneWithoutAccountNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutAccountNestedInput
+  otps?: Prisma.OtpChallengeUpdateManyWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutRenterInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
+  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner?: Prisma.OwnerUncheckedUpdateOneWithoutAccountNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutAccountNestedInput
   otps?: Prisma.OtpChallengeUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountCreateWithoutSessionsInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner?: Prisma.OwnerCreateNestedOneWithoutAccountInput
   renter?: Prisma.RenterCreateNestedOneWithoutAccountInput
   otps?: Prisma.OtpChallengeCreateNestedManyWithoutAccountInput
@@ -715,15 +830,16 @@ export type AccountCreateWithoutSessionsInput = {
 
 export type AccountUncheckedCreateWithoutSessionsInput = {
   id?: string
-  phoneNumber: string
+  phone_number: string
   role: $Enums.AccountRole
   status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  last_login_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   owner?: Prisma.OwnerUncheckedCreateNestedOneWithoutAccountInput
   renter?: Prisma.RenterUncheckedCreateNestedOneWithoutAccountInput
   otps?: Prisma.OtpChallengeUncheckedCreateNestedManyWithoutAccountInput
@@ -747,15 +863,16 @@ export type AccountUpdateToOneWithWhereWithoutSessionsInput = {
 
 export type AccountUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUpdateOneWithoutAccountNestedInput
   renter?: Prisma.RenterUpdateOneWithoutAccountNestedInput
   otps?: Prisma.OtpChallengeUpdateManyWithoutAccountNestedInput
@@ -763,97 +880,18 @@ export type AccountUpdateWithoutSessionsInput = {
 
 export type AccountUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
   status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   owner?: Prisma.OwnerUncheckedUpdateOneWithoutAccountNestedInput
   renter?: Prisma.RenterUncheckedUpdateOneWithoutAccountNestedInput
-  otps?: Prisma.OtpChallengeUncheckedUpdateManyWithoutAccountNestedInput
-}
-
-export type AccountCreateWithoutRenterInput = {
-  id?: string
-  phoneNumber: string
-  role: $Enums.AccountRole
-  status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  owner?: Prisma.OwnerCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionCreateNestedManyWithoutAccountInput
-  otps?: Prisma.OtpChallengeCreateNestedManyWithoutAccountInput
-}
-
-export type AccountUncheckedCreateWithoutRenterInput = {
-  id?: string
-  phoneNumber: string
-  role: $Enums.AccountRole
-  status: $Enums.AccountStatus
-  lastLoginAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  owner?: Prisma.OwnerUncheckedCreateNestedOneWithoutAccountInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedCreateNestedManyWithoutAccountInput
-  otps?: Prisma.OtpChallengeUncheckedCreateNestedManyWithoutAccountInput
-}
-
-export type AccountCreateOrConnectWithoutRenterInput = {
-  where: Prisma.AccountWhereUniqueInput
-  create: Prisma.XOR<Prisma.AccountCreateWithoutRenterInput, Prisma.AccountUncheckedCreateWithoutRenterInput>
-}
-
-export type AccountUpsertWithoutRenterInput = {
-  update: Prisma.XOR<Prisma.AccountUpdateWithoutRenterInput, Prisma.AccountUncheckedUpdateWithoutRenterInput>
-  create: Prisma.XOR<Prisma.AccountCreateWithoutRenterInput, Prisma.AccountUncheckedCreateWithoutRenterInput>
-  where?: Prisma.AccountWhereInput
-}
-
-export type AccountUpdateToOneWithWhereWithoutRenterInput = {
-  where?: Prisma.AccountWhereInput
-  data: Prisma.XOR<Prisma.AccountUpdateWithoutRenterInput, Prisma.AccountUncheckedUpdateWithoutRenterInput>
-}
-
-export type AccountUpdateWithoutRenterInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
-  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  owner?: Prisma.OwnerUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUpdateManyWithoutAccountNestedInput
-  otps?: Prisma.OtpChallengeUpdateManyWithoutAccountNestedInput
-}
-
-export type AccountUncheckedUpdateWithoutRenterInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumAccountRoleFieldUpdateOperationsInput | $Enums.AccountRole
-  status?: Prisma.EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  owner?: Prisma.OwnerUncheckedUpdateOneWithoutAccountNestedInput
-  sessions?: Prisma.RefreshTokenSessionUncheckedUpdateManyWithoutAccountNestedInput
   otps?: Prisma.OtpChallengeUncheckedUpdateManyWithoutAccountNestedInput
 }
 
@@ -886,7 +924,7 @@ export type AccountCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  * AccountCountOutputType without action
  */
 export type AccountCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RefreshTokenSessionWhereInput
+  where?: Prisma.SessionWhereInput
 }
 
 /**
@@ -899,15 +937,16 @@ export type AccountCountOutputTypeCountOtpsArgs<ExtArgs extends runtime.Types.Ex
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   role?: boolean
   status?: boolean
-  lastLoginAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  last_login_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   owner?: boolean | Prisma.Account$ownerArgs<ExtArgs>
   renter?: boolean | Prisma.Account$renterArgs<ExtArgs>
   sessions?: boolean | Prisma.Account$sessionsArgs<ExtArgs>
@@ -917,44 +956,47 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   role?: boolean
   status?: boolean
-  lastLoginAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  last_login_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   role?: boolean
   status?: boolean
-  lastLoginAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  last_login_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectScalar = {
   id?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   role?: boolean
   status?: boolean
-  lastLoginAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  last_login_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phoneNumber" | "role" | "status" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phone_number" | "role" | "status" | "last_login_at" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.Account$ownerArgs<ExtArgs>
   renter?: boolean | Prisma.Account$renterArgs<ExtArgs>
@@ -970,20 +1012,21 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     owner: Prisma.$OwnerPayload<ExtArgs> | null
     renter: Prisma.$RenterPayload<ExtArgs> | null
-    sessions: Prisma.$RefreshTokenSessionPayload<ExtArgs>[]
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
     otps: Prisma.$OtpChallengePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    phoneNumber: string
+    phone_number: string
     role: $Enums.AccountRole
     status: $Enums.AccountStatus
-    lastLoginAt: Date | null
-    createdAt: Date
-    updatedAt: Date
-    deletedAt: Date | null
-    createdBy: string | null
-    updatedBy: string | null
+    last_login_at: Date | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
   }, ExtArgs["result"]["account"]>
   composites: {}
 }
@@ -1380,7 +1423,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.Account$ownerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$ownerArgs<ExtArgs>>): Prisma.Prisma__OwnerClient<runtime.Types.Result.GetResult<Prisma.$OwnerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   renter<T extends Prisma.Account$renterArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$renterArgs<ExtArgs>>): Prisma.Prisma__RenterClient<runtime.Types.Result.GetResult<Prisma.$RenterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  sessions<T extends Prisma.Account$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sessions<T extends Prisma.Account$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   otps<T extends Prisma.Account$otpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$otpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OtpChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1412,15 +1455,16 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface AccountFieldRefs {
   readonly id: Prisma.FieldRef<"Account", 'String'>
-  readonly phoneNumber: Prisma.FieldRef<"Account", 'String'>
+  readonly phone_number: Prisma.FieldRef<"Account", 'String'>
   readonly role: Prisma.FieldRef<"Account", 'AccountRole'>
   readonly status: Prisma.FieldRef<"Account", 'AccountStatus'>
-  readonly lastLoginAt: Prisma.FieldRef<"Account", 'DateTime'>
-  readonly createdAt: Prisma.FieldRef<"Account", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Account", 'DateTime'>
-  readonly deletedAt: Prisma.FieldRef<"Account", 'DateTime'>
-  readonly createdBy: Prisma.FieldRef<"Account", 'String'>
-  readonly updatedBy: Prisma.FieldRef<"Account", 'String'>
+  readonly last_login_at: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly created_at: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly deleted_at: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly created_by: Prisma.FieldRef<"Account", 'String'>
+  readonly updated_by: Prisma.FieldRef<"Account", 'String'>
+  readonly deleted_by: Prisma.FieldRef<"Account", 'String'>
 }
     
 
@@ -1856,23 +1900,23 @@ export type Account$renterArgs<ExtArgs extends runtime.Types.Extensions.Internal
  */
 export type Account$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the RefreshTokenSession
+   * Select specific fields to fetch from the Session
    */
-  select?: Prisma.RefreshTokenSessionSelect<ExtArgs> | null
+  select?: Prisma.SessionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the RefreshTokenSession
+   * Omit specific fields from the Session
    */
-  omit?: Prisma.RefreshTokenSessionOmit<ExtArgs> | null
+  omit?: Prisma.SessionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.RefreshTokenSessionInclude<ExtArgs> | null
-  where?: Prisma.RefreshTokenSessionWhereInput
-  orderBy?: Prisma.RefreshTokenSessionOrderByWithRelationInput | Prisma.RefreshTokenSessionOrderByWithRelationInput[]
-  cursor?: Prisma.RefreshTokenSessionWhereUniqueInput
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.RefreshTokenSessionScalarFieldEnum | Prisma.RefreshTokenSessionScalarFieldEnum[]
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
 }
 
 /**

@@ -64,10 +64,10 @@ export const PropertyStatus = {
 export type PropertyStatus = (typeof PropertyStatus)[keyof typeof PropertyStatus]
 
 
-export const RentalContractStatus = {
+export const ContractStatus = {
   ACTIVE: 'ACTIVE',
   FINISHED: 'FINISHED',
   CANCELLED: 'CANCELLED'
 } as const
 
-export type RentalContractStatus = (typeof RentalContractStatus)[keyof typeof RentalContractStatus]
+export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus]

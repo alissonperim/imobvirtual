@@ -1,0 +1,15 @@
+model Session {
+  id                      String    @id @default(nanoid())
+  account_id              String
+  token_hash              String    @unique
+  expires_at              DateTime
+  revoked_at              DateTime?
+  created_at              DateTime  @default(now())
+  updated_at              DateTime  @updatedAt
+  deleted_at              DateTime?
+
+  account Account @relation(fields: [account_id], references: [id])
+
+  @@map("sessions")
+}
+

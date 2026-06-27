@@ -1,19 +1,20 @@
 model Account {
-  id          String        @id @default(nanoid())
-  phoneNumber String        @unique
-  role        AccountRole
-  status      AccountStatus
-  lastLoginAt DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  deletedAt   DateTime?
-  createdBy   String?
-  updatedBy   String?
+  id                        String        @id @default(nanoid())
+  phone_number              String        @unique
+  role                      AccountRole
+  status                    AccountStatus
+  last_login_at             DateTime?
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+  deleted_at                DateTime?
+  created_by                String?
+  updated_by                String?
+  deleted_by                String?
 
-  owner    Owner?
-  renter   Renter?
-  sessions RefreshTokenSession[]
-  otps     OtpChallenge[]
+  owner                     Owner?
+  renter                    Renter?
+  sessions                  Session[]
+  otps                      OtpChallenge[]
 
   @@map("accounts")
 }

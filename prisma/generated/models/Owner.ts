@@ -28,48 +28,51 @@ export type OwnerMinAggregateOutputType = {
   id: string | null
   name: string | null
   document: string | null
-  phoneNumber: string | null
+  phone_number: string | null
   email: string | null
-  maritalStatus: $Enums.MaritalStatus | null
-  accountId: string | null
-  addressId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  marital_status: $Enums.MaritalStatus | null
+  account_id: string | null
+  address_id: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type OwnerMaxAggregateOutputType = {
   id: string | null
   name: string | null
   document: string | null
-  phoneNumber: string | null
+  phone_number: string | null
   email: string | null
-  maritalStatus: $Enums.MaritalStatus | null
-  accountId: string | null
-  addressId: string | null
-  createdAt: Date | null
-  updatedAt: Date | null
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  marital_status: $Enums.MaritalStatus | null
+  account_id: string | null
+  address_id: string | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type OwnerCountAggregateOutputType = {
   id: number
   name: number
   document: number
-  phoneNumber: number
+  phone_number: number
   email: number
-  maritalStatus: number
-  accountId: number
-  addressId: number
-  createdAt: number
-  updatedAt: number
-  deletedAt: number
-  createdBy: number
-  updatedBy: number
+  marital_status: number
+  account_id: number
+  address_id: number
+  created_at: number
+  updated_at: number
+  deleted_at: number
+  created_by: number
+  updated_by: number
+  deleted_by: number
   _all: number
 }
 
@@ -78,48 +81,51 @@ export type OwnerMinAggregateInputType = {
   id?: true
   name?: true
   document?: true
-  phoneNumber?: true
+  phone_number?: true
   email?: true
-  maritalStatus?: true
-  accountId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  marital_status?: true
+  account_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type OwnerMaxAggregateInputType = {
   id?: true
   name?: true
   document?: true
-  phoneNumber?: true
+  phone_number?: true
   email?: true
-  maritalStatus?: true
-  accountId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  marital_status?: true
+  account_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type OwnerCountAggregateInputType = {
   id?: true
   name?: true
   document?: true
-  phoneNumber?: true
+  phone_number?: true
   email?: true
-  maritalStatus?: true
-  accountId?: true
-  addressId?: true
-  createdAt?: true
-  updatedAt?: true
-  deletedAt?: true
-  createdBy?: true
-  updatedBy?: true
+  marital_status?: true
+  account_id?: true
+  address_id?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
   _all?: true
 }
 
@@ -199,16 +205,17 @@ export type OwnerGroupByOutputType = {
   id: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string
-  addressId: string
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date | null
-  createdBy: string | null
-  updatedBy: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id: string
+  address_id: string
+  created_at: Date
+  updated_at: Date
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
   _count: OwnerCountAggregateOutputType | null
   _min: OwnerMinAggregateOutputType | null
   _max: OwnerMaxAggregateOutputType | null
@@ -236,79 +243,83 @@ export type OwnerWhereInput = {
   id?: Prisma.StringFilter<"Owner"> | string
   name?: Prisma.StringFilter<"Owner"> | string
   document?: Prisma.StringFilter<"Owner"> | string
-  phoneNumber?: Prisma.StringFilter<"Owner"> | string
+  phone_number?: Prisma.StringFilter<"Owner"> | string
   email?: Prisma.StringNullableFilter<"Owner"> | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFilter<"Owner"> | $Enums.MaritalStatus
-  accountId?: Prisma.StringFilter<"Owner"> | string
-  addressId?: Prisma.StringFilter<"Owner"> | string
-  createdAt?: Prisma.DateTimeFilter<"Owner"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Owner"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Owner"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Owner"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Owner"> | string | null
+  marital_status?: Prisma.EnumMaritalStatusFilter<"Owner"> | $Enums.MaritalStatus
+  account_id?: Prisma.StringFilter<"Owner"> | string
+  address_id?: Prisma.StringFilter<"Owner"> | string
+  created_at?: Prisma.DateTimeFilter<"Owner"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Owner"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Owner"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Owner"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Owner"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Owner"> | string | null
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   address?: Prisma.XOR<Prisma.AddressScalarRelationFilter, Prisma.AddressWhereInput>
   properties?: Prisma.PropertyListRelationFilter
-  rentalContracts?: Prisma.RentalContractListRelationFilter
+  contracts?: Prisma.ContractListRelationFilter
 }
 
 export type OwnerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   account?: Prisma.AccountOrderByWithRelationInput
   address?: Prisma.AddressOrderByWithRelationInput
   properties?: Prisma.PropertyOrderByRelationAggregateInput
-  rentalContracts?: Prisma.RentalContractOrderByRelationAggregateInput
+  contracts?: Prisma.ContractOrderByRelationAggregateInput
 }
 
 export type OwnerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   document?: string
-  accountId?: string
-  addressId?: string
+  account_id?: string
+  address_id?: string
   AND?: Prisma.OwnerWhereInput | Prisma.OwnerWhereInput[]
   OR?: Prisma.OwnerWhereInput[]
   NOT?: Prisma.OwnerWhereInput | Prisma.OwnerWhereInput[]
   name?: Prisma.StringFilter<"Owner"> | string
-  phoneNumber?: Prisma.StringFilter<"Owner"> | string
+  phone_number?: Prisma.StringFilter<"Owner"> | string
   email?: Prisma.StringNullableFilter<"Owner"> | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFilter<"Owner"> | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFilter<"Owner"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Owner"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Owner"> | Date | string | null
-  createdBy?: Prisma.StringNullableFilter<"Owner"> | string | null
-  updatedBy?: Prisma.StringNullableFilter<"Owner"> | string | null
+  marital_status?: Prisma.EnumMaritalStatusFilter<"Owner"> | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFilter<"Owner"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"Owner"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"Owner"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"Owner"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"Owner"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"Owner"> | string | null
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   address?: Prisma.XOR<Prisma.AddressScalarRelationFilter, Prisma.AddressWhereInput>
   properties?: Prisma.PropertyListRelationFilter
-  rentalContracts?: Prisma.RentalContractListRelationFilter
-}, "id" | "document" | "accountId" | "addressId">
+  contracts?: Prisma.ContractListRelationFilter
+}, "id" | "document" | "account_id" | "address_id">
 
 export type OwnerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
-  updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OwnerCountOrderByAggregateInput
   _max?: Prisma.OwnerMaxOrderByAggregateInput
   _min?: Prisma.OwnerMinOrderByAggregateInput
@@ -321,134 +332,142 @@ export type OwnerScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Owner"> | string
   name?: Prisma.StringWithAggregatesFilter<"Owner"> | string
   document?: Prisma.StringWithAggregatesFilter<"Owner"> | string
-  phoneNumber?: Prisma.StringWithAggregatesFilter<"Owner"> | string
+  phone_number?: Prisma.StringWithAggregatesFilter<"Owner"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Owner"> | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusWithAggregatesFilter<"Owner"> | $Enums.MaritalStatus
-  accountId?: Prisma.StringWithAggregatesFilter<"Owner"> | string
-  addressId?: Prisma.StringWithAggregatesFilter<"Owner"> | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Owner"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Owner"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
-  createdBy?: Prisma.StringNullableWithAggregatesFilter<"Owner"> | string | null
-  updatedBy?: Prisma.StringNullableWithAggregatesFilter<"Owner"> | string | null
+  marital_status?: Prisma.EnumMaritalStatusWithAggregatesFilter<"Owner"> | $Enums.MaritalStatus
+  account_id?: Prisma.StringWithAggregatesFilter<"Owner"> | string
+  address_id?: Prisma.StringWithAggregatesFilter<"Owner"> | string
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"Owner"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"Owner"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Owner"> | Date | string | null
+  created_by?: Prisma.StringNullableWithAggregatesFilter<"Owner"> | string | null
+  updated_by?: Prisma.StringNullableWithAggregatesFilter<"Owner"> | string | null
+  deleted_by?: Prisma.StringNullableWithAggregatesFilter<"Owner"> | string | null
 }
 
 export type OwnerCreateInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account: Prisma.AccountCreateNestedOneWithoutOwnerInput
   address: Prisma.AddressCreateNestedOneWithoutOwnerInput
   properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerUncheckedCreateInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id: string
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneRequiredWithoutOwnerNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutOwnerNestedInput
   properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerCreateManyInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id: string
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type OwnerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OwnerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OwnerNullableScalarRelationFilter = {
@@ -456,57 +475,60 @@ export type OwnerNullableScalarRelationFilter = {
   isNot?: Prisma.OwnerWhereInput | null
 }
 
+export type OwnerScalarRelationFilter = {
+  is?: Prisma.OwnerWhereInput
+  isNot?: Prisma.OwnerWhereInput
+}
+
 export type OwnerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type OwnerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type OwnerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   document?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
+  phone_number?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  maritalStatus?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  addressId?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdBy?: Prisma.SortOrder
-  updatedBy?: Prisma.SortOrder
-}
-
-export type OwnerScalarRelationFilter = {
-  is?: Prisma.OwnerWhereInput
-  isNot?: Prisma.OwnerWhereInput
+  marital_status?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  address_id?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type OwnerCreateNestedOneWithoutAccountInput = {
@@ -573,6 +595,20 @@ export type OwnerUncheckedUpdateOneWithoutAddressNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerUpdateToOneWithWhereWithoutAddressInput, Prisma.OwnerUpdateWithoutAddressInput>, Prisma.OwnerUncheckedUpdateWithoutAddressInput>
 }
 
+export type OwnerCreateNestedOneWithoutContractsInput = {
+  create?: Prisma.XOR<Prisma.OwnerCreateWithoutContractsInput, Prisma.OwnerUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.OwnerCreateOrConnectWithoutContractsInput
+  connect?: Prisma.OwnerWhereUniqueInput
+}
+
+export type OwnerUpdateOneRequiredWithoutContractsNestedInput = {
+  create?: Prisma.XOR<Prisma.OwnerCreateWithoutContractsInput, Prisma.OwnerUncheckedCreateWithoutContractsInput>
+  connectOrCreate?: Prisma.OwnerCreateOrConnectWithoutContractsInput
+  upsert?: Prisma.OwnerUpsertWithoutContractsInput
+  connect?: Prisma.OwnerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerUpdateToOneWithWhereWithoutContractsInput, Prisma.OwnerUpdateWithoutContractsInput>, Prisma.OwnerUncheckedUpdateWithoutContractsInput>
+}
+
 export type EnumMaritalStatusFieldUpdateOperationsInput = {
   set?: $Enums.MaritalStatus
 }
@@ -591,52 +627,40 @@ export type OwnerUpdateOneRequiredWithoutPropertiesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerUpdateToOneWithWhereWithoutPropertiesInput, Prisma.OwnerUpdateWithoutPropertiesInput>, Prisma.OwnerUncheckedUpdateWithoutPropertiesInput>
 }
 
-export type OwnerCreateNestedOneWithoutRentalContractsInput = {
-  create?: Prisma.XOR<Prisma.OwnerCreateWithoutRentalContractsInput, Prisma.OwnerUncheckedCreateWithoutRentalContractsInput>
-  connectOrCreate?: Prisma.OwnerCreateOrConnectWithoutRentalContractsInput
-  connect?: Prisma.OwnerWhereUniqueInput
-}
-
-export type OwnerUpdateOneRequiredWithoutRentalContractsNestedInput = {
-  create?: Prisma.XOR<Prisma.OwnerCreateWithoutRentalContractsInput, Prisma.OwnerUncheckedCreateWithoutRentalContractsInput>
-  connectOrCreate?: Prisma.OwnerCreateOrConnectWithoutRentalContractsInput
-  upsert?: Prisma.OwnerUpsertWithoutRentalContractsInput
-  connect?: Prisma.OwnerWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerUpdateToOneWithWhereWithoutRentalContractsInput, Prisma.OwnerUpdateWithoutRentalContractsInput>, Prisma.OwnerUncheckedUpdateWithoutRentalContractsInput>
-}
-
 export type OwnerCreateWithoutAccountInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   address: Prisma.AddressCreateNestedOneWithoutOwnerInput
   properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerUncheckedCreateWithoutAccountInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerCreateOrConnectWithoutAccountInput = {
@@ -659,68 +683,72 @@ export type OwnerUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.AddressUpdateOneRequiredWithoutOwnerNestedInput
   properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerUncheckedUpdateWithoutAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerCreateWithoutAddressInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account: Prisma.AccountCreateNestedOneWithoutOwnerInput
   properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerUncheckedCreateWithoutAddressInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerCreateOrConnectWithoutAddressInput = {
@@ -743,68 +771,160 @@ export type OwnerUpdateWithoutAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneRequiredWithoutOwnerNestedInput
   properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerUncheckedUpdateWithoutAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type OwnerCreateWithoutContractsInput = {
+  id?: string
+  name: string
+  document: string
+  phone_number: string
+  email?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  account: Prisma.AccountCreateNestedOneWithoutOwnerInput
+  address: Prisma.AddressCreateNestedOneWithoutOwnerInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
+}
+
+export type OwnerUncheckedCreateWithoutContractsInput = {
+  id?: string
+  name: string
+  document: string
+  phone_number: string
+  email?: string | null
+  marital_status: $Enums.MaritalStatus
+  account_id: string
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type OwnerCreateOrConnectWithoutContractsInput = {
+  where: Prisma.OwnerWhereUniqueInput
+  create: Prisma.XOR<Prisma.OwnerCreateWithoutContractsInput, Prisma.OwnerUncheckedCreateWithoutContractsInput>
+}
+
+export type OwnerUpsertWithoutContractsInput = {
+  update: Prisma.XOR<Prisma.OwnerUpdateWithoutContractsInput, Prisma.OwnerUncheckedUpdateWithoutContractsInput>
+  create: Prisma.XOR<Prisma.OwnerCreateWithoutContractsInput, Prisma.OwnerUncheckedCreateWithoutContractsInput>
+  where?: Prisma.OwnerWhereInput
+}
+
+export type OwnerUpdateToOneWithWhereWithoutContractsInput = {
+  where?: Prisma.OwnerWhereInput
+  data: Prisma.XOR<Prisma.OwnerUpdateWithoutContractsInput, Prisma.OwnerUncheckedUpdateWithoutContractsInput>
+}
+
+export type OwnerUpdateWithoutContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  document?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  account?: Prisma.AccountUpdateOneRequiredWithoutOwnerNestedInput
+  address?: Prisma.AddressUpdateOneRequiredWithoutOwnerNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
+}
+
+export type OwnerUncheckedUpdateWithoutContractsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  document?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerCreateWithoutPropertiesInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
+  marital_status: $Enums.MaritalStatus
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account: Prisma.AccountCreateNestedOneWithoutOwnerInput
   address: Prisma.AddressCreateNestedOneWithoutOwnerInput
-  rentalContracts?: Prisma.RentalContractCreateNestedManyWithoutOwnerInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerUncheckedCreateWithoutPropertiesInput = {
   id?: string
   name: string
   document: string
-  phoneNumber: string
+  phone_number: string
   email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  rentalContracts?: Prisma.RentalContractUncheckedCreateNestedManyWithoutOwnerInput
+  marital_status: $Enums.MaritalStatus
+  account_id: string
+  address_id: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type OwnerCreateOrConnectWithoutPropertiesInput = {
@@ -827,118 +947,36 @@ export type OwnerUpdateWithoutPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneRequiredWithoutOwnerNestedInput
   address?: Prisma.AddressUpdateOneRequiredWithoutOwnerNestedInput
-  rentalContracts?: Prisma.RentalContractUpdateManyWithoutOwnerNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutOwnerNestedInput
 }
 
 export type OwnerUncheckedUpdateWithoutPropertiesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  phone_number?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rentalContracts?: Prisma.RentalContractUncheckedUpdateManyWithoutOwnerNestedInput
-}
-
-export type OwnerCreateWithoutRentalContractsInput = {
-  id?: string
-  name: string
-  document: string
-  phoneNumber: string
-  email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  account: Prisma.AccountCreateNestedOneWithoutOwnerInput
-  address: Prisma.AddressCreateNestedOneWithoutOwnerInput
-  properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
-}
-
-export type OwnerUncheckedCreateWithoutRentalContractsInput = {
-  id?: string
-  name: string
-  document: string
-  phoneNumber: string
-  email?: string | null
-  maritalStatus: $Enums.MaritalStatus
-  accountId: string
-  addressId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  createdBy?: string | null
-  updatedBy?: string | null
-  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
-}
-
-export type OwnerCreateOrConnectWithoutRentalContractsInput = {
-  where: Prisma.OwnerWhereUniqueInput
-  create: Prisma.XOR<Prisma.OwnerCreateWithoutRentalContractsInput, Prisma.OwnerUncheckedCreateWithoutRentalContractsInput>
-}
-
-export type OwnerUpsertWithoutRentalContractsInput = {
-  update: Prisma.XOR<Prisma.OwnerUpdateWithoutRentalContractsInput, Prisma.OwnerUncheckedUpdateWithoutRentalContractsInput>
-  create: Prisma.XOR<Prisma.OwnerCreateWithoutRentalContractsInput, Prisma.OwnerUncheckedCreateWithoutRentalContractsInput>
-  where?: Prisma.OwnerWhereInput
-}
-
-export type OwnerUpdateToOneWithWhereWithoutRentalContractsInput = {
-  where?: Prisma.OwnerWhereInput
-  data: Prisma.XOR<Prisma.OwnerUpdateWithoutRentalContractsInput, Prisma.OwnerUncheckedUpdateWithoutRentalContractsInput>
-}
-
-export type OwnerUpdateWithoutRentalContractsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  account?: Prisma.AccountUpdateOneRequiredWithoutOwnerNestedInput
-  address?: Prisma.AddressUpdateOneRequiredWithoutOwnerNestedInput
-  properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
-}
-
-export type OwnerUncheckedUpdateWithoutRentalContractsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  document?: Prisma.StringFieldUpdateOperationsInput | string
-  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  maritalStatus?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
-  accountId?: Prisma.StringFieldUpdateOperationsInput | string
-  addressId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
+  marital_status?: Prisma.EnumMaritalStatusFieldUpdateOperationsInput | $Enums.MaritalStatus
+  account_id?: Prisma.StringFieldUpdateOperationsInput | string
+  address_id?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 
@@ -948,12 +986,12 @@ export type OwnerUncheckedUpdateWithoutRentalContractsInput = {
 
 export type OwnerCountOutputType = {
   properties: number
-  rentalContracts: number
+  contracts: number
 }
 
 export type OwnerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   properties?: boolean | OwnerCountOutputTypeCountPropertiesArgs
-  rentalContracts?: boolean | OwnerCountOutputTypeCountRentalContractsArgs
+  contracts?: boolean | OwnerCountOutputTypeCountContractsArgs
 }
 
 /**
@@ -976,8 +1014,8 @@ export type OwnerCountOutputTypeCountPropertiesArgs<ExtArgs extends runtime.Type
 /**
  * OwnerCountOutputType without action
  */
-export type OwnerCountOutputTypeCountRentalContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RentalContractWhereInput
+export type OwnerCountOutputTypeCountContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ContractWhereInput
 }
 
 
@@ -985,20 +1023,21 @@ export type OwnerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
   properties?: boolean | Prisma.Owner$propertiesArgs<ExtArgs>
-  rentalContracts?: boolean | Prisma.Owner$rentalContractsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Owner$contractsArgs<ExtArgs>
   _count?: boolean | Prisma.OwnerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["owner"]>
 
@@ -1006,16 +1045,17 @@ export type OwnerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["owner"]>
@@ -1024,16 +1064,17 @@ export type OwnerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["owner"]>
@@ -1042,24 +1083,25 @@ export type OwnerSelectScalar = {
   id?: boolean
   name?: boolean
   document?: boolean
-  phoneNumber?: boolean
+  phone_number?: boolean
   email?: boolean
-  maritalStatus?: boolean
-  accountId?: boolean
-  addressId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  deletedAt?: boolean
-  createdBy?: boolean
-  updatedBy?: boolean
+  marital_status?: boolean
+  account_id?: boolean
+  address_id?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }
 
-export type OwnerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "document" | "phoneNumber" | "email" | "maritalStatus" | "accountId" | "addressId" | "createdAt" | "updatedAt" | "deletedAt" | "createdBy" | "updatedBy", ExtArgs["result"]["owner"]>
+export type OwnerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "document" | "phone_number" | "email" | "marital_status" | "account_id" | "address_id" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["owner"]>
 export type OwnerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   address?: boolean | Prisma.AddressDefaultArgs<ExtArgs>
   properties?: boolean | Prisma.Owner$propertiesArgs<ExtArgs>
-  rentalContracts?: boolean | Prisma.Owner$rentalContractsArgs<ExtArgs>
+  contracts?: boolean | Prisma.Owner$contractsArgs<ExtArgs>
   _count?: boolean | Prisma.OwnerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OwnerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1077,22 +1119,23 @@ export type $OwnerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     account: Prisma.$AccountPayload<ExtArgs>
     address: Prisma.$AddressPayload<ExtArgs>
     properties: Prisma.$PropertyPayload<ExtArgs>[]
-    rentalContracts: Prisma.$RentalContractPayload<ExtArgs>[]
+    contracts: Prisma.$ContractPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     document: string
-    phoneNumber: string
+    phone_number: string
     email: string | null
-    maritalStatus: $Enums.MaritalStatus
-    accountId: string
-    addressId: string
-    createdAt: Date
-    updatedAt: Date
-    deletedAt: Date | null
-    createdBy: string | null
-    updatedBy: string | null
+    marital_status: $Enums.MaritalStatus
+    account_id: string
+    address_id: string
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
   }, ExtArgs["result"]["owner"]>
   composites: {}
 }
@@ -1490,7 +1533,7 @@ export interface Prisma__OwnerClient<T, Null = never, ExtArgs extends runtime.Ty
   account<T extends Prisma.AccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AccountDefaultArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   address<T extends Prisma.AddressDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AddressDefaultArgs<ExtArgs>>): Prisma.Prisma__AddressClient<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   properties<T extends Prisma.Owner$propertiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Owner$propertiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  rentalContracts<T extends Prisma.Owner$rentalContractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Owner$rentalContractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RentalContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  contracts<T extends Prisma.Owner$contractsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Owner$contractsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1523,16 +1566,17 @@ export interface OwnerFieldRefs {
   readonly id: Prisma.FieldRef<"Owner", 'String'>
   readonly name: Prisma.FieldRef<"Owner", 'String'>
   readonly document: Prisma.FieldRef<"Owner", 'String'>
-  readonly phoneNumber: Prisma.FieldRef<"Owner", 'String'>
+  readonly phone_number: Prisma.FieldRef<"Owner", 'String'>
   readonly email: Prisma.FieldRef<"Owner", 'String'>
-  readonly maritalStatus: Prisma.FieldRef<"Owner", 'MaritalStatus'>
-  readonly accountId: Prisma.FieldRef<"Owner", 'String'>
-  readonly addressId: Prisma.FieldRef<"Owner", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Owner", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"Owner", 'DateTime'>
-  readonly deletedAt: Prisma.FieldRef<"Owner", 'DateTime'>
-  readonly createdBy: Prisma.FieldRef<"Owner", 'String'>
-  readonly updatedBy: Prisma.FieldRef<"Owner", 'String'>
+  readonly marital_status: Prisma.FieldRef<"Owner", 'MaritalStatus'>
+  readonly account_id: Prisma.FieldRef<"Owner", 'String'>
+  readonly address_id: Prisma.FieldRef<"Owner", 'String'>
+  readonly created_at: Prisma.FieldRef<"Owner", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"Owner", 'DateTime'>
+  readonly deleted_at: Prisma.FieldRef<"Owner", 'DateTime'>
+  readonly created_by: Prisma.FieldRef<"Owner", 'String'>
+  readonly updated_by: Prisma.FieldRef<"Owner", 'String'>
+  readonly deleted_by: Prisma.FieldRef<"Owner", 'String'>
 }
     
 
@@ -1958,27 +2002,27 @@ export type Owner$propertiesArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Owner.rentalContracts
+ * Owner.contracts
  */
-export type Owner$rentalContractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Owner$contractsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the RentalContract
+   * Select specific fields to fetch from the Contract
    */
-  select?: Prisma.RentalContractSelect<ExtArgs> | null
+  select?: Prisma.ContractSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the RentalContract
+   * Omit specific fields from the Contract
    */
-  omit?: Prisma.RentalContractOmit<ExtArgs> | null
+  omit?: Prisma.ContractOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.RentalContractInclude<ExtArgs> | null
-  where?: Prisma.RentalContractWhereInput
-  orderBy?: Prisma.RentalContractOrderByWithRelationInput | Prisma.RentalContractOrderByWithRelationInput[]
-  cursor?: Prisma.RentalContractWhereUniqueInput
+  include?: Prisma.ContractInclude<ExtArgs> | null
+  where?: Prisma.ContractWhereInput
+  orderBy?: Prisma.ContractOrderByWithRelationInput | Prisma.ContractOrderByWithRelationInput[]
+  cursor?: Prisma.ContractWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.RentalContractScalarFieldEnum | Prisma.RentalContractScalarFieldEnum[]
+  distinct?: Prisma.ContractScalarFieldEnum | Prisma.ContractScalarFieldEnum[]
 }
 
 /**

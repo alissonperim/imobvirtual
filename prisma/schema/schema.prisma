@@ -44,7 +44,7 @@ enum PropertyStatus {
   MAINTENANCE
 }
 
-enum RentalContractStatus {
+enum ContractStatus {
   ACTIVE
   FINISHED
   CANCELLED

@@ -1,25 +1,26 @@
 model Property {
-  id                String         @id @default(nanoid())
-  name              String
-  description       String?
-  baseRentAmount    Decimal        @db.Decimal(10, 2)
-  solarEnergyActive Boolean        @default(false)
-  status            PropertyStatus
-  ownerId           String
-  addressId         String?        @unique
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
-  deletedAt         DateTime?
-  createdBy         String?
-  updatedBy         String?
+  id                        String         @id @default(nanoid())
+  name                      String
+  description               String?
+  base_rent_amount          Decimal        @db.Decimal(10, 2)
+  solar_energy_active       Boolean        @default(false)
+  status                    PropertyStatus
+  owner_id                  String
+  address_id                String?        @unique
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
+  deleted_at                DateTime?
+  created_by                String?
+  updated_by                String?
+  deleted_by                String?
 
-  owner           Owner            @relation(fields: [ownerId], references: [id])
-  address         Address?         @relation(fields: [addressId], references: [id])
-  rentalContracts RentalContract[]
+  owner           Owner            @relation(fields: [owner_id], references: [id])
+  address         Address?         @relation(fields: [address_id], references: [id])
+  contracts       Contract[]
 
-  @@index([ownerId])
+  @@index([owner_id])
   @@index([status])
-  @@index([deletedAt, createdAt])
-  @@index([ownerId, status, deletedAt])
+  @@index([deleted_at, created_at])
+  @@index([owner_id, status, deleted_at])
   @@map("properties")
 }

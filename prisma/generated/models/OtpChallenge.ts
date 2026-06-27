@@ -39,13 +39,17 @@ export type OtpChallengeMinAggregateOutputType = {
   destination: string | null
   purpose: $Enums.OtpPurpose | null
   channel: $Enums.OtpChannel | null
-  accountId: string | null
-  codeHash: string | null
-  expiresAt: Date | null
+  account_id: string | null
+  code_hash: string | null
+  expires_at: Date | null
   attempts: number | null
-  consumedAt: Date | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  consumed_at: Date | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type OtpChallengeMaxAggregateOutputType = {
@@ -53,13 +57,17 @@ export type OtpChallengeMaxAggregateOutputType = {
   destination: string | null
   purpose: $Enums.OtpPurpose | null
   channel: $Enums.OtpChannel | null
-  accountId: string | null
-  codeHash: string | null
-  expiresAt: Date | null
+  account_id: string | null
+  code_hash: string | null
+  expires_at: Date | null
   attempts: number | null
-  consumedAt: Date | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  consumed_at: Date | null
+  created_at: Date | null
+  updated_at: Date | null
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
 }
 
 export type OtpChallengeCountAggregateOutputType = {
@@ -67,13 +75,17 @@ export type OtpChallengeCountAggregateOutputType = {
   destination: number
   purpose: number
   channel: number
-  accountId: number
-  codeHash: number
-  expiresAt: number
+  account_id: number
+  code_hash: number
+  expires_at: number
   attempts: number
-  consumedAt: number
-  createdAt: number
-  updatedAt: number
+  consumed_at: number
+  created_at: number
+  updated_at: number
+  deleted_at: number
+  created_by: number
+  updated_by: number
+  deleted_by: number
   _all: number
 }
 
@@ -91,13 +103,17 @@ export type OtpChallengeMinAggregateInputType = {
   destination?: true
   purpose?: true
   channel?: true
-  accountId?: true
-  codeHash?: true
-  expiresAt?: true
+  account_id?: true
+  code_hash?: true
+  expires_at?: true
   attempts?: true
-  consumedAt?: true
-  createdAt?: true
-  updatedAt?: true
+  consumed_at?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type OtpChallengeMaxAggregateInputType = {
@@ -105,13 +121,17 @@ export type OtpChallengeMaxAggregateInputType = {
   destination?: true
   purpose?: true
   channel?: true
-  accountId?: true
-  codeHash?: true
-  expiresAt?: true
+  account_id?: true
+  code_hash?: true
+  expires_at?: true
   attempts?: true
-  consumedAt?: true
-  createdAt?: true
-  updatedAt?: true
+  consumed_at?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
 }
 
 export type OtpChallengeCountAggregateInputType = {
@@ -119,13 +139,17 @@ export type OtpChallengeCountAggregateInputType = {
   destination?: true
   purpose?: true
   channel?: true
-  accountId?: true
-  codeHash?: true
-  expiresAt?: true
+  account_id?: true
+  code_hash?: true
+  expires_at?: true
   attempts?: true
-  consumedAt?: true
-  createdAt?: true
-  updatedAt?: true
+  consumed_at?: true
+  created_at?: true
+  updated_at?: true
+  deleted_at?: true
+  created_by?: true
+  updated_by?: true
+  deleted_by?: true
   _all?: true
 }
 
@@ -220,13 +244,17 @@ export type OtpChallengeGroupByOutputType = {
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  accountId: string | null
-  codeHash: string
-  expiresAt: Date
+  account_id: string | null
+  code_hash: string
+  expires_at: Date
   attempts: number
-  consumedAt: Date | null
-  createdAt: Date
-  updatedAt: Date
+  consumed_at: Date | null
+  created_at: Date
+  updated_at: Date
+  deleted_at: Date | null
+  created_by: string | null
+  updated_by: string | null
+  deleted_by: string | null
   _count: OtpChallengeCountAggregateOutputType | null
   _avg: OtpChallengeAvgAggregateOutputType | null
   _sum: OtpChallengeSumAggregateOutputType | null
@@ -257,13 +285,17 @@ export type OtpChallengeWhereInput = {
   destination?: Prisma.StringFilter<"OtpChallenge"> | string
   purpose?: Prisma.EnumOtpPurposeFilter<"OtpChallenge"> | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFilter<"OtpChallenge"> | $Enums.OtpChannel
-  accountId?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
-  codeHash?: Prisma.StringFilter<"OtpChallenge"> | string
-  expiresAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  account_id?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  code_hash?: Prisma.StringFilter<"OtpChallenge"> | string
+  expires_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
   attempts?: Prisma.IntFilter<"OtpChallenge"> | number
-  consumedAt?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  consumed_at?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
 }
 
@@ -272,13 +304,17 @@ export type OtpChallengeOrderByWithRelationInput = {
   destination?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   channel?: Prisma.SortOrder
-  accountId?: Prisma.SortOrderInput | Prisma.SortOrder
-  codeHash?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  account_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  code_hash?: Prisma.SortOrder
+  expires_at?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
-  consumedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  consumed_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   account?: Prisma.AccountOrderByWithRelationInput
 }
 
@@ -290,13 +326,17 @@ export type OtpChallengeWhereUniqueInput = Prisma.AtLeast<{
   destination?: Prisma.StringFilter<"OtpChallenge"> | string
   purpose?: Prisma.EnumOtpPurposeFilter<"OtpChallenge"> | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFilter<"OtpChallenge"> | $Enums.OtpChannel
-  accountId?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
-  codeHash?: Prisma.StringFilter<"OtpChallenge"> | string
-  expiresAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  account_id?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  code_hash?: Prisma.StringFilter<"OtpChallenge"> | string
+  expires_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
   attempts?: Prisma.IntFilter<"OtpChallenge"> | number
-  consumedAt?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  consumed_at?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
   account?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
 }, "id">
 
@@ -305,13 +345,17 @@ export type OtpChallengeOrderByWithAggregationInput = {
   destination?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   channel?: Prisma.SortOrder
-  accountId?: Prisma.SortOrderInput | Prisma.SortOrder
-  codeHash?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  account_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  code_hash?: Prisma.SortOrder
+  expires_at?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
-  consumedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  consumed_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  updated_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  deleted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OtpChallengeCountOrderByAggregateInput
   _avg?: Prisma.OtpChallengeAvgOrderByAggregateInput
   _max?: Prisma.OtpChallengeMaxOrderByAggregateInput
@@ -327,13 +371,17 @@ export type OtpChallengeScalarWhereWithAggregatesInput = {
   destination?: Prisma.StringWithAggregatesFilter<"OtpChallenge"> | string
   purpose?: Prisma.EnumOtpPurposeWithAggregatesFilter<"OtpChallenge"> | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelWithAggregatesFilter<"OtpChallenge"> | $Enums.OtpChannel
-  accountId?: Prisma.StringNullableWithAggregatesFilter<"OtpChallenge"> | string | null
-  codeHash?: Prisma.StringWithAggregatesFilter<"OtpChallenge"> | string
-  expiresAt?: Prisma.DateTimeWithAggregatesFilter<"OtpChallenge"> | Date | string
+  account_id?: Prisma.StringNullableWithAggregatesFilter<"OtpChallenge"> | string | null
+  code_hash?: Prisma.StringWithAggregatesFilter<"OtpChallenge"> | string
+  expires_at?: Prisma.DateTimeWithAggregatesFilter<"OtpChallenge"> | Date | string
   attempts?: Prisma.IntWithAggregatesFilter<"OtpChallenge"> | number
-  consumedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OtpChallenge"> | Date | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"OtpChallenge"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"OtpChallenge"> | Date | string
+  consumed_at?: Prisma.DateTimeNullableWithAggregatesFilter<"OtpChallenge"> | Date | string | null
+  created_at?: Prisma.DateTimeWithAggregatesFilter<"OtpChallenge"> | Date | string
+  updated_at?: Prisma.DateTimeWithAggregatesFilter<"OtpChallenge"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"OtpChallenge"> | Date | string | null
+  created_by?: Prisma.StringNullableWithAggregatesFilter<"OtpChallenge"> | string | null
+  updated_by?: Prisma.StringNullableWithAggregatesFilter<"OtpChallenge"> | string | null
+  deleted_by?: Prisma.StringNullableWithAggregatesFilter<"OtpChallenge"> | string | null
 }
 
 export type OtpChallengeCreateInput = {
@@ -341,12 +389,16 @@ export type OtpChallengeCreateInput = {
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  codeHash: string
-  expiresAt: Date | string
+  code_hash: string
+  expires_at: Date | string
   attempts?: number
-  consumedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  consumed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
   account?: Prisma.AccountCreateNestedOneWithoutOtpsInput
 }
 
@@ -355,13 +407,17 @@ export type OtpChallengeUncheckedCreateInput = {
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  accountId?: string | null
-  codeHash: string
-  expiresAt: Date | string
+  account_id?: string | null
+  code_hash: string
+  expires_at: Date | string
   attempts?: number
-  consumedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  consumed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type OtpChallengeUpdateInput = {
@@ -369,12 +425,16 @@ export type OtpChallengeUpdateInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   account?: Prisma.AccountUpdateOneWithoutOtpsNestedInput
 }
 
@@ -383,13 +443,17 @@ export type OtpChallengeUncheckedUpdateInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OtpChallengeCreateManyInput = {
@@ -397,13 +461,17 @@ export type OtpChallengeCreateManyInput = {
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  accountId?: string | null
-  codeHash: string
-  expiresAt: Date | string
+  account_id?: string | null
+  code_hash: string
+  expires_at: Date | string
   attempts?: number
-  consumedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  consumed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type OtpChallengeUpdateManyMutationInput = {
@@ -411,12 +479,16 @@ export type OtpChallengeUpdateManyMutationInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OtpChallengeUncheckedUpdateManyInput = {
@@ -424,13 +496,17 @@ export type OtpChallengeUncheckedUpdateManyInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OtpChallengeListRelationFilter = {
@@ -448,13 +524,17 @@ export type OtpChallengeCountOrderByAggregateInput = {
   destination?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   channel?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  codeHash?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  code_hash?: Prisma.SortOrder
+  expires_at?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
-  consumedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  consumed_at?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type OtpChallengeAvgOrderByAggregateInput = {
@@ -466,13 +546,17 @@ export type OtpChallengeMaxOrderByAggregateInput = {
   destination?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   channel?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  codeHash?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  code_hash?: Prisma.SortOrder
+  expires_at?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
-  consumedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  consumed_at?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type OtpChallengeMinOrderByAggregateInput = {
@@ -480,13 +564,17 @@ export type OtpChallengeMinOrderByAggregateInput = {
   destination?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   channel?: Prisma.SortOrder
-  accountId?: Prisma.SortOrder
-  codeHash?: Prisma.SortOrder
-  expiresAt?: Prisma.SortOrder
+  account_id?: Prisma.SortOrder
+  code_hash?: Prisma.SortOrder
+  expires_at?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
-  consumedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  consumed_at?: Prisma.SortOrder
+  created_at?: Prisma.SortOrder
+  updated_at?: Prisma.SortOrder
+  deleted_at?: Prisma.SortOrder
+  created_by?: Prisma.SortOrder
+  updated_by?: Prisma.SortOrder
+  deleted_by?: Prisma.SortOrder
 }
 
 export type OtpChallengeSumOrderByAggregateInput = {
@@ -543,25 +631,21 @@ export type EnumOtpChannelFieldUpdateOperationsInput = {
   set?: $Enums.OtpChannel
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type OtpChallengeCreateWithoutAccountInput = {
   id?: string
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  codeHash: string
-  expiresAt: Date | string
+  code_hash: string
+  expires_at: Date | string
   attempts?: number
-  consumedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  consumed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type OtpChallengeUncheckedCreateWithoutAccountInput = {
@@ -569,12 +653,16 @@ export type OtpChallengeUncheckedCreateWithoutAccountInput = {
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  codeHash: string
-  expiresAt: Date | string
+  code_hash: string
+  expires_at: Date | string
   attempts?: number
-  consumedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  consumed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type OtpChallengeCreateOrConnectWithoutAccountInput = {
@@ -611,13 +699,17 @@ export type OtpChallengeScalarWhereInput = {
   destination?: Prisma.StringFilter<"OtpChallenge"> | string
   purpose?: Prisma.EnumOtpPurposeFilter<"OtpChallenge"> | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFilter<"OtpChallenge"> | $Enums.OtpChannel
-  accountId?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
-  codeHash?: Prisma.StringFilter<"OtpChallenge"> | string
-  expiresAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  account_id?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  code_hash?: Prisma.StringFilter<"OtpChallenge"> | string
+  expires_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
   attempts?: Prisma.IntFilter<"OtpChallenge"> | number
-  consumedAt?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  consumed_at?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
+  created_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  updated_at?: Prisma.DateTimeFilter<"OtpChallenge"> | Date | string
+  deleted_at?: Prisma.DateTimeNullableFilter<"OtpChallenge"> | Date | string | null
+  created_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  updated_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
+  deleted_by?: Prisma.StringNullableFilter<"OtpChallenge"> | string | null
 }
 
 export type OtpChallengeCreateManyAccountInput = {
@@ -625,12 +717,16 @@ export type OtpChallengeCreateManyAccountInput = {
   destination: string
   purpose: $Enums.OtpPurpose
   channel: $Enums.OtpChannel
-  codeHash: string
-  expiresAt: Date | string
+  code_hash: string
+  expires_at: Date | string
   attempts?: number
-  consumedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  consumed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  deleted_at?: Date | string | null
+  created_by?: string | null
+  updated_by?: string | null
+  deleted_by?: string | null
 }
 
 export type OtpChallengeUpdateWithoutAccountInput = {
@@ -638,12 +734,16 @@ export type OtpChallengeUpdateWithoutAccountInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OtpChallengeUncheckedUpdateWithoutAccountInput = {
@@ -651,12 +751,16 @@ export type OtpChallengeUncheckedUpdateWithoutAccountInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OtpChallengeUncheckedUpdateManyWithoutAccountInput = {
@@ -664,12 +768,16 @@ export type OtpChallengeUncheckedUpdateManyWithoutAccountInput = {
   destination?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumOtpPurposeFieldUpdateOperationsInput | $Enums.OtpPurpose
   channel?: Prisma.EnumOtpChannelFieldUpdateOperationsInput | $Enums.OtpChannel
-  codeHash?: Prisma.StringFieldUpdateOperationsInput | string
-  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  code_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  expires_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
-  consumedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  consumed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deleted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updated_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deleted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -679,13 +787,17 @@ export type OtpChallengeSelect<ExtArgs extends runtime.Types.Extensions.Internal
   destination?: boolean
   purpose?: boolean
   channel?: boolean
-  accountId?: boolean
-  codeHash?: boolean
-  expiresAt?: boolean
+  account_id?: boolean
+  code_hash?: boolean
+  expires_at?: boolean
   attempts?: boolean
-  consumedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  consumed_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.OtpChallenge$accountArgs<ExtArgs>
 }, ExtArgs["result"]["otpChallenge"]>
 
@@ -694,13 +806,17 @@ export type OtpChallengeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   destination?: boolean
   purpose?: boolean
   channel?: boolean
-  accountId?: boolean
-  codeHash?: boolean
-  expiresAt?: boolean
+  account_id?: boolean
+  code_hash?: boolean
+  expires_at?: boolean
   attempts?: boolean
-  consumedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  consumed_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.OtpChallenge$accountArgs<ExtArgs>
 }, ExtArgs["result"]["otpChallenge"]>
 
@@ -709,13 +825,17 @@ export type OtpChallengeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   destination?: boolean
   purpose?: boolean
   channel?: boolean
-  accountId?: boolean
-  codeHash?: boolean
-  expiresAt?: boolean
+  account_id?: boolean
+  code_hash?: boolean
+  expires_at?: boolean
   attempts?: boolean
-  consumedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  consumed_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
   account?: boolean | Prisma.OtpChallenge$accountArgs<ExtArgs>
 }, ExtArgs["result"]["otpChallenge"]>
 
@@ -724,16 +844,20 @@ export type OtpChallengeSelectScalar = {
   destination?: boolean
   purpose?: boolean
   channel?: boolean
-  accountId?: boolean
-  codeHash?: boolean
-  expiresAt?: boolean
+  account_id?: boolean
+  code_hash?: boolean
+  expires_at?: boolean
   attempts?: boolean
-  consumedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  consumed_at?: boolean
+  created_at?: boolean
+  updated_at?: boolean
+  deleted_at?: boolean
+  created_by?: boolean
+  updated_by?: boolean
+  deleted_by?: boolean
 }
 
-export type OtpChallengeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destination" | "purpose" | "channel" | "accountId" | "codeHash" | "expiresAt" | "attempts" | "consumedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["otpChallenge"]>
+export type OtpChallengeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "destination" | "purpose" | "channel" | "account_id" | "code_hash" | "expires_at" | "attempts" | "consumed_at" | "created_at" | "updated_at" | "deleted_at" | "created_by" | "updated_by" | "deleted_by", ExtArgs["result"]["otpChallenge"]>
 export type OtpChallengeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   account?: boolean | Prisma.OtpChallenge$accountArgs<ExtArgs>
 }
@@ -754,13 +878,17 @@ export type $OtpChallengePayload<ExtArgs extends runtime.Types.Extensions.Intern
     destination: string
     purpose: $Enums.OtpPurpose
     channel: $Enums.OtpChannel
-    accountId: string | null
-    codeHash: string
-    expiresAt: Date
+    account_id: string | null
+    code_hash: string
+    expires_at: Date
     attempts: number
-    consumedAt: Date | null
-    createdAt: Date
-    updatedAt: Date
+    consumed_at: Date | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    created_by: string | null
+    updated_by: string | null
+    deleted_by: string | null
   }, ExtArgs["result"]["otpChallenge"]>
   composites: {}
 }
@@ -1189,13 +1317,17 @@ export interface OtpChallengeFieldRefs {
   readonly destination: Prisma.FieldRef<"OtpChallenge", 'String'>
   readonly purpose: Prisma.FieldRef<"OtpChallenge", 'OtpPurpose'>
   readonly channel: Prisma.FieldRef<"OtpChallenge", 'OtpChannel'>
-  readonly accountId: Prisma.FieldRef<"OtpChallenge", 'String'>
-  readonly codeHash: Prisma.FieldRef<"OtpChallenge", 'String'>
-  readonly expiresAt: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
+  readonly account_id: Prisma.FieldRef<"OtpChallenge", 'String'>
+  readonly code_hash: Prisma.FieldRef<"OtpChallenge", 'String'>
+  readonly expires_at: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
   readonly attempts: Prisma.FieldRef<"OtpChallenge", 'Int'>
-  readonly consumedAt: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
-  readonly createdAt: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
+  readonly consumed_at: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
+  readonly created_at: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
+  readonly updated_at: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
+  readonly deleted_at: Prisma.FieldRef<"OtpChallenge", 'DateTime'>
+  readonly created_by: Prisma.FieldRef<"OtpChallenge", 'String'>
+  readonly updated_by: Prisma.FieldRef<"OtpChallenge", 'String'>
+  readonly deleted_by: Prisma.FieldRef<"OtpChallenge", 'String'>
 }
     
 

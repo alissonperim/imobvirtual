@@ -386,12 +386,12 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Account: 'Account',
   Address: 'Address',
+  Contract: 'Contract',
   OtpChallenge: 'OtpChallenge',
   Owner: 'Owner',
   Property: 'Property',
-  RefreshTokenSession: 'RefreshTokenSession',
-  RentalContract: 'RentalContract',
-  Renter: 'Renter'
+  Renter: 'Renter',
+  Session: 'Session'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "address" | "otpChallenge" | "owner" | "property" | "refreshTokenSession" | "rentalContract" | "renter"
+    modelProps: "account" | "address" | "contract" | "otpChallenge" | "owner" | "property" | "renter" | "session"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -556,6 +556,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AddressCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AddressCountAggregateOutputType> | number
+        }
+      }
+    }
+    Contract: {
+      payload: Prisma.$ContractPayload<ExtArgs>
+      fields: Prisma.ContractFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContractFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContractFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        findFirst: {
+          args: Prisma.ContractFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContractFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        findMany: {
+          args: Prisma.ContractFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>[]
+        }
+        create: {
+          args: Prisma.ContractCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        createMany: {
+          args: Prisma.ContractCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContractCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>[]
+        }
+        delete: {
+          args: Prisma.ContractDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        update: {
+          args: Prisma.ContractUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContractDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContractUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContractUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContractUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContractPayload>
+        }
+        aggregate: {
+          args: Prisma.ContractAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContract>
+        }
+        groupBy: {
+          args: Prisma.ContractGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContractCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContractCountAggregateOutputType> | number
         }
       }
     }
@@ -781,154 +855,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    RefreshTokenSession: {
-      payload: Prisma.$RefreshTokenSessionPayload<ExtArgs>
-      fields: Prisma.RefreshTokenSessionFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RefreshTokenSessionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RefreshTokenSessionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>
-        }
-        findFirst: {
-          args: Prisma.RefreshTokenSessionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RefreshTokenSessionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>
-        }
-        findMany: {
-          args: Prisma.RefreshTokenSessionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>[]
-        }
-        create: {
-          args: Prisma.RefreshTokenSessionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>
-        }
-        createMany: {
-          args: Prisma.RefreshTokenSessionCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RefreshTokenSessionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>[]
-        }
-        delete: {
-          args: Prisma.RefreshTokenSessionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>
-        }
-        update: {
-          args: Prisma.RefreshTokenSessionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>
-        }
-        deleteMany: {
-          args: Prisma.RefreshTokenSessionDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RefreshTokenSessionUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RefreshTokenSessionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>[]
-        }
-        upsert: {
-          args: Prisma.RefreshTokenSessionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RefreshTokenSessionPayload>
-        }
-        aggregate: {
-          args: Prisma.RefreshTokenSessionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRefreshTokenSession>
-        }
-        groupBy: {
-          args: Prisma.RefreshTokenSessionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RefreshTokenSessionGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RefreshTokenSessionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RefreshTokenSessionCountAggregateOutputType> | number
-        }
-      }
-    }
-    RentalContract: {
-      payload: Prisma.$RentalContractPayload<ExtArgs>
-      fields: Prisma.RentalContractFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RentalContractFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RentalContractFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>
-        }
-        findFirst: {
-          args: Prisma.RentalContractFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RentalContractFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>
-        }
-        findMany: {
-          args: Prisma.RentalContractFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>[]
-        }
-        create: {
-          args: Prisma.RentalContractCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>
-        }
-        createMany: {
-          args: Prisma.RentalContractCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RentalContractCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>[]
-        }
-        delete: {
-          args: Prisma.RentalContractDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>
-        }
-        update: {
-          args: Prisma.RentalContractUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>
-        }
-        deleteMany: {
-          args: Prisma.RentalContractDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RentalContractUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RentalContractUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>[]
-        }
-        upsert: {
-          args: Prisma.RentalContractUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RentalContractPayload>
-        }
-        aggregate: {
-          args: Prisma.RentalContractAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRentalContract>
-        }
-        groupBy: {
-          args: Prisma.RentalContractGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RentalContractGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RentalContractCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RentalContractCountAggregateOutputType> | number
-        }
-      }
-    }
     Renter: {
       payload: Prisma.$RenterPayload<ExtArgs>
       fields: Prisma.RenterFieldRefs
@@ -1003,6 +929,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Session: {
+      payload: Prisma.$SessionPayload<ExtArgs>
+      fields: Prisma.SessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        findFirst: {
+          args: Prisma.SessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        findMany: {
+          args: Prisma.SessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>[]
+        }
+        create: {
+          args: Prisma.SessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        createMany: {
+          args: Prisma.SessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>[]
+        }
+        delete: {
+          args: Prisma.SessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        update: {
+          args: Prisma.SessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SessionPayload>
+        }
+        aggregate: {
+          args: Prisma.SessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSession>
+        }
+        groupBy: {
+          args: Prisma.SessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SessionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1044,15 +1044,16 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const AccountScalarFieldEnum = {
   id: 'id',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   role: 'role',
   status: 'status',
-  lastLoginAt: 'lastLoginAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  last_login_at: 'last_login_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
@@ -1062,19 +1063,38 @@ export const AddressScalarFieldEnum = {
   id: 'id',
   street: 'street',
   neighborhood: 'neighborhood',
-  postalCode: 'postalCode',
+  postal_code: 'postal_code',
   complement: 'complement',
   city: 'city',
   state: 'state',
   number: 'number',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+export const ContractScalarFieldEnum = {
+  id: 'id',
+  owner_id: 'owner_id',
+  renter_id: 'renter_id',
+  property_id: 'property_id',
+  start_date: 'start_date',
+  end_date: 'end_date',
+  rent_amount: 'rent_amount',
+  due_day: 'due_day',
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
 
 
 export const OtpChallengeScalarFieldEnum = {
@@ -1082,13 +1102,17 @@ export const OtpChallengeScalarFieldEnum = {
   destination: 'destination',
   purpose: 'purpose',
   channel: 'channel',
-  accountId: 'accountId',
-  codeHash: 'codeHash',
-  expiresAt: 'expiresAt',
+  account_id: 'account_id',
+  code_hash: 'code_hash',
+  expires_at: 'expires_at',
   attempts: 'attempts',
-  consumedAt: 'consumedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  consumed_at: 'consumed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type OtpChallengeScalarFieldEnum = (typeof OtpChallengeScalarFieldEnum)[keyof typeof OtpChallengeScalarFieldEnum]
@@ -1098,16 +1122,17 @@ export const OwnerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   document: 'document',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   email: 'email',
-  maritalStatus: 'maritalStatus',
-  accountId: 'accountId',
-  addressId: 'addressId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  marital_status: 'marital_status',
+  account_id: 'account_id',
+  address_id: 'address_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type OwnerScalarFieldEnum = (typeof OwnerScalarFieldEnum)[keyof typeof OwnerScalarFieldEnum]
@@ -1117,71 +1142,54 @@ export const PropertyScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  baseRentAmount: 'baseRentAmount',
-  solarEnergyActive: 'solarEnergyActive',
+  base_rent_amount: 'base_rent_amount',
+  solar_energy_active: 'solar_energy_active',
   status: 'status',
-  ownerId: 'ownerId',
-  addressId: 'addressId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  owner_id: 'owner_id',
+  address_id: 'address_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type PropertyScalarFieldEnum = (typeof PropertyScalarFieldEnum)[keyof typeof PropertyScalarFieldEnum]
-
-
-export const RefreshTokenSessionScalarFieldEnum = {
-  id: 'id',
-  accountId: 'accountId',
-  tokenHash: 'tokenHash',
-  expiresAt: 'expiresAt',
-  revokedAt: 'revokedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RefreshTokenSessionScalarFieldEnum = (typeof RefreshTokenSessionScalarFieldEnum)[keyof typeof RefreshTokenSessionScalarFieldEnum]
-
-
-export const RentalContractScalarFieldEnum = {
-  id: 'id',
-  ownerId: 'ownerId',
-  renterId: 'renterId',
-  propertyId: 'propertyId',
-  startDate: 'startDate',
-  endDate: 'endDate',
-  rentAmount: 'rentAmount',
-  dueDay: 'dueDay',
-  status: 'status',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
-} as const
-
-export type RentalContractScalarFieldEnum = (typeof RentalContractScalarFieldEnum)[keyof typeof RentalContractScalarFieldEnum]
 
 
 export const RenterScalarFieldEnum = {
   id: 'id',
   name: 'name',
   document: 'document',
-  phoneNumber: 'phoneNumber',
+  phone_number: 'phone_number',
   email: 'email',
-  maritalStatus: 'maritalStatus',
-  accountId: 'accountId',
-  addressId: 'addressId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
-  createdBy: 'createdBy',
-  updatedBy: 'updatedBy'
+  marital_status: 'marital_status',
+  account_id: 'account_id',
+  address_id: 'address_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at',
+  created_by: 'created_by',
+  updated_by: 'updated_by',
+  deleted_by: 'deleted_by'
 } as const
 
 export type RenterScalarFieldEnum = (typeof RenterScalarFieldEnum)[keyof typeof RenterScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  deleted_at: 'deleted_at'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1271,6 +1279,48 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractStatus'
+ */
+export type EnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ContractStatus[]'
+ */
+export type ListEnumContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContractStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'OtpPurpose'
  */
 export type EnumOtpPurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OtpPurpose'>
@@ -1299,20 +1349,6 @@ export type ListEnumOtpChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'MaritalStatus'
  */
 export type EnumMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaritalStatus'>
@@ -1323,20 +1359,6 @@ export type EnumMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'MaritalStatus[]'
  */
 export type ListEnumMaritalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaritalStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -1358,20 +1380,6 @@ export type EnumPropertyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'PropertyStatus[]'
  */
 export type ListEnumPropertyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'RentalContractStatus'
- */
-export type EnumRentalContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalContractStatus'>
-    
-
-
-/**
- * Reference to a field of type 'RentalContractStatus[]'
- */
-export type ListEnumRentalContractStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RentalContractStatus[]'>
     
 
 
@@ -1500,12 +1508,12 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   address?: Prisma.AddressOmit
+  contract?: Prisma.ContractOmit
   otpChallenge?: Prisma.OtpChallengeOmit
   owner?: Prisma.OwnerOmit
   property?: Prisma.PropertyOmit
-  refreshTokenSession?: Prisma.RefreshTokenSessionOmit
-  rentalContract?: Prisma.RentalContractOmit
   renter?: Prisma.RenterOmit
+  session?: Prisma.SessionOmit
 }
 
 /* Types for Logging */
