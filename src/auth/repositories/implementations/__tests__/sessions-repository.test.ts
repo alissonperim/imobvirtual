@@ -34,7 +34,6 @@ describe('RefreshTokenSessionsRepository', () => {
     prisma.refreshTokenSession.create.mockResolvedValue(makeRow())
 
     const result = await repository.create({
-      id: 'session-id',
       accountId: 'account-id',
       tokenHash: 'token-hash',
       expiresAt: new Date(Date.now() + 60_000),

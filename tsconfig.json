@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@pkg/*": ["packages/*"],
-      "@app/*": ["src/*"]
+      "@app/*": ["src/*"],
+      "@prisma/*": ["prisma/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

@@ -1,11 +1,15 @@
-import { Inject, Injectable, Logger, UnauthorizedException } from '@nestjs/common'
+import {
+  Inject,
+  Injectable,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common'
 import type { IOtpChallengesRepository } from '../repositories/otp.domain'
 import type { IOtpService } from '../services/otp.service'
 import type { ITokenService } from '../services/token.service'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import type { VerifySignInOtpInput } from '../domain/otp'
 import type { IRefreshTokenSessionsRepository } from '../repositories/session.domain'
-import { randomUUID } from 'node:crypto'
 import { EOtpPurpose } from '@pkg/types'
 
 export interface IVerifySignInOtpUseCase {
@@ -70,11 +74,9 @@ export class VerifySignInOtpUseCase implements IVerifySignInOtpUseCase {
       throw new UnauthorizedException('Account not found')
     }
 
-    const sessionId = randomUUID()
     const refreshTokenData = this.tokenService.generateRefreshToken()
 
-    await this.refreshTokenSessionsRepository.create({
-      id: sessionId,
+    const session = await this.refreshTokenSessionsRepository.create({
       accountId: account.id,
       tokenHash: refreshTokenData.tokenHash,
       expiresAt: refreshTokenData.expiresAt,
@@ -83,7 +85,7 @@ export class VerifySignInOtpUseCase implements IVerifySignInOtpUseCase {
     const { accessToken } = await this.tokenService.generate({
       clientId: account.id,
       role: account.role,
-      sessionId,
+      sessionId: session.id,
     })
 
     this.logger.log(`[DEV] accessToken: ${accessToken}`)

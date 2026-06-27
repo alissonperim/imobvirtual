@@ -38,7 +38,6 @@ export type RefreshTokenSession = {
 }
 
 export type CreateRefreshTokenSessionInput = {
-  id: string
   accountId: string
   tokenHash: string
   expiresAt: Date

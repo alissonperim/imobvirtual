@@ -86,6 +86,7 @@ describe('VerifySignInOtpUseCase', () => {
     repository.findActiveById.mockResolvedValue(otpChallenge)
     otpService.validateOtp.mockReturnValue(true)
     accountsRepository.getById.mockResolvedValue(account)
+    refreshTokenSessionsRepository.create.mockResolvedValue({ id: 'session-id' } as never)
     tokenService.generate.mockResolvedValue({ accessToken: 'access-token' })
     tokenService.generateRefreshToken.mockReturnValue({
       refreshToken: 'refresh-token',
@@ -108,7 +109,6 @@ describe('VerifySignInOtpUseCase', () => {
       sessionId: expect.any(String),
     })
     expect(refreshTokenSessionsRepository.create).toHaveBeenCalledWith({
-      id: expect.any(String),
       accountId: account.id,
       tokenHash: 'refresh-token-hash',
       expiresAt: new Date('2026-02-01T00:00:00.000Z'),

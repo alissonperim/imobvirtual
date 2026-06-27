@@ -15,7 +15,6 @@ export class RefreshTokenSessionsRepository implements IRefreshTokenSessionsRepo
   ): Promise<RefreshTokenSession> {
     const row = await this.prisma.refreshTokenSession.create({
       data: {
-        id: params.id,
         accountId: params.accountId,
         tokenHash: params.tokenHash,
         expiresAt: params.expiresAt,

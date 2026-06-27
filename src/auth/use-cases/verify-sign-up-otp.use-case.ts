@@ -11,7 +11,6 @@ import type { ITokenService } from '../services/token.service'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import type { VerifySignUpOtpInput } from '../domain/otp'
 import type { IRefreshTokenSessionsRepository } from '../repositories/session.domain'
-import { randomUUID } from 'node:crypto'
 import { EAccountStatus, EOtpPurpose } from '@pkg/types'
 
 export interface IVerifySignUpOtpUseCase {
@@ -81,11 +80,9 @@ export class VerifySignUpOtpUseCase implements IVerifySignUpOtpUseCase {
       throw new BadRequestException('Failed to create account')
     }
 
-    const sessionId = randomUUID()
     const refreshTokenData = this.tokenService.generateRefreshToken()
 
-    await this.refreshTokenSessionsRepository.create({
-      id: sessionId,
+    const session = await this.refreshTokenSessionsRepository.create({
       accountId: account.id,
       tokenHash: refreshTokenData.tokenHash,
       expiresAt: refreshTokenData.expiresAt,
@@ -94,7 +91,7 @@ export class VerifySignUpOtpUseCase implements IVerifySignUpOtpUseCase {
     const { accessToken } = await this.tokenService.generate({
       clientId: account.id,
       role: account.role,
-      sessionId,
+      sessionId: session.id,
     })
 
     this.logger.log(`[DEV] accessToken: ${accessToken}`)
