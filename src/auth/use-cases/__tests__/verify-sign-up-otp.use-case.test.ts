@@ -9,7 +9,7 @@ import {
   type Otp,
 } from '@pkg/types'
 import type { IOtpChallengesRepository } from '../../repositories/otp.domain'
-import type { IRefreshTokenSessionsRepository } from '../../repositories/session.domain'
+import type { ISessionsRepository } from '../../repositories/session.domain'
 import type { IOtpService } from '../../services/otp.service'
 import type { ITokenService } from '../../services/token.service'
 import { VerifySignUpOtpUseCase } from '../verify-sign-up-otp.use-case'
@@ -19,7 +19,7 @@ describe('VerifySignUpOtpUseCase', () => {
   let otpService: jest.Mocked<IOtpService>
   let tokenService: jest.Mocked<ITokenService>
   let accountsRepository: jest.Mocked<IAccountsRepository>
-  let sessionsRepository: jest.Mocked<IRefreshTokenSessionsRepository>
+  let sessionsRepository: jest.Mocked<ISessionsRepository>
   let sut: VerifySignUpOtpUseCase
 
   const challenge: Otp = {

@@ -11,11 +11,11 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
   async create(params: OtpCreateRepositoryInput): Promise<Otp> {
     const row = await this.prisma.otpChallenge.create({
       data: {
-        accountId: params.accountId,
+        account_id: params.accountId,
         destination: params.destination,
         channel: params.channel,
-        codeHash: params.codeHash,
-        expiresAt: params.expiresAt,
+        code_hash: params.codeHash,
+        expires_at: params.expiresAt,
         purpose: params.purpose,
       },
     })
@@ -24,7 +24,7 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
 
   async findActiveById(id: string): Promise<Otp | undefined> {
     const row = await this.prisma.otpChallenge.findFirst({
-      where: { id, expiresAt: { gt: new Date() }, consumedAt: null },
+      where: { id, expires_at: { gt: new Date() }, consumed_at: null },
     })
     return row ? this.toOtp(row) : undefined
   }
@@ -39,14 +39,18 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
   async consume(id: string): Promise<void> {
     await this.prisma.otpChallenge.update({
       where: { id },
-      data: { consumedAt: new Date() },
+      data: { consumed_at: new Date() },
     })
   }
 
   async consumeActiveByAccountId(accountId: string): Promise<void> {
     await this.prisma.otpChallenge.updateMany({
-      where: { accountId, consumedAt: null, expiresAt: { gt: new Date() } },
-      data: { consumedAt: new Date() },
+      where: {
+        account_id: accountId,
+        consumed_at: null,
+        expires_at: { gt: new Date() },
+      },
+      data: { consumed_at: new Date() },
     })
   }
 
@@ -55,26 +59,26 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
     destination: string
     purpose: string
     channel: string
-    accountId: string | null
-    codeHash: string
-    expiresAt: Date
+    account_id: string | null
+    code_hash: string
+    expires_at: Date
     attempts: number
-    consumedAt: Date | null
-    createdAt: Date
-    updatedAt: Date
+    consumed_at: Date | null
+    created_at: Date
+    updated_at: Date
   }): Otp {
     return {
       id: row.id,
       destination: row.destination,
       purpose: row.purpose as EOtpPurpose,
       channel: row.channel as EOtpChannel,
-      accountId: row.accountId ?? undefined,
-      codeHash: row.codeHash,
-      expiresAt: row.expiresAt,
+      accountId: row.account_id ?? undefined,
+      codeHash: row.code_hash,
+      expiresAt: row.expires_at,
       attempts: row.attempts,
-      consumedAt: row.consumedAt ?? undefined,
-      createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
+      consumedAt: row.consumed_at ?? undefined,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
     }
   }
 }

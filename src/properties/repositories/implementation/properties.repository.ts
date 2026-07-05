@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
-import { Property, EPropertyStatus, EMaritalStatus } from '@pkg/types'
-import type { Address } from '@pkg/types'
+import { Property } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { PrismaService } from '@app/prisma/prisma.service'
 import type { IPropertiesRepository } from '../domain'
@@ -10,74 +8,10 @@ import type {
   FindAllPropertiesInput,
   UpdatePropertyInput,
 } from '../../dto'
-
-const include = {
-  owner: { include: { address: true } },
-  address: true,
-} as const
-
-type PropertyWithRelations = Prisma.PropertyGetPayload<{
-  include: typeof include
-}>
+import { includeQuery, mapRow } from '@app/properties/dto/domain'
+import { isP2025 } from '@pkg/utils/error-utils'
 
 const MAX_PAGE_SIZE = 100
-
-function mapAddress(
-  addr: NonNullable<PropertyWithRelations['address']>,
-): Address {
-  return {
-    id: addr.id,
-    street: addr.street,
-    neighborhood: addr.neighborhood,
-    postalCode: addr.postalCode,
-    complement: addr.complement,
-    city: addr.city,
-    state: addr.state,
-    number: addr.number,
-    createdAt: addr.createdAt,
-    updatedAt: addr.updatedAt,
-    deletedAt: addr.deletedAt ?? undefined,
-    createdBy: addr.createdBy ?? undefined,
-    updatedBy: addr.updatedBy ?? undefined,
-  }
-}
-
-function mapRow(row: PropertyWithRelations): Property {
-  return {
-    id: row.id,
-    name: row.name,
-    description: row.description ?? undefined,
-    baseRentAmount: Number(row.baseRentAmount),
-    solarEnergyActive: row.solarEnergyActive,
-    status: row.status as EPropertyStatus,
-    owner: {
-      id: row.owner.id,
-      name: row.owner.name,
-      document: row.owner.document,
-      phoneNumber: row.owner.phoneNumber,
-      maritalStatus: row.owner.maritalStatus as EMaritalStatus,
-      email: row.owner.email ?? undefined,
-      accountId: row.owner.accountId,
-      address: mapAddress(row.owner.address),
-      properties: [],
-      createdAt: row.owner.createdAt,
-      updatedAt: row.owner.updatedAt,
-      deletedAt: row.owner.deletedAt ?? undefined,
-      createdBy: row.owner.createdBy ?? undefined,
-      updatedBy: row.owner.updatedBy ?? undefined,
-    },
-    address: row.address ? mapAddress(row.address) : undefined,
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
-    deletedAt: row.deletedAt ?? undefined,
-    createdBy: row.createdBy ?? undefined,
-    updatedBy: row.updatedBy ?? undefined,
-  }
-}
-
-function isP2025(e: unknown): boolean {
-  return e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025'
-}
 
 @Injectable()
 export class PropertiesRepository implements IPropertiesRepository {
@@ -88,14 +22,14 @@ export class PropertiesRepository implements IPropertiesRepository {
       data: {
         name: params.name,
         description: params.description,
-        baseRentAmount: params.baseRentAmount,
-        solarEnergyActive: params.solarEnergyActive,
+        base_rent_amount: params.baseRentAmount,
+        solar_energy_active: params.solarEnergyActive,
         status: params.status,
-        ownerId: params.ownerId,
-        addressId: params.addressId,
-        createdBy: params.createdBy,
+        owner_id: params.ownerId,
+        address_id: params.addressId,
+        created_by: params.createdBy,
       },
-      include,
+      include: includeQuery,
     })
     return mapRow(row)
   }
@@ -118,8 +52,8 @@ export class PropertiesRepository implements IPropertiesRepository {
       where,
       skip,
       take: pageSize + 1,
-      include,
-      orderBy: { createdAt: 'desc' },
+      include: includeQuery,
+      orderBy: { created_at: 'desc' },
     })
 
     const hasMore = rows.length > pageSize
@@ -130,8 +64,8 @@ export class PropertiesRepository implements IPropertiesRepository {
 
   async findById(id: string): Promise<Property | null> {
     const row = await this.prisma.property.findFirst({
-      where: { id, deletedAt: null },
-      include,
+      where: { id, deleted_at: null },
+      include: includeQuery,
     })
     return row ? mapRow(row) : null
   }
@@ -142,11 +76,11 @@ export class PropertiesRepository implements IPropertiesRepository {
   ): Promise<Property | null> {
     try {
       const row = await this.prisma.property.update({
-        where: { id, deletedAt: null },
+        where: { id, deleted_at: null },
         data: {
           ...removeUndefinedValues(params as Record<string, unknown>),
         },
-        include,
+        include: includeQuery,
       })
       return mapRow(row)
     } catch (e) {
@@ -158,8 +92,8 @@ export class PropertiesRepository implements IPropertiesRepository {
   async softDelete(id: string): Promise<boolean> {
     try {
       await this.prisma.property.update({
-        where: { id, deletedAt: null },
-        data: { deletedAt: new Date() },
+        where: { id, deleted_at: null },
+        data: { deleted_at: new Date() },
       })
       return true
     } catch (e) {

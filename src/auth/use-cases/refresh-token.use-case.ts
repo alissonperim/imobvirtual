@@ -2,7 +2,7 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
 import { EAccountStatus } from '@pkg/types'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import type { RefreshTokenInput, TokenPair } from '../domain/session'
-import type { IRefreshTokenSessionsRepository } from '../repositories/session.domain'
+import type { ISessionsRepository } from '../repositories/session.domain'
 import type { ITokenService } from '../services/token.service'
 
 export interface IRefreshTokenUseCase {
@@ -13,7 +13,7 @@ export interface IRefreshTokenUseCase {
 export class RefreshTokenUseCase implements IRefreshTokenUseCase {
   constructor(
     @Inject('REFRESH_TOKEN_SESSIONS_REPOSITORY')
-    private readonly sessionsRepository: IRefreshTokenSessionsRepository,
+    private readonly sessionsRepository: ISessionsRepository,
 
     @Inject('ACCESS_TOKEN_SERVICE')
     private readonly tokenService: ITokenService,

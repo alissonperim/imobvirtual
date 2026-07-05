@@ -10,7 +10,7 @@ import type { IOtpService } from '../services/otp.service'
 import type { ITokenService } from '../services/token.service'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import type { VerifySignUpOtpInput } from '../domain/otp'
-import type { IRefreshTokenSessionsRepository } from '../repositories/session.domain'
+import type { ISessionsRepository } from '../repositories/session.domain'
 import { EAccountStatus, EOtpPurpose } from '@pkg/types'
 
 export interface IVerifySignUpOtpUseCase {
@@ -37,7 +37,7 @@ export class VerifySignUpOtpUseCase implements IVerifySignUpOtpUseCase {
     private readonly accountsRepository: IAccountsRepository,
 
     @Inject('REFRESH_TOKEN_SESSIONS_REPOSITORY')
-    private readonly refreshTokenSessionsRepository: IRefreshTokenSessionsRepository,
+    private readonly SessionsRepository: ISessionsRepository,
   ) {}
 
   async execute(
@@ -82,7 +82,7 @@ export class VerifySignUpOtpUseCase implements IVerifySignUpOtpUseCase {
 
     const refreshTokenData = this.tokenService.generateRefreshToken()
 
-    const session = await this.refreshTokenSessionsRepository.create({
+    const session = await this.SessionsRepository.create({
       accountId: account.id,
       tokenHash: refreshTokenData.tokenHash,
       expiresAt: refreshTokenData.expiresAt,

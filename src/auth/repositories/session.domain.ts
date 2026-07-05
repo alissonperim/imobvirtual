@@ -1,13 +1,8 @@
-import type {
-  CreateRefreshTokenSessionInput,
-  RefreshTokenSession,
-} from '../domain/session'
+import type { CreateSessionInput, Session } from '../domain/session'
 
-export interface IRefreshTokenSessionsRepository {
-  create(params: CreateRefreshTokenSessionInput): Promise<RefreshTokenSession>
-  findActiveByTokenHash(
-    tokenHash: string,
-  ): Promise<RefreshTokenSession | undefined>
+export interface ISessionsRepository {
+  create(params: CreateSessionInput): Promise<Session>
+  findActiveByTokenHash(tokenHash: string): Promise<Session | undefined>
   rotate(
     sessionId: string,
     currentTokenHash: string,

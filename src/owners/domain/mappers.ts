@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client'
-import type { Address, EMaritalStatus, Owner } from '@pkg/types'
+import { Address, EMaritalStatus, Owner } from '@pkg/types'
+import { Prisma } from '@prisma/generated/client'
 
 export const include = {
   address: true,
@@ -12,16 +12,16 @@ export function mapAddress(addr: OwnerRow['address']): Address {
     id: addr.id,
     street: addr.street,
     neighborhood: addr.neighborhood,
-    postalCode: addr.postalCode,
+    postalCode: addr.postal_code,
     complement: addr.complement,
     city: addr.city,
     state: addr.state,
     number: addr.number,
-    createdAt: addr.createdAt,
-    updatedAt: addr.updatedAt,
-    deletedAt: addr.deletedAt ?? undefined,
-    createdBy: addr.createdBy ?? undefined,
-    updatedBy: addr.updatedBy ?? undefined,
+    createdAt: addr.created_at,
+    updatedAt: addr.updated_at,
+    deletedAt: addr.deleted_at ?? undefined,
+    createdBy: addr.created_by ?? undefined,
+    updatedBy: addr.updated_by ?? undefined,
   }
 }
 
@@ -30,16 +30,16 @@ export function mapOwner(row: OwnerRow): Owner {
     id: row.id,
     name: row.name,
     document: row.document,
-    phoneNumber: row.phoneNumber,
+    phoneNumber: row.phone_number,
     email: row.email ?? undefined,
-    maritalStatus: row.maritalStatus as EMaritalStatus,
-    accountId: row.accountId,
+    maritalStatus: row.marital_status as EMaritalStatus,
+    accountId: row.account_id,
     address: mapAddress(row.address),
     properties: [],
-    createdAt: row.createdAt,
-    updatedAt: row.updatedAt,
-    deletedAt: row.deletedAt ?? undefined,
-    createdBy: row.createdBy ?? undefined,
-    updatedBy: row.updatedBy ?? undefined,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    deletedAt: row.deleted_at ?? undefined,
+    createdBy: row.created_by ?? undefined,
+    updatedBy: row.updated_by ?? undefined,
   }
 }

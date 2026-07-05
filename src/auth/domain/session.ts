@@ -27,17 +27,17 @@ export class RefreshTokenInput {
   refreshToken!: string
 }
 
-export type RefreshTokenSession = {
+export type Session = {
   id: string
   accountId: string
   tokenHash: string
   expiresAt: Date
   createdAt: Date
   updatedAt: Date
-  revokedAt?: Date
+  revokedAt: Date | null
 }
 
-export type CreateRefreshTokenSessionInput = {
+export type CreateSessionInput = {
   accountId: string
   tokenHash: string
   expiresAt: Date

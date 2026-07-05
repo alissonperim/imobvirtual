@@ -24,7 +24,9 @@ pnpm jest src/auth/use-cases/__tests__/request-otp.use-case.test.ts
 
 ## Architecture
 
-This is a **NestJS** application following Clean Architecture. Business logic lives in use-cases; repositories abstract data access; domain types are shared via a local `packages/` monorepo.
+- This is a **NestJS** application following Clean Architecture. Business logic lives in use-cases; repositories abstract data access; domain types are shared via a local `packages/` monorepo.
+- The database entities must use kebab_case to his attributes
+- The dto functions should map the database returns to a camelCase properties name. They should be created on the dto folder in a domain file, follow the example frm `/properties/dto/domain.ts`
 
 ### Path aliases
 

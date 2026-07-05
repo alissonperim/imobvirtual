@@ -14,7 +14,7 @@ export class AccountsRepository implements IAccountsRepository {
   async create(params: CreateAccountInput): Promise<Account> {
     const row = await this.prisma.account.create({
       data: {
-        phoneNumber: params.phoneNumber,
+        phone_number: params.phoneNumber,
         role: params.role,
         status: params.status,
       },
@@ -26,7 +26,7 @@ export class AccountsRepository implements IAccountsRepository {
     params: GetByDestinationInput,
   ): Promise<Account | undefined> {
     const row = await this.prisma.account.findFirst({
-      where: { phoneNumber: params.phoneNumber, deletedAt: null },
+      where: { phone_number: params.phoneNumber, deleted_at: null },
     })
 
     if (!row) {
@@ -43,27 +43,27 @@ export class AccountsRepository implements IAccountsRepository {
 
   private toAccount(row: {
     id: string
-    phoneNumber: string
+    phone_number: string
     role: string
     status: string
-    lastLoginAt: Date | null
-    createdAt: Date
-    updatedAt: Date
-    deletedAt: Date | null
-    createdBy: string | null
-    updatedBy: string | null
+    last_login_at: Date | null
+    created_at: Date
+    updated_at: Date
+    deleted_at: Date | null
+    created_by: string | null
+    updated_by: string | null
   }): Account {
     return {
       id: row.id,
-      phoneNumber: row.phoneNumber,
+      phoneNumber: row.phone_number,
       role: row.role as EAccountRole,
       status: row.status as EAccountStatus,
-      lastLoginAt: row.lastLoginAt ?? undefined,
-      createdAt: row.createdAt,
-      updatedAt: row.updatedAt,
-      deletedAt: row.deletedAt ?? undefined,
-      createdBy: row.createdBy ?? undefined,
-      updatedBy: row.updatedBy ?? undefined,
+      lastLoginAt: row.last_login_at ?? undefined,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+      deletedAt: row.deleted_at ?? undefined,
+      createdBy: row.created_by ?? undefined,
+      updatedBy: row.updated_by ?? undefined,
     }
   }
 }

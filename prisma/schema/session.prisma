@@ -2,6 +2,10 @@ model Session {
   id                      String    @id @default(nanoid())
   account_id              String
   token_hash              String    @unique
+  user_agent              String?   @db.VarChar()
+  ip_address              String?
+  last_logged_at          DateTime?
+  device_id               String?
   expires_at              DateTime
   revoked_at              DateTime?
   created_at              DateTime  @default(now())
@@ -12,4 +16,3 @@ model Session {
 
   @@map("sessions")
 }
-

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
 import type { Owner } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { PrismaService } from '@app/prisma/prisma.service'
@@ -10,6 +9,7 @@ import type {
   UpdateOwnerInput,
 } from '../../dto'
 import { include, mapOwner } from '../../domain/mappers'
+import { Prisma } from '@prisma/generated/client'
 
 const MAX_PAGE_SIZE = 100
 
@@ -26,12 +26,12 @@ export class OwnersRepository implements IOwnersRepository {
       data: {
         name: params.name,
         document: params.document,
-        phoneNumber: params.phoneNumber,
+        phone_number: params.phoneNumber,
         email: params.email,
-        maritalStatus: params.maritalStatus,
-        accountId: params.accountId,
-        addressId: params.addressId,
-        createdBy: params.createdBy,
+        marital_status: params.maritalStatus,
+        account_id: params.accountId,
+        address_id: params.addressId,
+        created_by: params.createdBy,
       },
       include,
     })
@@ -44,11 +44,11 @@ export class OwnersRepository implements IOwnersRepository {
     const skip = (page - 1) * pageSize
 
     const rows = await this.prisma.owner.findMany({
-      where: { deletedAt: null },
+      where: { deleted_at: null },
       skip,
       take: pageSize + 1,
       include,
-      orderBy: { createdAt: 'desc' },
+      orderBy: { created_at: 'desc' },
     })
 
     const hasMore = rows.length > pageSize
@@ -82,8 +82,8 @@ export class OwnersRepository implements IOwnersRepository {
   async softDelete(id: string): Promise<boolean> {
     try {
       await this.prisma.owner.update({
-        where: { id, deletedAt: null },
-        data: { deletedAt: new Date() },
+        where: { id, deleted_at: null },
+        data: { deleted_at: new Date() },
       })
       return true
     } catch (e) {

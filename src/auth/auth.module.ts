@@ -7,7 +7,7 @@ import { AuthController } from './auth.controllers'
 import { RequestOtpUseCase } from './use-cases/request-otp.use-case'
 import { VerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
 import { AccountsModule } from '@app/accounts/accounts.module'
-import { RefreshTokenSessionsRepository } from './repositories/implementations/sessions.repository'
+import { SessionsRepository } from './repositories/implementations/sessions.repository'
 import { RefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 import { VerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
 
@@ -23,7 +23,7 @@ import { VerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
     },
     {
       provide: 'REFRESH_TOKEN_SESSIONS_REPOSITORY',
-      useClass: RefreshTokenSessionsRepository,
+      useClass: SessionsRepository,
     },
     {
       provide: 'ACCESS_TOKEN_SERVICE',

@@ -1,12 +1,12 @@
 import { UnauthorizedException } from '@nestjs/common'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
 import { EAccountRole, EAccountStatus, type Account } from '@pkg/types'
-import type { IRefreshTokenSessionsRepository } from '../../repositories/session.domain'
+import type { ISessionsRepository } from '../../repositories/session.domain'
 import type { ITokenService } from '../../services/token.service'
 import { RefreshTokenUseCase } from '../refresh-token.use-case'
 
 describe('RefreshTokenUseCase', () => {
-  let sessionsRepository: jest.Mocked<IRefreshTokenSessionsRepository>
+  let sessionsRepository: jest.Mocked<ISessionsRepository>
   let tokenService: jest.Mocked<ITokenService>
   let accountsRepository: jest.Mocked<IAccountsRepository>
   let sut: RefreshTokenUseCase
@@ -27,6 +27,7 @@ describe('RefreshTokenUseCase', () => {
     expiresAt: new Date('2026-07-01T00:00:00.000Z'),
     createdAt: new Date('2026-06-01T00:00:00.000Z'),
     updatedAt: new Date('2026-06-01T00:00:00.000Z'),
+    revokedAt: new Date('2026-06-01T00:00:00.000Z'),
   }
 
   beforeEach(() => {

@@ -12,14 +12,14 @@ import type { IOtpChallengesRepository } from '../../repositories/otp.domain'
 import type { IOtpService } from '../../services/otp.service'
 import type { ITokenService } from '../../services/token.service'
 import { VerifySignInOtpUseCase } from '../verify-sign-in-otp.use-case'
-import type { IRefreshTokenSessionsRepository } from '../../repositories/session.domain'
+import type { ISessionsRepository } from '../../repositories/session.domain'
 
 describe('VerifySignInOtpUseCase', () => {
   let repository: jest.Mocked<IOtpChallengesRepository>
   let otpService: jest.Mocked<IOtpService>
   let tokenService: jest.Mocked<ITokenService>
   let accountsRepository: jest.Mocked<IAccountsRepository>
-  let refreshTokenSessionsRepository: jest.Mocked<IRefreshTokenSessionsRepository>
+  let SessionsRepository: jest.Mocked<ISessionsRepository>
   let sut: VerifySignInOtpUseCase
 
   const account: Account = {
@@ -67,7 +67,7 @@ describe('VerifySignInOtpUseCase', () => {
       getByDestination: jest.fn(),
       getById: jest.fn(),
     }
-    refreshTokenSessionsRepository = {
+    SessionsRepository = {
       create: jest.fn(),
       findActiveByTokenHash: jest.fn(),
       rotate: jest.fn(),
@@ -78,7 +78,7 @@ describe('VerifySignInOtpUseCase', () => {
       otpService,
       tokenService,
       accountsRepository,
-      refreshTokenSessionsRepository,
+      SessionsRepository,
     )
   })
 
@@ -86,7 +86,7 @@ describe('VerifySignInOtpUseCase', () => {
     repository.findActiveById.mockResolvedValue(otpChallenge)
     otpService.validateOtp.mockReturnValue(true)
     accountsRepository.getById.mockResolvedValue(account)
-    refreshTokenSessionsRepository.create.mockResolvedValue({ id: 'session-id' } as never)
+    SessionsRepository.create.mockResolvedValue({ id: 'session-id' } as never)
     tokenService.generate.mockResolvedValue({ accessToken: 'access-token' })
     tokenService.generateRefreshToken.mockReturnValue({
       refreshToken: 'refresh-token',
@@ -108,7 +108,7 @@ describe('VerifySignInOtpUseCase', () => {
       role: account.role,
       sessionId: expect.any(String),
     })
-    expect(refreshTokenSessionsRepository.create).toHaveBeenCalledWith({
+    expect(SessionsRepository.create).toHaveBeenCalledWith({
       accountId: account.id,
       tokenHash: 'refresh-token-hash',
       expiresAt: new Date('2026-02-01T00:00:00.000Z'),
