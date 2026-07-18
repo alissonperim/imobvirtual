@@ -1,17 +1,12 @@
 import {
-  BeforeInsert,
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryColumn,
   RelationId,
-  UpdateDateColumn,
 } from 'typeorm'
 import { EMaritalStatus } from '@pkg/types'
-import { generateId } from '../utils/generate-id'
 import { AccountEntity } from './account.entity'
 import { AddressEntity } from './address.entity'
 import { PropertyEntity } from './property.entity'
@@ -19,70 +14,42 @@ import { ContractEntity } from './contract.entity'
 
 @Entity('owners')
 export class OwnerEntity {
-  @PrimaryColumn({ type: 'varchar', length: 21 })
-  id: string
-
   @Column()
-  name: string
+  name!: string
 
   @Column({ unique: true })
-  document: string
+  document!: string
 
   @Column({ name: 'phone_number' })
-  phoneNumber: string
+  phoneNumber!: string
 
   @Column({ type: 'varchar', nullable: true })
-  email: string | null
+  email!: string | null
 
   @Column({ name: 'marital_status', type: 'enum', enum: EMaritalStatus })
-  maritalStatus: EMaritalStatus
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
-
-  @Column({ name: 'deleted_at', type: 'timestamp', nullable: true })
-  deletedAt: Date | null
-
-  @Column({ name: 'created_by', type: 'varchar', nullable: true })
-  createdBy: string | null
-
-  @Column({ name: 'updated_by', type: 'varchar', nullable: true })
-  updatedBy: string | null
-
-  @Column({ name: 'deleted_by', type: 'varchar', nullable: true })
-  deletedBy: string | null
+  maritalStatus!: EMaritalStatus
 
   @OneToOne(() => AccountEntity, (account) => account.owner, {
     nullable: false,
   })
   @JoinColumn({ name: 'account_id' })
-  account: AccountEntity
+  account!: AccountEntity
 
   @RelationId((owner: OwnerEntity) => owner.account)
-  accountId: string
+  accountId!: string
 
   @OneToOne(() => AddressEntity, (address) => address.owner, {
     nullable: false,
   })
   @JoinColumn({ name: 'address_id' })
-  address: AddressEntity
+  address!: AddressEntity
 
   @RelationId((owner: OwnerEntity) => owner.address)
-  addressId: string
+  addressId!: string
 
   @OneToMany(() => PropertyEntity, (property) => property.owner)
   properties?: PropertyEntity[]
 
   @OneToMany(() => ContractEntity, (contract) => contract.owner)
   contracts?: ContractEntity[]
-
-  @BeforeInsert()
-  assignGeneratedId() {
-    if (!this.id) {
-      this.id = generateId()
-    }
-  }
 }

@@ -1,60 +1,30 @@
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToOne,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm'
-import { generateId } from '../utils/generate-id'
+import { BaseEntity, Column, Entity, OneToOne } from 'typeorm'
 import { OwnerEntity } from './owner.entity'
 import { RenterEntity } from './renter.entity'
 import { PropertyEntity } from './property.entity'
 
 @Entity('addresses')
-export class AddressEntity {
-  @PrimaryColumn({ type: 'varchar', length: 21 })
-  id: string
+export class AddressEntity extends BaseEntity {
+  @Column()
+  street!: string
 
   @Column()
-  street: string
-
-  @Column()
-  neighborhood: string
+  neighborhood!: string
 
   @Column({ name: 'postal_code' })
-  postalCode: string
+  postalCode!: string
 
   @Column()
-  complement: string
+  complement!: string
 
   @Column()
-  city: string
+  city!: string
 
   @Column()
-  state: string
+  state!: string
 
   @Column()
-  number: string
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date
-
-  @Column({ name: 'deleted_at', type: 'timestamp', nullable: true })
-  deletedAt: Date | null
-
-  @Column({ name: 'created_by', type: 'varchar', nullable: true })
-  createdBy: string | null
-
-  @Column({ name: 'updated_by', type: 'varchar', nullable: true })
-  updatedBy: string | null
-
-  @Column({ name: 'deleted_by', type: 'varchar', nullable: true })
-  deletedBy: string | null
+  number!: string
 
   @OneToOne(() => OwnerEntity, (owner) => owner.address)
   owner?: OwnerEntity
@@ -64,11 +34,4 @@ export class AddressEntity {
 
   @OneToOne(() => PropertyEntity, (property) => property.address)
   property?: PropertyEntity
-
-  @BeforeInsert()
-  assignGeneratedId() {
-    if (!this.id) {
-      this.id = generateId()
-    }
-  }
 }
