@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
 import { AppController } from './app.controller'
-import { PrismaModule } from './prisma/prisma.module'
+import { DatabaseModule } from './database/database.module'
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard'
 import { PropertiesModule } from './properties/properties.module'
 import { OwnersModule } from './owners/owners.module'
@@ -12,7 +12,7 @@ import { AccountsModule } from './accounts/accounts.module'
 
 @Module({
   imports: [
-    PrismaModule,
+    DatabaseModule,
     PropertiesModule,
     OwnersModule,
     RentalContractsModule,

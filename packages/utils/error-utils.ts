@@ -1,5 +1,5 @@
-import { Prisma } from '@db-config/generated/client'
+import type { UpdateResult } from 'typeorm'
 
-export const isP2025 = (e: unknown): boolean => {
-  return e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025'
+export const wasAffected = (result: UpdateResult): boolean => {
+  return (result.affected ?? 0) > 0
 }

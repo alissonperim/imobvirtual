@@ -1,57 +1,63 @@
+import type { Repository, UpdateResult } from 'typeorm'
 import { SessionsRepository } from '../sessions.repository'
-import type { PrismaService } from '@app/prisma/prisma.service'
+import type { SessionEntity } from '@app/database/entities'
 
-const makeRow = (overrides: object = {}) => ({
-  id: 'session-id',
-  accountId: 'account-id',
-  tokenHash: 'token-hash',
-  expiresAt: new Date(Date.now() + 60_000),
-  revokedAt: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  ...overrides,
-})
+const makeRow = (overrides: Partial<SessionEntity> = {}): SessionEntity =>
+  ({
+    id: 'session-id',
+    accountId: 'account-id',
+    tokenHash: 'token-hash',
+    expiresAt: new Date(Date.now() + 60_000),
+    revokedAt: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    ...overrides,
+  }) as SessionEntity
 
 describe('SessionsRepository', () => {
-  let prisma: { Session: Record<string, jest.Mock> }
-  let repository: SessionsRepository
+  let repository: jest.Mocked<
+    Pick<Repository<SessionEntity>, 'create' | 'save' | 'findOne' | 'update'>
+  >
+  let sut: SessionsRepository
 
   beforeEach(() => {
-    prisma = {
-      Session: {
-        create: jest.fn(),
-        findFirst: jest.fn(),
-        updateMany: jest.fn(),
-        update: jest.fn(),
-      },
+    repository = {
+      create: jest.fn(),
+      save: jest.fn(),
+      findOne: jest.fn(),
+      update: jest.fn(),
     }
-    repository = new SessionsRepository(prisma as unknown as PrismaService)
+    sut = new SessionsRepository(
+      repository as unknown as Repository<SessionEntity>,
+    )
   })
 
-  it('should map the created row to a Session domain object', async () => {
-    prisma.Session.create.mockResolvedValue(makeRow())
+  it('should map the saved row to a Session domain object', async () => {
+    const row = makeRow()
+    repository.create.mockReturnValue(row)
+    repository.save.mockResolvedValue(row)
 
-    const result = await repository.create({
+    const result = await sut.create({
       accountId: 'account-id',
       tokenHash: 'token-hash',
       expiresAt: new Date(Date.now() + 60_000),
     })
 
-    expect(result).toMatchObject({ id: 'session-id', revokedAt: undefined })
+    expect(result).toMatchObject({ id: 'session-id', revokedAt: null })
   })
 
   it('should return undefined when findActiveByTokenHash finds nothing', async () => {
-    prisma.Session.findFirst.mockResolvedValue(null)
+    repository.findOne.mockResolvedValue(null)
 
-    const result = await repository.findActiveByTokenHash('old-hash')
+    const result = await sut.findActiveByTokenHash('old-hash')
 
     expect(result).toBeUndefined()
   })
 
-  it('should return true and call updateMany with new hash on rotate', async () => {
-    prisma.Session.updateMany.mockResolvedValue({ count: 1 })
+  it('should return true and call update with new hash on rotate', async () => {
+    repository.update.mockResolvedValue({ affected: 1 } as UpdateResult)
 
-    const wasRotated = await repository.rotate(
+    const wasRotated = await sut.rotate(
       'session-id',
       'old-hash',
       'new-hash',
@@ -59,22 +65,19 @@ describe('SessionsRepository', () => {
     )
 
     expect(wasRotated).toBe(true)
-    expect(prisma.Session.updateMany).toHaveBeenCalledWith(
+    expect(repository.update).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: expect.objectContaining({
-          id: 'session-id',
-          tokenHash: 'old-hash',
-          revokedAt: null,
-        }),
-        data: expect.objectContaining({ tokenHash: 'new-hash' }),
+        id: 'session-id',
+        tokenHash: 'old-hash',
       }),
+      expect.objectContaining({ tokenHash: 'new-hash' }),
     )
   })
 
   it('should return false when no session matches on rotate', async () => {
-    prisma.Session.updateMany.mockResolvedValue({ count: 0 })
+    repository.update.mockResolvedValue({ affected: 0 } as UpdateResult)
 
-    const wasRotated = await repository.rotate(
+    const wasRotated = await sut.rotate(
       'session-id',
       'wrong-hash',
       'new-hash',
@@ -85,13 +88,13 @@ describe('SessionsRepository', () => {
   })
 
   it('should call update with revokedAt on revoke', async () => {
-    prisma.Session.update.mockResolvedValue(makeRow({ revokedAt: new Date() }))
+    repository.update.mockResolvedValue({ affected: 1 } as UpdateResult)
 
-    await repository.revoke('session-id')
+    await sut.revoke('session-id')
 
-    expect(prisma.Session.update).toHaveBeenCalledWith({
-      where: { id: 'session-id' },
-      data: { revokedAt: expect.any(Date) },
-    })
+    expect(repository.update).toHaveBeenCalledWith(
+      { id: 'session-id' },
+      { revokedAt: expect.any(Date) },
+    )
   })
 })

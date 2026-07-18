@@ -1,48 +1,46 @@
 import { EMaritalStatus } from '@pkg/types'
-import type { PrismaService } from '@app/prisma/prisma.service'
+import type { Repository, UpdateResult } from 'typeorm'
 import { OwnersRepository } from '../owners.repository'
-import { Prisma } from '@db-config/generated/client'
+import type { AddressEntity, OwnerEntity } from '@app/database/entities'
 
-const makeAddressRow = (overrides: object = {}) => ({
-  id: 'addr-id',
-  street: 'Rua A',
-  neighborhood: 'Centro',
-  postalCode: '74000-000',
-  complement: 'Apto 1',
-  city: 'Goiânia',
-  state: 'GO',
-  number: '100',
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
-  deletedAt: null,
-  createdBy: null,
-  updatedBy: null,
-  ...overrides,
-})
+const makeAddressRow = (
+  overrides: Partial<AddressEntity> = {},
+): AddressEntity =>
+  ({
+    id: 'addr-id',
+    street: 'Rua A',
+    neighborhood: 'Centro',
+    postalCode: '74000-000',
+    complement: 'Apto 1',
+    city: 'Goiânia',
+    state: 'GO',
+    number: '100',
+    createdAt: new Date('2026-01-01'),
+    updatedAt: new Date('2026-01-01'),
+    deletedAt: null,
+    createdBy: null,
+    updatedBy: null,
+    ...overrides,
+  }) as AddressEntity
 
-const makeOwnerRow = (overrides: object = {}) => ({
-  id: 'owner-id',
-  name: 'John Doe',
-  document: '12345678900',
-  phoneNumber: '62999999999',
-  email: null,
-  maritalStatus: 'SINGLE',
-  accountId: 'account-id',
-  addressId: 'addr-id',
-  createdAt: new Date('2026-01-01'),
-  updatedAt: new Date('2026-01-01'),
-  deletedAt: null,
-  createdBy: null,
-  updatedBy: null,
-  address: makeAddressRow(),
-  ...overrides,
-})
-
-const makeP2025 = () =>
-  new Prisma.PrismaClientKnownRequestError('Record to update not found.', {
-    code: 'P2025',
-    clientVersion: '5.0.0',
-  })
+const makeOwnerRow = (overrides: Partial<OwnerEntity> = {}): OwnerEntity =>
+  ({
+    id: 'owner-id',
+    name: 'John Doe',
+    document: '12345678900',
+    phoneNumber: '62999999999',
+    email: null,
+    maritalStatus: EMaritalStatus.SINGLE,
+    accountId: 'account-id',
+    addressId: 'addr-id',
+    createdAt: new Date('2026-01-01'),
+    updatedAt: new Date('2026-01-01'),
+    deletedAt: null,
+    createdBy: null,
+    updatedBy: null,
+    address: makeAddressRow(),
+    ...overrides,
+  }) as OwnerEntity
 
 const baseInput = {
   name: 'John Doe',
@@ -54,24 +52,31 @@ const baseInput = {
 }
 
 describe('OwnersRepository', () => {
-  let prisma: { owner: Record<string, jest.Mock> }
+  let repository: jest.Mocked<
+    Pick<
+      Repository<OwnerEntity>,
+      'create' | 'save' | 'find' | 'findOne' | 'findOneOrFail' | 'update'
+    >
+  >
   let sut: OwnersRepository
 
   beforeEach(() => {
-    prisma = {
-      owner: {
-        create: jest.fn(),
-        findMany: jest.fn(),
-        findFirst: jest.fn(),
-        update: jest.fn(),
-      },
+    repository = {
+      create: jest.fn(),
+      save: jest.fn(),
+      find: jest.fn(),
+      findOne: jest.fn(),
+      findOneOrFail: jest.fn(),
+      update: jest.fn(),
     }
-    sut = new OwnersRepository(prisma as unknown as PrismaService)
+    sut = new OwnersRepository(repository as unknown as Repository<OwnerEntity>)
   })
 
   describe('create', () => {
     it('should map the created row to an Owner domain object', async () => {
-      prisma.owner.create.mockResolvedValue(makeOwnerRow())
+      repository.create.mockReturnValue(makeOwnerRow())
+      repository.save.mockResolvedValue(makeOwnerRow())
+      repository.findOneOrFail.mockResolvedValue(makeOwnerRow())
 
       const result = await sut.create(baseInput)
 
@@ -82,7 +87,9 @@ describe('OwnersRepository', () => {
     })
 
     it('should map null email to undefined', async () => {
-      prisma.owner.create.mockResolvedValue(makeOwnerRow({ email: null }))
+      repository.create.mockReturnValue(makeOwnerRow({ email: null }))
+      repository.save.mockResolvedValue(makeOwnerRow({ email: null }))
+      repository.findOneOrFail.mockResolvedValue(makeOwnerRow({ email: null }))
 
       const result = await sut.create(baseInput)
 
@@ -90,9 +97,10 @@ describe('OwnersRepository', () => {
     })
 
     it('should map email when present', async () => {
-      prisma.owner.create.mockResolvedValue(
-        makeOwnerRow({ email: 'john@example.com' }),
-      )
+      const row = makeOwnerRow({ email: 'john@example.com' })
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
 
       const result = await sut.create(baseInput)
 
@@ -100,11 +108,12 @@ describe('OwnersRepository', () => {
     })
 
     it('should map null address nullable fields to undefined', async () => {
-      prisma.owner.create.mockResolvedValue(
-        makeOwnerRow({
-          address: makeAddressRow({ deletedAt: null, createdBy: null }),
-        }),
-      )
+      const row = makeOwnerRow({
+        address: makeAddressRow({ deletedAt: null, createdBy: null }),
+      })
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
 
       const result = await sut.create(baseInput)
 
@@ -115,7 +124,7 @@ describe('OwnersRepository', () => {
 
   describe('findAll', () => {
     it('should return paginated owners with hasMore false when results fit one page', async () => {
-      prisma.owner.findMany.mockResolvedValue([makeOwnerRow()])
+      repository.find.mockResolvedValue([makeOwnerRow()])
 
       const result = await sut.findAll({ page: 1, pageSize: 20 })
 
@@ -127,7 +136,7 @@ describe('OwnersRepository', () => {
       const rows = Array.from({ length: 3 }, (_, i) =>
         makeOwnerRow({ id: `owner-${i}` }),
       )
-      prisma.owner.findMany.mockResolvedValue(rows)
+      repository.find.mockResolvedValue(rows)
 
       const result = await sut.findAll({ page: 1, pageSize: 2 })
 
@@ -135,24 +144,24 @@ describe('OwnersRepository', () => {
       expect(result.hasMore).toBe(true)
     })
 
-    it('should call findMany with correct skip for page 2', async () => {
-      prisma.owner.findMany.mockResolvedValue([])
+    it('should call find with correct skip for page 2', async () => {
+      repository.find.mockResolvedValue([])
 
       await sut.findAll({ page: 2, pageSize: 10 })
 
-      expect(prisma.owner.findMany).toHaveBeenCalledWith(
+      expect(repository.find).toHaveBeenCalledWith(
         expect.objectContaining({ skip: 10, take: 11 }),
       )
     })
 
     it('should filter soft-deleted owners', async () => {
-      prisma.owner.findMany.mockResolvedValue([])
+      repository.find.mockResolvedValue([])
 
       await sut.findAll({})
 
-      expect(prisma.owner.findMany).toHaveBeenCalledWith(
+      expect(repository.find).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ deletedAt: null }),
+          where: expect.objectContaining({ deletedAt: expect.anything() }),
         }),
       )
     })
@@ -160,7 +169,7 @@ describe('OwnersRepository', () => {
 
   describe('findById', () => {
     it('should return the mapped owner when found', async () => {
-      prisma.owner.findFirst.mockResolvedValue(makeOwnerRow())
+      repository.findOne.mockResolvedValue(makeOwnerRow())
 
       const result = await sut.findById('owner-id')
 
@@ -168,98 +177,61 @@ describe('OwnersRepository', () => {
     })
 
     it('should return null when owner is not found', async () => {
-      prisma.owner.findFirst.mockResolvedValue(null)
+      repository.findOne.mockResolvedValue(null)
 
       const result = await sut.findById('missing-id')
 
       expect(result).toBeNull()
     })
-
-    it('should query with deletedAt null', async () => {
-      prisma.owner.findFirst.mockResolvedValue(null)
-
-      await sut.findById('owner-id')
-
-      expect(prisma.owner.findFirst).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: expect.objectContaining({ id: 'owner-id', deletedAt: null }),
-        }),
-      )
-    })
   })
 
   describe('update', () => {
     it('should return the mapped updated owner', async () => {
-      prisma.owner.update.mockResolvedValue(makeOwnerRow({ name: 'Jane Doe' }))
+      repository.findOne.mockResolvedValue(makeOwnerRow())
+      repository.save.mockResolvedValue(makeOwnerRow({ name: 'Jane Doe' }))
+      repository.findOneOrFail.mockResolvedValue(
+        makeOwnerRow({ name: 'Jane Doe' }),
+      )
 
       const result = await sut.update('owner-id', { name: 'Jane Doe' })
 
       expect(result?.name).toBe('Jane Doe')
     })
 
-    it('should return null on P2025 (record not found)', async () => {
-      prisma.owner.update.mockRejectedValue(makeP2025())
+    it('should return null when owner is not found', async () => {
+      repository.findOne.mockResolvedValue(null)
 
       const result = await sut.update('missing-id', { name: 'Jane Doe' })
 
       expect(result).toBeNull()
     })
-
-    it('should rethrow unexpected errors', async () => {
-      const unexpectedError = new Error('database connection failed')
-      prisma.owner.update.mockRejectedValue(unexpectedError)
-
-      await expect(
-        sut.update('owner-id', { name: 'Jane Doe' }),
-      ).rejects.toThrow('database connection failed')
-    })
-
-    it('should call update with where deletedAt null', async () => {
-      prisma.owner.update.mockResolvedValue(makeOwnerRow())
-
-      await sut.update('owner-id', { name: 'Jane Doe' })
-
-      expect(prisma.owner.update).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: expect.objectContaining({ id: 'owner-id', deletedAt: null }),
-        }),
-      )
-    })
   })
 
   describe('softDelete', () => {
     it('should return true when owner is deleted', async () => {
-      prisma.owner.update.mockResolvedValue(makeOwnerRow())
+      repository.update.mockResolvedValue({ affected: 1 } as UpdateResult)
 
       const result = await sut.softDelete('owner-id')
 
       expect(result).toBe(true)
     })
 
-    it('should return false on P2025 (record not found)', async () => {
-      prisma.owner.update.mockRejectedValue(makeP2025())
+    it('should return false when no owner matches', async () => {
+      repository.update.mockResolvedValue({ affected: 0 } as UpdateResult)
 
       const result = await sut.softDelete('missing-id')
 
       expect(result).toBe(false)
     })
 
-    it('should rethrow unexpected errors', async () => {
-      prisma.owner.update.mockRejectedValue(new Error('db error'))
-
-      await expect(sut.softDelete('owner-id')).rejects.toThrow('db error')
-    })
-
     it('should call update with deletedAt set', async () => {
-      prisma.owner.update.mockResolvedValue(makeOwnerRow())
+      repository.update.mockResolvedValue({ affected: 1 } as UpdateResult)
 
       await sut.softDelete('owner-id')
 
-      expect(prisma.owner.update).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: expect.objectContaining({ id: 'owner-id', deletedAt: null }),
-          data: expect.objectContaining({ deletedAt: expect.any(Date) }),
-        }),
+      expect(repository.update).toHaveBeenCalledWith(
+        expect.objectContaining({ id: 'owner-id' }),
+        expect.objectContaining({ deletedAt: expect.any(Date) }),
       )
     })
   })

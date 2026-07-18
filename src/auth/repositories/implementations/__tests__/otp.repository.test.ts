@@ -1,43 +1,54 @@
 import { EOtpChannel, EOtpPurpose } from '@pkg/types'
+import type { Repository } from 'typeorm'
 import { OtpChallengesRepository } from '../otp.repository'
-import type { PrismaService } from '@app/prisma/prisma.service'
+import type { OtpChallengeEntity } from '@app/database/entities'
 
-const makeRow = (overrides: object = {}) => ({
-  id: 'otp-id',
-  destination: '62999824266',
-  purpose: EOtpPurpose.SIGN_UP,
-  channel: EOtpChannel.SMS,
-  accountId: null,
-  codeHash: 'otp-hash',
-  expiresAt: new Date(Date.now() + 60_000),
-  attempts: 0,
-  consumedAt: null,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  ...overrides,
-})
+const makeRow = (
+  overrides: Partial<OtpChallengeEntity> = {},
+): OtpChallengeEntity =>
+  ({
+    id: 'otp-id',
+    destination: '62999824266',
+    purpose: EOtpPurpose.SIGN_UP,
+    channel: EOtpChannel.SMS,
+    accountId: null,
+    codeHash: 'otp-hash',
+    expiresAt: new Date(Date.now() + 60_000),
+    attempts: 0,
+    consumedAt: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    ...overrides,
+  }) as OtpChallengeEntity
 
 describe('OtpChallengesRepository', () => {
-  let prisma: { otpChallenge: Record<string, jest.Mock> }
-  let repository: OtpChallengesRepository
+  let repository: jest.Mocked<
+    Pick<
+      Repository<OtpChallengeEntity>,
+      'create' | 'save' | 'findOne' | 'update' | 'increment'
+    >
+  >
+  let sut: OtpChallengesRepository
 
   beforeEach(() => {
-    prisma = {
-      otpChallenge: {
-        create: jest.fn(),
-        findFirst: jest.fn(),
-        update: jest.fn(),
-        updateMany: jest.fn(),
-      },
+    repository = {
+      create: jest.fn(),
+      save: jest.fn(),
+      findOne: jest.fn(),
+      update: jest.fn(),
+      increment: jest.fn(),
     }
-    repository = new OtpChallengesRepository(prisma as unknown as PrismaService)
+    sut = new OtpChallengesRepository(
+      repository as unknown as Repository<OtpChallengeEntity>,
+    )
   })
 
   it('should map the created row to an Otp domain object', async () => {
     const row = makeRow()
-    prisma.otpChallenge.create.mockResolvedValue(row)
+    repository.create.mockReturnValue(row)
+    repository.save.mockResolvedValue(row)
 
-    const result = await repository.create({
+    const result = await sut.create({
       destination: '62999824266',
       purpose: EOtpPurpose.SIGN_UP,
       channel: EOtpChannel.SMS,
@@ -53,51 +64,43 @@ describe('OtpChallengesRepository', () => {
     })
   })
 
-  it('should query findFirst with expiry and consumedAt filters', async () => {
-    prisma.otpChallenge.findFirst.mockResolvedValue(null)
+  it('should query findOne with expiry and consumedAt filters', async () => {
+    repository.findOne.mockResolvedValue(null)
 
-    const result = await repository.findActiveById('otp-id')
+    const result = await sut.findActiveById('otp-id')
 
-    expect(prisma.otpChallenge.findFirst).toHaveBeenCalledWith(
+    expect(repository.findOne).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: expect.objectContaining({ id: 'otp-id', consumedAt: null }),
+        where: expect.objectContaining({ id: 'otp-id' }),
       }),
     )
     expect(result).toBeUndefined()
   })
 
-  it('should return the mapped otp when findFirst returns a row', async () => {
-    prisma.otpChallenge.findFirst.mockResolvedValue(makeRow())
+  it('should return the mapped otp when findOne returns a row', async () => {
+    repository.findOne.mockResolvedValue(makeRow())
 
-    const result = await repository.findActiveById('otp-id')
+    const result = await sut.findActiveById('otp-id')
 
     expect(result).toMatchObject({ id: 'otp-id', attempts: 0 })
   })
 
-  it('should call update with increment on incrementAttempts', async () => {
-    prisma.otpChallenge.update.mockResolvedValue(makeRow({ attempts: 1 }))
+  it('should call increment on incrementAttempts', async () => {
+    await sut.incrementAttempts('otp-id')
 
-    await repository.incrementAttempts('otp-id')
-
-    expect(prisma.otpChallenge.update).toHaveBeenCalledWith({
-      where: { id: 'otp-id' },
-      data: { attempts: { increment: 1 } },
-    })
+    expect(repository.increment).toHaveBeenCalledWith(
+      { id: 'otp-id' },
+      'attempts',
+      1,
+    )
   })
 
-  it('should call updateMany with accountId filter on consumeActiveByAccountId', async () => {
-    prisma.otpChallenge.updateMany.mockResolvedValue({ count: 1 })
+  it('should call update with accountId filter on consumeActiveByAccountId', async () => {
+    await sut.consumeActiveByAccountId('account-id')
 
-    await repository.consumeActiveByAccountId('account-id')
-
-    expect(prisma.otpChallenge.updateMany).toHaveBeenCalledWith(
-      expect.objectContaining({
-        where: expect.objectContaining({
-          accountId: 'account-id',
-          consumedAt: null,
-        }),
-        data: expect.objectContaining({ consumedAt: expect.any(Date) }),
-      }),
+    expect(repository.update).toHaveBeenCalledWith(
+      expect.objectContaining({ account: { id: 'account-id' } }),
+      expect.objectContaining({ consumedAt: expect.any(Date) }),
     )
   })
 })

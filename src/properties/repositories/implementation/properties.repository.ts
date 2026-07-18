@@ -1,35 +1,47 @@
 import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { IsNull, Repository } from 'typeorm'
 import { Property } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
-import { PrismaService } from '@app/prisma/prisma.service'
+import { wasAffected } from '@pkg/utils/error-utils'
+import {
+  AddressEntity,
+  OwnerEntity,
+  PropertyEntity,
+} from '@app/database/entities'
 import type { IPropertiesRepository } from '../domain'
 import type {
   CreatePropertyInput,
   FindAllPropertiesInput,
   UpdatePropertyInput,
 } from '../../dto'
-import { includeQuery, mapRow } from '@app/properties/dto/domain'
-import { isP2025 } from '@pkg/utils/error-utils'
+import { mapRow, relationsQuery } from '@app/properties/dto/domain'
 
 const MAX_PAGE_SIZE = 100
 
 @Injectable()
 export class PropertiesRepository implements IPropertiesRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(PropertyEntity)
+    private readonly repository: Repository<PropertyEntity>,
+  ) {}
 
   async create(params: CreatePropertyInput): Promise<Property> {
-    const row = await this.prisma.property.create({
-      data: {
-        name: params.name,
-        description: params.description,
-        base_rent_amount: params.baseRentAmount,
-        solar_energy_active: params.solarEnergyActive,
-        status: params.status,
-        owner_id: params.ownerId,
-        address_id: params.addressId,
-        created_by: params.createdBy,
-      },
-      include: includeQuery,
+    const entity = this.repository.create({
+      name: params.name,
+      description: params.description,
+      baseRentAmount: params.baseRentAmount,
+      solarEnergyActive: params.solarEnergyActive,
+      status: params.status,
+      owner: { id: params.ownerId } as OwnerEntity,
+      address: params.addressId ? { id: params.addressId } : null,
+      createdBy: params.createdBy,
+    })
+    const saved = await this.repository.save(entity)
+
+    const row = await this.repository.findOneOrFail({
+      where: { id: saved.id },
+      relations: relationsQuery,
     })
     return mapRow(row)
   }
@@ -43,17 +55,17 @@ export class PropertiesRepository implements IPropertiesRepository {
     const skip = (page - 1) * pageSize
 
     const where = {
-      deletedAt: null,
-      ...(ownerId && { ownerId }),
+      deletedAt: IsNull(),
+      ...(ownerId && { owner: { id: ownerId } }),
       ...(status && { status }),
     }
 
-    const rows = await this.prisma.property.findMany({
+    const rows = await this.repository.find({
       where,
       skip,
       take: pageSize + 1,
-      include: includeQuery,
-      orderBy: { created_at: 'desc' },
+      relations: relationsQuery,
+      order: { createdAt: 'DESC' },
     })
 
     const hasMore = rows.length > pageSize
@@ -63,9 +75,9 @@ export class PropertiesRepository implements IPropertiesRepository {
   }
 
   async findById(id: string): Promise<Property | null> {
-    const row = await this.prisma.property.findFirst({
-      where: { id, deleted_at: null },
-      include: includeQuery,
+    const row = await this.repository.findOne({
+      where: { id, deletedAt: IsNull() },
+      relations: relationsQuery,
     })
     return row ? mapRow(row) : null
   }
@@ -74,31 +86,33 @@ export class PropertiesRepository implements IPropertiesRepository {
     id: string,
     params: UpdatePropertyInput,
   ): Promise<Property | null> {
-    try {
-      const row = await this.prisma.property.update({
-        where: { id, deleted_at: null },
-        data: {
-          ...removeUndefinedValues(params as Record<string, unknown>),
-        },
-        include: includeQuery,
-      })
-      return mapRow(row)
-    } catch (e) {
-      if (isP2025(e)) return null
-      throw e
-    }
+    const existing = await this.repository.findOne({
+      where: { id, deletedAt: IsNull() },
+    })
+    if (!existing) return null
+
+    const { ownerId, addressId, ...rest } = removeUndefinedValues(
+      params as unknown as Record<string, unknown>,
+    ) as UpdatePropertyInput
+
+    Object.assign(existing, rest)
+    if (ownerId) existing.owner = { id: ownerId } as OwnerEntity
+    if (addressId) existing.address = { id: addressId } as AddressEntity
+
+    await this.repository.save(existing)
+
+    const row = await this.repository.findOneOrFail({
+      where: { id },
+      relations: relationsQuery,
+    })
+    return mapRow(row)
   }
 
   async softDelete(id: string): Promise<boolean> {
-    try {
-      await this.prisma.property.update({
-        where: { id, deleted_at: null },
-        data: { deleted_at: new Date() },
-      })
-      return true
-    } catch (e) {
-      if (isP2025(e)) return false
-      throw e
-    }
+    const result = await this.repository.update(
+      { id, deletedAt: IsNull() },
+      { deletedAt: new Date() },
+    )
+    return wasAffected(result)
   }
 }
