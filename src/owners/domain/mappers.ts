@@ -1,5 +1,5 @@
 import { Address, EMaritalStatus, Owner } from '@pkg/types'
-import { Prisma } from '@prisma/generated/client'
+import { Prisma } from '@db-config/generated/client'
 
 export const include = {
   address: true,

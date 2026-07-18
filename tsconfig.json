@@ -17,7 +17,7 @@
     "paths": {
       "@pkg/*": ["packages/*"],
       "@app/*": ["src/*"],
-      "@prisma/*": ["prisma/*"]
+      "@db-config/*": ["prisma/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

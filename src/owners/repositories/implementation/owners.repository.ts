@@ -9,7 +9,7 @@ import type {
   UpdateOwnerInput,
 } from '../../dto'
 import { include, mapOwner } from '../../domain/mappers'
-import { Prisma } from '@prisma/generated/client'
+import { Prisma } from '@db-config/generated/client'
 
 const MAX_PAGE_SIZE = 100
 

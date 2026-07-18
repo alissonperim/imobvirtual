@@ -1,7 +1,7 @@
 import { EMaritalStatus, EPropertyStatus } from '@pkg/types'
 import type { PrismaService } from '@app/prisma/prisma.service'
 import { PropertiesRepository } from '../properties.repository'
-import { Prisma } from '@prisma/generated/client'
+import { Prisma } from '@db-config/generated/client'
 
 const makeAddressRow = (overrides: object = {}) => ({
   id: 'addr-id',
