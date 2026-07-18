@@ -1,64 +1,59 @@
-import { Address, EMaritalStatus, EPropertyStatus, Property } from '@pkg/types'
-import { Prisma } from '@db-config/generated/client'
+import { Address, Property } from '@pkg/types'
+import type { FindOptionsRelations } from 'typeorm'
+import type { PropertyEntity, AddressEntity } from '@app/database/entities'
 
-export const includeQuery = {
-  owner: { include: { address: true } },
+export const relationsQuery: FindOptionsRelations<PropertyEntity> = {
+  owner: { address: true },
   address: true,
-} as const
+}
 
-type PropertyWithRelations = Prisma.PropertyGetPayload<{
-  include: typeof includeQuery
-}>
-
-export const mapAddress = (
-  addr: NonNullable<PropertyWithRelations['address']>,
-): Address => {
+export const mapAddress = (addr: AddressEntity): Address => {
   return {
     id: addr.id,
     street: addr.street,
     neighborhood: addr.neighborhood,
-    postalCode: addr.postal_code,
+    postalCode: addr.postalCode,
     complement: addr.complement,
     city: addr.city,
     state: addr.state,
     number: addr.number,
-    createdAt: addr.created_at,
-    updatedAt: addr.updated_at,
-    deletedAt: addr.deleted_at ?? undefined,
-    createdBy: addr.created_by ?? undefined,
-    updatedBy: addr.updated_by ?? undefined,
+    createdAt: addr.createdAt,
+    updatedAt: addr.updatedAt,
+    deletedAt: addr.deletedAt ?? undefined,
+    createdBy: addr.createdBy ?? undefined,
+    updatedBy: addr.updatedBy ?? undefined,
   }
 }
 
-export const mapRow = (row: PropertyWithRelations): Property => {
+export const mapRow = (row: PropertyEntity): Property => {
   return {
     id: row.id,
     name: row.name,
     description: row.description ?? undefined,
-    baseRentAmount: Number(row.base_rent_amount),
-    solarEnergyActive: row.solar_energy_active,
-    status: row.status as EPropertyStatus,
+    baseRentAmount: Number(row.baseRentAmount),
+    solarEnergyActive: row.solarEnergyActive,
+    status: row.status,
     owner: {
       id: row.owner.id,
       name: row.owner.name,
       document: row.owner.document,
-      phoneNumber: row.owner.phone_number,
-      maritalStatus: row.owner.marital_status as EMaritalStatus,
+      phoneNumber: row.owner.phoneNumber,
+      maritalStatus: row.owner.maritalStatus,
       email: row.owner.email ?? undefined,
-      accountId: row.owner.account_id,
+      accountId: row.owner.accountId,
       address: mapAddress(row.owner.address),
       properties: [],
-      createdAt: row.owner.created_at,
-      updatedAt: row.owner.updated_at,
-      deletedAt: row.owner.deleted_at ?? undefined,
-      createdBy: row.owner.created_by ?? undefined,
-      updatedBy: row.owner.updated_by ?? undefined,
+      createdAt: row.owner.createdAt,
+      updatedAt: row.owner.updatedAt,
+      deletedAt: row.owner.deletedAt ?? undefined,
+      createdBy: row.owner.createdBy ?? undefined,
+      updatedBy: row.owner.updatedBy ?? undefined,
     },
     address: row.address ? mapAddress(row.address) : undefined,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at,
-    deletedAt: row.deleted_at ?? undefined,
-    createdBy: row.created_by ?? undefined,
-    updatedBy: row.updated_by ?? undefined,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+    deletedAt: row.deletedAt ?? undefined,
+    createdBy: row.createdBy ?? undefined,
+    updatedBy: row.updatedBy ?? undefined,
   }
 }

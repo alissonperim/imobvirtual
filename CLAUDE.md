@@ -25,8 +25,10 @@ pnpm jest src/auth/use-cases/__tests__/request-otp.use-case.test.ts
 ## Architecture
 
 - This is a **NestJS** application following Clean Architecture. Business logic lives in use-cases; repositories abstract data access; domain types are shared via a local `packages/` monorepo.
-- The database entities must use kebab_case to his attributes
-- The dto functions should map the database returns to a camelCase properties name. They should be created on the dto folder in a domain file, follow the example frm `/properties/dto/domain.ts`
+- Persistence uses **TypeORM** against Postgres. Entity classes live in `src/database/entities/*.entity.ts`: DB columns are snake_case (`@Column({ name: 'phone_number' }) phoneNumber: string`), class attributes are camelCase.
+- Foreign keys are modeled as relations (`@ManyToOne`/`@OneToOne` + `@JoinColumn`) plus a `@RelationId()` property for reading the scalar id without eager-loading the relation. Do not add a second `@Column` on the same DB column as a relation's `@JoinColumn` — TypeORM merges that column's metadata (e.g. `insert:false`) onto the join column too, silently dropping the FK from inserts.
+- `id` is a 21-char nanoid-format string (`src/database/utils/generate-id.ts`) assigned via a `@BeforeInsert()` hook on each entity, not a DB-generated UUID.
+- The dto/mapper functions map the entity (already camelCase) to the domain type. They live in the domain's `dto` or `domain` folder, follow the example from `/properties/dto/domain.ts`.
 
 ### Path aliases
 
@@ -82,7 +84,21 @@ OTP expiry is controlled by `MINUTES_TO_EXPIRE_OTP` env var (defaults to 6). OTP
 
 ### Repositories
 
-All repositories are **in-memory** (plain arrays). There is no database yet. The repository interface is defined separately from the implementation so a real DB layer can be swapped in without touching use-cases.
+Repositories are backed by TypeORM (`@InjectRepository(XEntity)`), registered globally via `DatabaseModule` (`src/database/database.module.ts`) — no per-module `TypeOrmModule.forFeature` needed. The repository interface is defined separately from the implementation so the DB layer can be swapped without touching use-cases. `renters` and `rental-contracts` are still stub modules (no repository implementation yet); there is no `addresses` module — Address is only reachable as a relation from Owner/Property.
+
+Not-found handling on `update`/`softDelete` uses `UpdateResult.affected` via `wasAffected()` (`packages/utils/error-utils.ts`), not exceptions.
+
+### Migrations
+
+Migrations live in `src/database/migrations/*.ts`, driven by `src/database/data-source.ts`:
+
+```bash
+pnpm exec typeorm-ts-node-commonjs migration:generate -d src/database/data-source.ts src/database/migrations/<Name>  # generate from entity changes
+pnpm run migration:run                                          # apply pending migrations
+pnpm run migration:revert                                       # roll back the last migration
+```
+
+(`pnpm run migration:generate -- <path>` does not work — pnpm's `--` forwarding conflicts with the CLI's own arg parsing; use `pnpm exec` for generate.)
 
 ### Shared types (`packages/types`)
 

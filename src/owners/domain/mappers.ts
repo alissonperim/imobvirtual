@@ -1,45 +1,39 @@
-import { Address, EMaritalStatus, Owner } from '@pkg/types'
-import { Prisma } from '@db-config/generated/client'
+import { Address, Owner } from '@pkg/types'
+import type { OwnerEntity, AddressEntity } from '@app/database/entities'
 
-export const include = {
-  address: true,
-} as const
-
-export type OwnerRow = Prisma.OwnerGetPayload<{ include: typeof include }>
-
-export function mapAddress(addr: OwnerRow['address']): Address {
+export function mapAddress(addr: AddressEntity): Address {
   return {
     id: addr.id,
     street: addr.street,
     neighborhood: addr.neighborhood,
-    postalCode: addr.postal_code,
+    postalCode: addr.postalCode,
     complement: addr.complement,
     city: addr.city,
     state: addr.state,
     number: addr.number,
-    createdAt: addr.created_at,
-    updatedAt: addr.updated_at,
-    deletedAt: addr.deleted_at ?? undefined,
-    createdBy: addr.created_by ?? undefined,
-    updatedBy: addr.updated_by ?? undefined,
+    createdAt: addr.createdAt,
+    updatedAt: addr.updatedAt,
+    deletedAt: addr.deletedAt ?? undefined,
+    createdBy: addr.createdBy ?? undefined,
+    updatedBy: addr.updatedBy ?? undefined,
   }
 }
 
-export function mapOwner(row: OwnerRow): Owner {
+export function mapOwner(row: OwnerEntity): Owner {
   return {
     id: row.id,
     name: row.name,
     document: row.document,
-    phoneNumber: row.phone_number,
+    phoneNumber: row.phoneNumber,
     email: row.email ?? undefined,
-    maritalStatus: row.marital_status as EMaritalStatus,
-    accountId: row.account_id,
+    maritalStatus: row.maritalStatus,
+    accountId: row.accountId,
     address: mapAddress(row.address),
     properties: [],
-    createdAt: row.created_at,
-    updatedAt: row.updated_at,
-    deletedAt: row.deleted_at ?? undefined,
-    createdBy: row.created_by ?? undefined,
-    updatedBy: row.updated_by ?? undefined,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+    deletedAt: row.deletedAt ?? undefined,
+    createdBy: row.createdBy ?? undefined,
+    updatedBy: row.updatedBy ?? undefined,
   }
 }

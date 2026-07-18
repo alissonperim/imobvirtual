@@ -16,8 +16,7 @@
     "baseUrl": "./",
     "paths": {
       "@pkg/*": ["packages/*"],
-      "@app/*": ["src/*"],
-      "@db-config/*": ["prisma/*"]
+      "@app/*": ["src/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -27,5 +26,8 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "types": ["jest", "node"]
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }
