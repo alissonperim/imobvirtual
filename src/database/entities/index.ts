@@ -6,6 +6,7 @@ import { PropertyEntity } from './property.entity'
 import { ContractEntity } from './contract.entity'
 import { SessionEntity } from './session.entity'
 import { OtpChallengeEntity } from './otp-challenge.entity'
+import { PropertyChargeEntity } from './property-charge.entity'
 
 export * from './account.entity'
 export * from './address.entity'
@@ -25,4 +26,5 @@ export const entities = [
   ContractEntity,
   SessionEntity,
   OtpChallengeEntity,
+  PropertyChargeEntity,
 ]

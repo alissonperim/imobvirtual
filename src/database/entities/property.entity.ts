@@ -13,33 +13,29 @@ import { decimalTransformer } from '../transformers/decimal.transformer'
 import { OwnerEntity } from './owner.entity'
 import { AddressEntity } from './address.entity'
 import { ContractEntity } from './contract.entity'
+import { PropertyChargeEntity } from './property-charge.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('properties')
 @Index(['owner'])
 @Index(['status'])
 @Index(['deletedAt', 'createdAt'])
 @Index(['owner', 'status', 'deletedAt'])
-export class PropertyEntity {
-  @Column()
-  name!: string
-
+export class PropertyEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
   description!: string | null
 
   @Column({
-    name: 'base_rent_amount',
+    name: 'rent_amount',
     type: 'decimal',
     precision: 10,
     scale: 2,
     transformer: decimalTransformer,
   })
-  baseRentAmount!: number
+  rentAmount!: number
 
   @Column({ name: 'solar_energy_active', default: false })
   solarEnergyActive!: boolean
-
-  @Column({ name: 'iptu_charge', default: false })
-  iptuCharge!: boolean
 
   @Column({ type: 'enum', enum: EPropertyStatus })
   status!: EPropertyStatus
@@ -55,6 +51,8 @@ export class PropertyEntity {
 
   @OneToOne(() => AddressEntity, (address) => address.property, {
     nullable: true,
+    eager: true,
+    cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'address_id' })
   address!: AddressEntity | null
@@ -64,4 +62,7 @@ export class PropertyEntity {
 
   @OneToMany(() => ContractEntity, (contract) => contract.property)
   contracts?: ContractEntity[]
+
+  @OneToMany(() => PropertyChargeEntity, (charge) => charge.property)
+  charges?: PropertyChargeEntity[]
 }

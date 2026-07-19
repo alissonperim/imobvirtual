@@ -11,9 +11,10 @@ import { AccountEntity } from './account.entity'
 import { AddressEntity } from './address.entity'
 import { PropertyEntity } from './property.entity'
 import { ContractEntity } from './contract.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('owners')
-export class OwnerEntity {
+export class OwnerEntity extends BaseEntity {
   @Column()
   name!: string
 

@@ -1,8 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm'
 import { AccountEntity } from './account.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('sessions')
-export class SessionEntity {
+export class SessionEntity extends BaseEntity {
   @Column({ name: 'token_hash', unique: true })
   tokenHash!: string
 

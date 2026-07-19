@@ -4,9 +4,10 @@ import { decimalTransformer } from '../transformers/decimal.transformer'
 import { OwnerEntity } from './owner.entity'
 import { RenterEntity } from './renter.entity'
 import { PropertyEntity } from './property.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('contracts')
-export class ContractEntity {
+export class ContractEntity extends BaseEntity {
   @Column({ name: 'start_date', type: 'timestamp' })
   startDate!: Date
 

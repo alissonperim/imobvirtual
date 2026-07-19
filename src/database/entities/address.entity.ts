@@ -1,7 +1,8 @@
-import { BaseEntity, Column, Entity, OneToOne } from 'typeorm'
+import { Column, Entity, OneToOne } from 'typeorm'
 import { OwnerEntity } from './owner.entity'
 import { RenterEntity } from './renter.entity'
 import { PropertyEntity } from './property.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('addresses')
 export class AddressEntity extends BaseEntity {

@@ -15,7 +15,10 @@ export class UpdatePropertyUseCase implements IUpdatePropertyUseCase {
   ) {}
 
   async execute(id: string, params: UpdatePropertyInput): Promise<Property> {
-    const updated = await this.repository.update(id, params)
+    const updated = await this.repository.update(id, {
+      ...params,
+      updatedBy: 'fix for while, change later',
+    })
     if (!updated) throw new NotFoundException(`Property ${id} not found`)
     return updated
   }

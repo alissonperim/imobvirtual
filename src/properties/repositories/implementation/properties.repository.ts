@@ -1,20 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { IsNull, Repository } from 'typeorm'
+import { DeepPartial, IsNull, Repository } from 'typeorm'
 import { Property } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
-import {
-  AddressEntity,
-  OwnerEntity,
-  PropertyEntity,
-} from '@app/database/entities'
-import type { IPropertiesRepository } from '../domain'
+import { PropertyEntity } from '@app/database/entities'
 import type {
-  CreatePropertyInput,
-  FindAllPropertiesInput,
-  UpdatePropertyInput,
-} from '../../dto'
+  CreatePropertyRepositoryParams,
+  IPropertiesRepository,
+  UpdatePropertyRepositoryParams,
+} from '../domain'
+import type { FindAllPropertiesInput } from '../../dto'
 import { mapRow, relationsQuery } from '@app/properties/dto/domain'
 
 const MAX_PAGE_SIZE = 100
@@ -26,24 +22,28 @@ export class PropertiesRepository implements IPropertiesRepository {
     private readonly repository: Repository<PropertyEntity>,
   ) {}
 
-  async create(params: CreatePropertyInput): Promise<Property> {
+  async create(params: CreatePropertyRepositoryParams): Promise<Property> {
     const entity = this.repository.create({
-      name: params.name,
+      address: params.address,
+      owner: {
+        id: params.ownerId,
+      },
       description: params.description,
-      baseRentAmount: params.baseRentAmount,
+      rentAmount: params.rentAmount,
       solarEnergyActive: params.solarEnergyActive,
       status: params.status,
-      owner: { id: params.ownerId } as OwnerEntity,
-      address: params.addressId ? { id: params.addressId } : null,
       createdBy: params.createdBy,
     })
     const saved = await this.repository.save(entity)
 
-    const row = await this.repository.findOneOrFail({
-      where: { id: saved.id },
+    const fullEntity = await this.repository.findOneOrFail({
+      where: {
+        id: saved.id,
+      },
       relations: relationsQuery,
     })
-    return mapRow(row)
+
+    return mapRow(fullEntity)
   }
 
   async findAll(
@@ -84,20 +84,35 @@ export class PropertiesRepository implements IPropertiesRepository {
 
   async update(
     id: string,
-    params: UpdatePropertyInput,
+    params: UpdatePropertyRepositoryParams,
   ): Promise<Property | null> {
     const existing = await this.repository.findOne({
       where: { id, deletedAt: IsNull() },
     })
+
     if (!existing) return null
 
-    const { ownerId, addressId, ...rest } = removeUndefinedValues(
-      params as unknown as Record<string, unknown>,
-    ) as UpdatePropertyInput
+    const definedParams =
+      removeUndefinedValues<UpdatePropertyRepositoryParams>(params)
 
-    Object.assign(existing, rest)
-    if (ownerId) existing.owner = { id: ownerId } as OwnerEntity
-    if (addressId) existing.address = { id: addressId } as AddressEntity
+    const updateParams: DeepPartial<PropertyEntity> = {
+      address: definedParams?.address
+        ? {
+            ...definedParams?.address,
+            id: existing.addressId!,
+          }
+        : undefined,
+      description: definedParams?.description,
+      rentAmount: definedParams?.rentAmount,
+      status: definedParams?.status,
+      solarEnergyActive: definedParams?.solarEnergyActive,
+      updatedBy: definedParams?.updatedBy,
+      updatedAt: new Date(),
+    }
+
+    Object.entries(updateParams).forEach(([key, value]) => {
+      existing[key] = value
+    })
 
     await this.repository.save(existing)
 

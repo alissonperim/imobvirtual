@@ -15,6 +15,9 @@ export class CreatePropertyUseCase implements ICreatePropertyUseCase {
   ) {}
 
   async execute(params: CreatePropertyInput): Promise<Property> {
-    return this.repository.create(params)
+    return this.repository.create({
+      ...params,
+      createdBy: 'fix for while, change later',
+    })
   }
 }

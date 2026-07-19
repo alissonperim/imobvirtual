@@ -10,9 +10,10 @@ import { EMaritalStatus } from '@pkg/types'
 import { AccountEntity } from './account.entity'
 import { AddressEntity } from './address.entity'
 import { ContractEntity } from './contract.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('renters')
-export class RenterEntity {
+export class RenterEntity extends BaseEntity {
   @Column()
   name!: string
 

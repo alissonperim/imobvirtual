@@ -10,10 +10,9 @@ export enum EPropertyStatus {
 
 export type Property = Base & {
   id: string
-  name: string
   description?: string
   address?: Address
-  baseRentAmount: number
+  rentAmount: number
   solarEnergyActive: boolean
   status: EPropertyStatus
   owner: Owner

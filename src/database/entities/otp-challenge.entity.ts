@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm'
 import { EOtpChannel, EOtpPurpose } from '@pkg/types'
 import { AccountEntity } from './account.entity'
+import { BaseEntity } from './base.entity'
 
 @Entity('otp_challenges')
-export class OtpChallengeEntity {
+export class OtpChallengeEntity extends BaseEntity {
   @Column()
   destination!: string
 

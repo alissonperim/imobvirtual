@@ -3,8 +3,9 @@ import type { FindOptionsRelations } from 'typeorm'
 import type { PropertyEntity, AddressEntity } from '@app/database/entities'
 
 export const relationsQuery: FindOptionsRelations<PropertyEntity> = {
-  owner: { address: true },
-  address: true,
+  owner: {
+    address: true,
+  },
 }
 
 export const mapAddress = (addr: AddressEntity): Address => {
@@ -28,9 +29,8 @@ export const mapAddress = (addr: AddressEntity): Address => {
 export const mapRow = (row: PropertyEntity): Property => {
   return {
     id: row.id,
-    name: row.name,
     description: row.description ?? undefined,
-    baseRentAmount: Number(row.baseRentAmount),
+    rentAmount: Number(row.rentAmount),
     solarEnergyActive: row.solarEnergyActive,
     status: row.status,
     owner: {
