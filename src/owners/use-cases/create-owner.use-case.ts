@@ -15,6 +15,9 @@ export class CreateOwnerUseCase implements ICreateOwnerUseCase {
   ) {}
 
   async execute(params: CreateOwnerInput): Promise<Owner> {
-    return this.repository.create(params)
+    return this.repository.create({
+      ...params,
+      createdBy: 'fix for while, change later',
+    })
   }
 }

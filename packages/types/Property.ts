@@ -12,8 +12,9 @@ export type Property = Base & {
   id: string
   description?: string
   address?: Address
+  addressId?: string | null
   rentAmount: number
   solarEnergyActive: boolean
   status: EPropertyStatus
-  owner: Owner
+  owner: Omit<Owner, 'address'>
 }

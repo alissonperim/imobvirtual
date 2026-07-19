@@ -40,7 +40,9 @@ export class PropertiesRepository implements IPropertiesRepository {
       where: {
         id: saved.id,
       },
-      relations: relationsQuery,
+      relations: {
+        owner: true,
+      },
     })
 
     return mapRow(fullEntity)

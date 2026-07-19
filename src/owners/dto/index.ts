@@ -1,36 +1,21 @@
-import { EMaritalStatus } from '@pkg/types'
-import { IsEmail, IsEnum, IsPhoneNumber, IsString } from 'class-validator'
-import { PartialType } from '@nestjs/mapped-types'
+import { Address, EMaritalStatus } from '@pkg/types'
 
-export class CreateOwnerInput {
-  @IsString()
-  name!: string
-
-  @IsString()
-  document!: string
-
-  @IsPhoneNumber('BR')
-  phoneNumber!: string
-
-  @IsEmail()
+export type CreateOwnerInput = {
+  name: string
+  lastName: string
+  document: string
+  phoneNumber: string
   email?: string
-
-  @IsEnum(EMaritalStatus)
-  maritalStatus!: EMaritalStatus
-
-  @IsString()
-  accountId!: string
-
-  @IsString()
-  addressId!: string
-
-  @IsString({ validateIf: (value) => !!value })
-  createdBy?: string
+  maritalStatus: EMaritalStatus
+  accountId: string
+  address: Omit<Address, 'id'>
 }
 
-export class UpdateOwnerInput extends PartialType(CreateOwnerInput) {
-  @IsString({ validateIf: (value) => !!value })
-  updatedBy?: string
+export type UpdateOwnerInput = {
+  name?: string
+  lastName?: string
+  maritalStatus?: EMaritalStatus
+  address?: Omit<Address, 'id'>
 }
 
 export type FindAllOwnersInput = {

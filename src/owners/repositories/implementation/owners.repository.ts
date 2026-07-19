@@ -1,20 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { IsNull, Repository } from 'typeorm'
+import { DeepPartial, IsNull, Repository } from 'typeorm'
 import type { Owner } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
-import {
-  AccountEntity,
-  AddressEntity,
-  OwnerEntity,
-} from '@app/database/entities'
-import type { IOwnersRepository } from '../domain'
+import { AccountEntity, OwnerEntity } from '@app/database/entities'
 import type {
-  CreateOwnerInput,
-  FindAllOwnersInput,
-  UpdateOwnerInput,
-} from '../../dto'
+  CreateOwnerRepositoryInput,
+  IOwnersRepository,
+  UpdateOwnerRepositoryInput,
+} from '../domain'
+import type { FindAllOwnersInput } from '../../dto'
 import { mapOwner } from '../../domain/mappers'
 
 const MAX_PAGE_SIZE = 100
@@ -26,7 +22,7 @@ export class OwnersRepository implements IOwnersRepository {
     private readonly repository: Repository<OwnerEntity>,
   ) {}
 
-  async create(params: CreateOwnerInput): Promise<Owner> {
+  async create(params: CreateOwnerRepositoryInput): Promise<Owner> {
     const entity = this.repository.create({
       name: params.name,
       document: params.document,
@@ -34,16 +30,21 @@ export class OwnersRepository implements IOwnersRepository {
       email: params.email,
       maritalStatus: params.maritalStatus,
       account: { id: params.accountId } as AccountEntity,
-      address: { id: params.addressId } as AddressEntity,
+      address: params.address,
       createdBy: params.createdBy,
     })
     const saved = await this.repository.save(entity)
 
-    const row = await this.repository.findOneOrFail({
-      where: { id: saved.id },
-      relations: { address: true },
+    const fullEntity = await this.repository.findOneOrFail({
+      where: {
+        id: saved.id,
+      },
+      relations: {
+        address: true,
+      },
     })
-    return mapOwner(row)
+
+    return mapOwner(fullEntity)
   }
 
   async findAll(filters: FindAllOwnersInput): Promise<Pagination<Owner>> {
@@ -73,19 +74,33 @@ export class OwnersRepository implements IOwnersRepository {
     return row ? mapOwner(row) : null
   }
 
-  async update(id: string, params: UpdateOwnerInput): Promise<Owner | null> {
+  async update(
+    id: string,
+    params: UpdateOwnerRepositoryInput,
+  ): Promise<Owner | null> {
     const existing = await this.repository.findOne({
       where: { id, deletedAt: IsNull() },
     })
     if (!existing) return null
 
-    const { accountId, addressId, ...rest } = removeUndefinedValues(
-      params as unknown as Record<string, unknown>,
-    ) as UpdateOwnerInput
+    const definedParams =
+      removeUndefinedValues<UpdateOwnerRepositoryInput>(params)
 
-    Object.assign(existing, rest)
-    if (accountId) existing.account = { id: accountId } as AccountEntity
-    if (addressId) existing.address = { id: addressId } as AddressEntity
+    const updateParams: DeepPartial<OwnerEntity> = {
+      address: definedParams?.address
+        ? {
+            ...definedParams?.address,
+            id: existing.addressId,
+          }
+        : undefined,
+      maritalStatus: definedParams?.maritalStatus,
+      updatedBy: definedParams?.updatedBy,
+      updatedAt: new Date(),
+    }
+
+    Object.entries(updateParams).forEach(([key, value]) => {
+      existing[key] = value
+    })
 
     await this.repository.save(existing)
 

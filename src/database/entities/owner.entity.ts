@@ -41,6 +41,8 @@ export class OwnerEntity extends BaseEntity {
 
   @OneToOne(() => AddressEntity, (address) => address.owner, {
     nullable: false,
+    eager: true,
+    cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'address_id' })
   address!: AddressEntity

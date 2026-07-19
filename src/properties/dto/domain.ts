@@ -3,9 +3,7 @@ import type { FindOptionsRelations } from 'typeorm'
 import type { PropertyEntity, AddressEntity } from '@app/database/entities'
 
 export const relationsQuery: FindOptionsRelations<PropertyEntity> = {
-  owner: {
-    address: true,
-  },
+  owner: true,
 }
 
 export const mapAddress = (addr: AddressEntity): Address => {
@@ -41,7 +39,7 @@ export const mapRow = (row: PropertyEntity): Property => {
       maritalStatus: row.owner.maritalStatus,
       email: row.owner.email ?? undefined,
       accountId: row.owner.accountId,
-      address: mapAddress(row.owner.address),
+      addressId: row.owner.addressId,
       properties: [],
       createdAt: row.owner.createdAt,
       updatedAt: row.owner.updatedAt,
@@ -50,6 +48,7 @@ export const mapRow = (row: PropertyEntity): Property => {
       updatedBy: row.owner.updatedBy ?? undefined,
     },
     address: row.address ? mapAddress(row.address) : undefined,
+    addressId: row.addressId,
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,
     deletedAt: row.deletedAt ?? undefined,

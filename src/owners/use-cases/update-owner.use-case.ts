@@ -15,7 +15,10 @@ export class UpdateOwnerUseCase implements IUpdateOwnerUseCase {
   ) {}
 
   async execute(id: string, params: UpdateOwnerInput): Promise<Owner> {
-    const updated = await this.repository.update(id, params)
+    const updated = await this.repository.update(id, {
+      ...params,
+      updatedBy: 'fix for while, change later',
+    })
     if (!updated) throw new NotFoundException(`Owner ${id} not found`)
     return updated
   }
