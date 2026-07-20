@@ -5,12 +5,12 @@ import type { Owner } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
 import { AccountEntity, OwnerEntity } from '@app/database/entities'
+import type { IOwnersRepository } from '../domain'
 import type {
-  CreateOwnerRepositoryInput,
-  IOwnersRepository,
-  UpdateOwnerRepositoryInput,
-} from '../domain'
-import type { FindAllOwnersInput } from '../../dto'
+  CreateOwnerInput,
+  FindAllOwnersInput,
+  UpdateOwnerInput,
+} from '../../dto'
 import { mapOwner } from '../../domain/mappers'
 
 const MAX_PAGE_SIZE = 100
@@ -22,7 +22,7 @@ export class OwnersRepository implements IOwnersRepository {
     private readonly repository: Repository<OwnerEntity>,
   ) {}
 
-  async create(params: CreateOwnerRepositoryInput): Promise<Owner> {
+  async create(params: CreateOwnerInput): Promise<Owner> {
     const entity = this.repository.create({
       name: params.name,
       document: params.document,
@@ -74,17 +74,13 @@ export class OwnersRepository implements IOwnersRepository {
     return row ? mapOwner(row) : null
   }
 
-  async update(
-    id: string,
-    params: UpdateOwnerRepositoryInput,
-  ): Promise<Owner | null> {
+  async update(id: string, params: UpdateOwnerInput): Promise<Owner | null> {
     const existing = await this.repository.findOne({
       where: { id, deletedAt: IsNull() },
     })
     if (!existing) return null
 
-    const definedParams =
-      removeUndefinedValues<UpdateOwnerRepositoryInput>(params)
+    const definedParams = removeUndefinedValues<UpdateOwnerInput>(params)
 
     const updateParams: DeepPartial<OwnerEntity> = {
       address: definedParams?.address

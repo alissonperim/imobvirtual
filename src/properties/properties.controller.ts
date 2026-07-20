@@ -15,13 +15,16 @@ import { Property } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
 import { CurrentUser } from '@app/auth/decorators/current-user.decorator'
 import type { AccessToken } from '@app/auth/domain/session'
-import { CreatePropertyInput, UpdatePropertyInput } from './dto'
+import type { CreatePropertyInput, UpdatePropertyInput } from './dto'
 import type { FindAllPropertiesInput } from './dto'
 import { CreatePropertyUseCase } from './use-cases/create-property.use-case'
 import { FindAllPropertiesUseCase } from './use-cases/find-all-properties.use-case'
 import { FindPropertyByIdUseCase } from './use-cases/find-property-by-id.use-case'
 import { UpdatePropertyUseCase } from './use-cases/update-property.use-case'
 import { DeletePropertyUseCase } from './use-cases/delete-property.use-case'
+import { YupValidationPipe } from '@pkg/utils/schema-validator'
+import { createPropertySchema } from './schemas/create-property.schema'
+import { updatePropertySchema } from './schemas/update-property.schema'
 
 @Controller('properties')
 export class PropertiesController {
@@ -47,7 +50,8 @@ export class PropertiesController {
 
   @Post()
   async create(
-    @Body() body: CreatePropertyInput,
+    @Body(new YupValidationPipe(createPropertySchema))
+    body: CreatePropertyInput,
     @CurrentUser() user: AccessToken,
   ): Promise<Property> {
     return this.createUseCase.execute({ ...body, createdBy: user.sub })
@@ -56,7 +60,8 @@ export class PropertiesController {
   @Patch(':id')
   async update(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() body: UpdatePropertyInput,
+    @Body(new YupValidationPipe(updatePropertySchema))
+    body: UpdatePropertyInput,
     @CurrentUser() user: AccessToken,
   ): Promise<Property> {
     return this.updateUseCase.execute(id, { ...body, updatedBy: user.sub })

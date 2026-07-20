@@ -50,15 +50,15 @@ export class PropertyEntity extends BaseEntity {
   ownerId!: string
 
   @OneToOne(() => AddressEntity, (address) => address.property, {
-    nullable: true,
+    nullable: false,
     eager: true,
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'address_id' })
-  address!: AddressEntity | null
+  address!: AddressEntity
 
   @RelationId((property: PropertyEntity) => property.address)
-  addressId!: string | null
+  addressId!: string
 
   @OneToMany(() => ContractEntity, (contract) => contract.property)
   contracts?: ContractEntity[]

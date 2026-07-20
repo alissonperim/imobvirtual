@@ -9,8 +9,7 @@ describe('FindAllPropertiesUseCase', () => {
   const now = new Date('2026-01-01T00:00:00.000Z')
   const property = {
     id: 'property-id',
-    name: 'Casa Verde',
-    baseRentAmount: 1500,
+    rentAmount: 1500,
     solarEnergyActive: false,
     status: EPropertyStatus.AVAILABLE,
     owner: { id: 'owner-id' } as any,

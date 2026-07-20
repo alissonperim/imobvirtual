@@ -15,26 +15,13 @@ describe('UpdatePropertyUseCase', () => {
     phoneNumber: '62999999999',
     maritalStatus: EMaritalStatus.SINGLE,
     accountId: 'account-id',
-    address: {
-      id: 'addr-id',
-      street: 'Rua A',
-      neighborhood: 'Centro',
-      postalCode: '74000-000',
-      complement: 'Apto 1',
-      city: 'Goiânia',
-      state: 'GO',
-      number: '100',
-      createdAt: now,
-      updatedAt: now,
-    },
     properties: [],
     createdAt: now,
     updatedAt: now,
   }
   const property = {
     id: 'property-id',
-    name: 'Casa Verde',
-    baseRentAmount: 1500,
+    rentAmount: 1500,
     solarEnergyActive: false,
     status: EPropertyStatus.AVAILABLE,
     owner,
@@ -43,7 +30,7 @@ describe('UpdatePropertyUseCase', () => {
   }
   const updatedProperty = {
     ...property,
-    name: 'Casa Azul',
+    description: 'nova descrição',
     updatedAt: new Date(),
   }
 
@@ -62,13 +49,13 @@ describe('UpdatePropertyUseCase', () => {
     repository.update.mockResolvedValue(updatedProperty)
 
     const result = await sut.execute('property-id', {
-      name: 'Casa Azul',
-      updatedBy: 'account-id',
+      description: 'nova descrição',
+      updatedBy: 'placeholder',
     })
 
     expect(repository.update).toHaveBeenCalledWith('property-id', {
-      name: 'Casa Azul',
-      updatedBy: 'account-id',
+      description: 'nova descrição',
+      updatedBy: 'fix for while, change later',
     })
     expect(repository.findById).not.toHaveBeenCalled()
     expect(result).toBe(updatedProperty)
@@ -78,10 +65,14 @@ describe('UpdatePropertyUseCase', () => {
     repository.update.mockResolvedValue(null)
 
     await expect(
-      sut.execute('missing-id', { name: 'Casa Azul' }),
+      sut.execute('missing-id', {
+        description: 'nova descrição',
+        updatedBy: 'placeholder',
+      }),
     ).rejects.toThrow(NotFoundException)
     expect(repository.update).toHaveBeenCalledWith('missing-id', {
-      name: 'Casa Azul',
+      description: 'nova descrição',
+      updatedBy: 'fix for while, change later',
     })
   })
 })

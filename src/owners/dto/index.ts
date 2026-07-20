@@ -9,6 +9,7 @@ export type CreateOwnerInput = {
   maritalStatus: EMaritalStatus
   accountId: string
   address: Omit<Address, 'id'>
+  createdBy: string
 }
 
 export type UpdateOwnerInput = {
@@ -16,6 +17,7 @@ export type UpdateOwnerInput = {
   lastName?: string
   maritalStatus?: EMaritalStatus
   address?: Omit<Address, 'id'>
+  updatedBy: string
 }
 
 export type FindAllOwnersInput = {

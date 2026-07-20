@@ -6,6 +6,7 @@ import type {
   OwnerEntity,
   PropertyEntity,
 } from '@app/database/entities'
+import type { CreatePropertyInput } from '../../../dto'
 
 const makeAddressRow = (
   overrides: Partial<AddressEntity> = {},
@@ -51,23 +52,43 @@ const makePropertyRow = (
 ): PropertyEntity =>
   ({
     id: 'property-id',
-    name: 'Casa Verde',
     description: null,
-    baseRentAmount: 1500,
+    rentAmount: 1500,
     solarEnergyActive: false,
-    iptuCharge: false,
     status: EPropertyStatus.AVAILABLE,
     ownerId: 'owner-id',
-    addressId: null,
+    addressId: 'addr-id',
     createdAt: new Date('2026-01-01'),
     updatedAt: new Date('2026-01-01'),
     deletedAt: null,
     createdBy: null,
     updatedBy: null,
     owner: makeOwnerRow(),
-    address: null,
+    address: makeAddressRow(),
     ...overrides,
   }) as PropertyEntity
+
+const baseAddressInput = {
+  street: 'Rua A',
+  neighborhood: 'Centro',
+  postalCode: '74000-000',
+  complement: 'Apto 1',
+  city: 'Goiânia',
+  state: 'GO',
+  number: '100',
+  createdAt: new Date('2026-01-01'),
+  updatedAt: new Date('2026-01-01'),
+}
+
+const baseCreateInput: CreatePropertyInput = {
+  description: 'bela casa',
+  rentAmount: 1500,
+  solarEnergyActive: false,
+  status: EPropertyStatus.AVAILABLE,
+  ownerId: 'owner-id',
+  address: baseAddressInput,
+  createdBy: 'account-id',
+}
 
 describe('PropertiesRepository', () => {
   let repository: jest.Mocked<
@@ -93,22 +114,16 @@ describe('PropertiesRepository', () => {
   })
 
   describe('create', () => {
-    it('should convert baseRentAmount to number', async () => {
+    it('should convert rentAmount to number', async () => {
       const row = makePropertyRow()
       repository.create.mockReturnValue(row)
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-      })
+      const result = await sut.create(baseCreateInput)
 
-      expect(typeof result.baseRentAmount).toBe('number')
-      expect(result.baseRentAmount).toBe(1500)
+      expect(typeof result.rentAmount).toBe('number')
+      expect(result.rentAmount).toBe(1500)
     })
 
     it('should map null description to undefined', async () => {
@@ -117,32 +132,9 @@ describe('PropertiesRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-      })
+      const result = await sut.create(baseCreateInput)
 
       expect(result.description).toBeUndefined()
-    })
-
-    it('should map null address to undefined', async () => {
-      const row = makePropertyRow({ address: null })
-      repository.create.mockReturnValue(row)
-      repository.save.mockResolvedValue(row)
-      repository.findOneOrFail.mockResolvedValue(row)
-
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-      })
-
-      expect(result.address).toBeUndefined()
     })
 
     it('should map address nullable fields when address is present', async () => {
@@ -156,14 +148,7 @@ describe('PropertiesRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-        addressId: 'addr-id',
-      })
+      const result = await sut.create(baseCreateInput)
 
       expect(result.address?.deletedAt).toEqual(new Date('2026-06-01'))
       expect(result.address?.createdBy).toBe('user-1')
@@ -176,13 +161,7 @@ describe('PropertiesRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-      })
+      const result = await sut.create(baseCreateInput)
 
       expect(result.owner.email).toBeUndefined()
     })
@@ -195,13 +174,7 @@ describe('PropertiesRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-      })
+      const result = await sut.create(baseCreateInput)
 
       expect(result.owner.email).toBe('owner@example.com')
     })
@@ -212,15 +185,53 @@ describe('PropertiesRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create({
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
-        solarEnergyActive: false,
-        status: EPropertyStatus.AVAILABLE,
-        ownerId: 'owner-id',
-      })
+      const result = await sut.create(baseCreateInput)
 
       expect(result.owner.maritalStatus).toBe(EMaritalStatus.SINGLE)
+    })
+
+    it('should not include an address field on the mapped owner', async () => {
+      const row = makePropertyRow()
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
+
+      const result = await sut.create(baseCreateInput)
+
+      expect(result.owner).not.toHaveProperty('address')
+    })
+
+    it('should build the entity with the owner set as a relation reference', async () => {
+      const row = makePropertyRow()
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
+
+      await sut.create(baseCreateInput)
+
+      expect(repository.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          owner: { id: 'owner-id' },
+          address: baseAddressInput,
+          createdBy: 'account-id',
+        }),
+      )
+    })
+
+    it('should re-fetch the saved row with the owner relation before mapping', async () => {
+      const row = makePropertyRow()
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
+
+      await sut.create(baseCreateInput)
+
+      expect(repository.findOneOrFail).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'property-id' },
+          relations: expect.objectContaining({ owner: true }),
+        }),
+      )
     })
   })
 
@@ -244,6 +255,18 @@ describe('PropertiesRepository', () => {
 
       expect(result.hasMore).toBe(true)
       expect(result.data).toHaveLength(2)
+    })
+
+    it('should apply the soft-delete filter always', async () => {
+      repository.find.mockResolvedValue([])
+
+      await sut.findAll({})
+
+      expect(repository.find).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({ deletedAt: expect.anything() }),
+        }),
+      )
     })
 
     it('should apply ownerId filter when provided', async () => {
@@ -317,8 +340,7 @@ describe('PropertiesRepository', () => {
 
       expect(result).toMatchObject({
         id: 'property-id',
-        name: 'Casa Verde',
-        baseRentAmount: 1500,
+        rentAmount: 1500,
         status: EPropertyStatus.AVAILABLE,
       })
     })
@@ -328,20 +350,67 @@ describe('PropertiesRepository', () => {
     it('should return mapped property on success', async () => {
       repository.findOne.mockResolvedValue(makePropertyRow())
       repository.findOneOrFail.mockResolvedValue(
-        makePropertyRow({ name: 'Casa Azul' }),
+        makePropertyRow({ description: 'nova descrição' }),
       )
 
-      const result = await sut.update('property-id', { name: 'Casa Azul' })
+      const result = await sut.update('property-id', {
+        description: 'nova descrição',
+        updatedBy: 'account-id',
+      })
 
-      expect(result).toMatchObject({ id: 'property-id', name: 'Casa Azul' })
+      expect(result).toMatchObject({
+        id: 'property-id',
+        description: 'nova descrição',
+      })
     })
 
     it('should return null when the property is not found', async () => {
       repository.findOne.mockResolvedValue(null)
 
-      const result = await sut.update('property-id', { name: 'Casa Azul' })
+      const result = await sut.update('property-id', {
+        description: 'nova descrição',
+        updatedBy: 'account-id',
+      })
 
       expect(result).toBeNull()
+    })
+
+    it('should cascade the address using the existing addressId, not the property id', async () => {
+      const existing = makePropertyRow({
+        id: 'property-id',
+        addressId: 'addr-id',
+      })
+      repository.findOne.mockResolvedValue(existing)
+      repository.findOneOrFail.mockResolvedValue(makePropertyRow())
+
+      await sut.update('property-id', {
+        address: { ...baseAddressInput, street: 'Rua Nova' },
+        updatedBy: 'account-id',
+      })
+
+      expect(repository.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          address: expect.objectContaining({
+            id: 'addr-id',
+            street: 'Rua Nova',
+          }),
+        }),
+      )
+    })
+
+    it('should not touch the address when it is not part of the update payload', async () => {
+      const existing = makePropertyRow({ id: 'property-id' })
+      repository.findOne.mockResolvedValue(existing)
+      repository.findOneOrFail.mockResolvedValue(makePropertyRow())
+
+      await sut.update('property-id', {
+        description: 'só a descrição',
+        updatedBy: 'account-id',
+      })
+
+      expect(repository.save).toHaveBeenCalledWith(
+        expect.objectContaining({ address: undefined }),
+      )
     })
   })
 

@@ -14,13 +14,19 @@ import { Owner } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
 import { CurrentUser } from '@app/auth/decorators/current-user.decorator'
 import type { AccessToken } from '@app/auth/domain/session'
-import { CreateOwnerInput, UpdateOwnerInput } from './dto'
-import type { FindAllOwnersInput } from './dto'
+import type {
+  FindAllOwnersInput,
+  CreateOwnerInput,
+  UpdateOwnerInput,
+} from './dto'
 import { CreateOwnerUseCase } from './use-cases/create-owner.use-case'
 import { FindAllOwnersUseCase } from './use-cases/find-all-owners.use-case'
 import { FindOwnerByIdUseCase } from './use-cases/find-owner-by-id.use-case'
 import { UpdateOwnerUseCase } from './use-cases/update-owner.use-case'
 import { DeleteOwnerUseCase } from './use-cases/delete-owner.use-case'
+import { YupValidationPipe } from '@pkg/utils/schema-validator'
+import { createOwnerSchema } from './schemas/create-owner.schema'
+import { updateOwnerSchema } from './schemas/update-owner.schema'
 
 @Controller('owners')
 export class OwnersController {
@@ -46,7 +52,8 @@ export class OwnersController {
 
   @Post()
   async create(
-    @Body() body: CreateOwnerInput,
+    @Body(new YupValidationPipe(createOwnerSchema))
+    body: CreateOwnerInput,
     @CurrentUser() user: AccessToken,
   ): Promise<Owner> {
     return this.createUseCase.execute({ ...body, createdBy: user.sub })
@@ -55,7 +62,7 @@ export class OwnersController {
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() body: UpdateOwnerInput,
+    @Body(new YupValidationPipe(updateOwnerSchema)) body: UpdateOwnerInput,
     @CurrentUser() user: AccessToken,
   ): Promise<Owner> {
     return this.updateUseCase.execute(id, { ...body, updatedBy: user.sub })

@@ -31,7 +31,11 @@ describe('UpdateOwnerUseCase', () => {
     createdAt: now,
     updatedAt: now,
   }
-  const updatedOwner = { ...owner, name: 'Jane Doe', updatedAt: new Date() }
+  const updatedOwner = {
+    ...owner,
+    maritalStatus: EMaritalStatus.MARIED,
+    updatedAt: new Date(),
+  }
 
   beforeEach(() => {
     repository = {
@@ -48,13 +52,13 @@ describe('UpdateOwnerUseCase', () => {
     repository.update.mockResolvedValue(updatedOwner)
 
     const result = await sut.execute('owner-id', {
-      name: 'Jane Doe',
-      updatedBy: 'user-id',
+      maritalStatus: EMaritalStatus.MARIED,
+      updatedBy: 'placeholder',
     })
 
     expect(repository.update).toHaveBeenCalledWith('owner-id', {
-      name: 'Jane Doe',
-      updatedBy: 'user-id',
+      maritalStatus: EMaritalStatus.MARIED,
+      updatedBy: 'fix for while, change later',
     })
     expect(result).toBe(updatedOwner)
   })
@@ -63,10 +67,14 @@ describe('UpdateOwnerUseCase', () => {
     repository.update.mockResolvedValue(null)
 
     await expect(
-      sut.execute('missing-id', { name: 'Jane Doe' }),
+      sut.execute('missing-id', {
+        maritalStatus: EMaritalStatus.MARIED,
+        updatedBy: 'placeholder',
+      }),
     ).rejects.toThrow(NotFoundException)
     expect(repository.update).toHaveBeenCalledWith('missing-id', {
-      name: 'Jane Doe',
+      maritalStatus: EMaritalStatus.MARIED,
+      updatedBy: 'fix for while, change later',
     })
   })
 })

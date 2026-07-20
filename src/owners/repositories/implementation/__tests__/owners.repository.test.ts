@@ -2,6 +2,7 @@ import { EMaritalStatus } from '@pkg/types'
 import type { Repository, UpdateResult } from 'typeorm'
 import { OwnersRepository } from '../owners.repository'
 import type { AddressEntity, OwnerEntity } from '@app/database/entities'
+import type { CreateOwnerInput } from '../../../dto'
 
 const makeAddressRow = (
   overrides: Partial<AddressEntity> = {},
@@ -42,13 +43,27 @@ const makeOwnerRow = (overrides: Partial<OwnerEntity> = {}): OwnerEntity =>
     ...overrides,
   }) as OwnerEntity
 
-const baseInput = {
+const baseAddressInput = {
+  street: 'Rua A',
+  neighborhood: 'Centro',
+  postalCode: '74000-000',
+  complement: 'Apto 1',
+  city: 'Goiânia',
+  state: 'GO',
+  number: '100',
+  createdAt: new Date('2026-01-01'),
+  updatedAt: new Date('2026-01-01'),
+}
+
+const baseCreateInput: CreateOwnerInput = {
   name: 'John Doe',
+  lastName: 'Doe',
   document: '12345678900',
   phoneNumber: '62999999999',
   maritalStatus: EMaritalStatus.SINGLE,
   accountId: 'account-id',
-  addressId: 'addr-id',
+  address: baseAddressInput,
+  createdBy: 'account-id',
 }
 
 describe('OwnersRepository', () => {
@@ -74,11 +89,12 @@ describe('OwnersRepository', () => {
 
   describe('create', () => {
     it('should map the created row to an Owner domain object', async () => {
-      repository.create.mockReturnValue(makeOwnerRow())
-      repository.save.mockResolvedValue(makeOwnerRow())
-      repository.findOneOrFail.mockResolvedValue(makeOwnerRow())
+      const row = makeOwnerRow()
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create(baseInput)
+      const result = await sut.create(baseCreateInput)
 
       expect(result.id).toBe('owner-id')
       expect(result.name).toBe('John Doe')
@@ -87,11 +103,12 @@ describe('OwnersRepository', () => {
     })
 
     it('should map null email to undefined', async () => {
-      repository.create.mockReturnValue(makeOwnerRow({ email: null }))
-      repository.save.mockResolvedValue(makeOwnerRow({ email: null }))
-      repository.findOneOrFail.mockResolvedValue(makeOwnerRow({ email: null }))
+      const row = makeOwnerRow({ email: null })
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create(baseInput)
+      const result = await sut.create(baseCreateInput)
 
       expect(result.email).toBeUndefined()
     })
@@ -102,7 +119,7 @@ describe('OwnersRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create(baseInput)
+      const result = await sut.create(baseCreateInput)
 
       expect(result.email).toBe('john@example.com')
     })
@@ -115,10 +132,43 @@ describe('OwnersRepository', () => {
       repository.save.mockResolvedValue(row)
       repository.findOneOrFail.mockResolvedValue(row)
 
-      const result = await sut.create(baseInput)
+      const result = await sut.create(baseCreateInput)
 
       expect(result.address.deletedAt).toBeUndefined()
       expect(result.address.createdBy).toBeUndefined()
+    })
+
+    it('should build the entity with the account set as a relation reference', async () => {
+      const row = makeOwnerRow()
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
+
+      await sut.create(baseCreateInput)
+
+      expect(repository.create).toHaveBeenCalledWith(
+        expect.objectContaining({
+          account: { id: 'account-id' },
+          address: baseAddressInput,
+          createdBy: 'account-id',
+        }),
+      )
+    })
+
+    it('should re-fetch the saved row with the address relation before mapping', async () => {
+      const row = makeOwnerRow()
+      repository.create.mockReturnValue(row)
+      repository.save.mockResolvedValue(row)
+      repository.findOneOrFail.mockResolvedValue(row)
+
+      await sut.create(baseCreateInput)
+
+      expect(repository.findOneOrFail).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { id: 'owner-id' },
+          relations: { address: true },
+        }),
+      )
     })
   })
 
@@ -188,22 +238,62 @@ describe('OwnersRepository', () => {
   describe('update', () => {
     it('should return the mapped updated owner', async () => {
       repository.findOne.mockResolvedValue(makeOwnerRow())
-      repository.save.mockResolvedValue(makeOwnerRow({ name: 'Jane Doe' }))
       repository.findOneOrFail.mockResolvedValue(
-        makeOwnerRow({ name: 'Jane Doe' }),
+        makeOwnerRow({ maritalStatus: EMaritalStatus.MARIED }),
       )
 
-      const result = await sut.update('owner-id', { name: 'Jane Doe' })
+      const result = await sut.update('owner-id', {
+        maritalStatus: EMaritalStatus.MARIED,
+        updatedBy: 'account-id',
+      })
 
-      expect(result?.name).toBe('Jane Doe')
+      expect(result?.maritalStatus).toBe(EMaritalStatus.MARIED)
     })
 
     it('should return null when owner is not found', async () => {
       repository.findOne.mockResolvedValue(null)
 
-      const result = await sut.update('missing-id', { name: 'Jane Doe' })
+      const result = await sut.update('missing-id', {
+        maritalStatus: EMaritalStatus.MARIED,
+        updatedBy: 'account-id',
+      })
 
       expect(result).toBeNull()
+    })
+
+    it('should cascade the address using the existing addressId, not the owner id', async () => {
+      const existing = makeOwnerRow({ id: 'owner-id', addressId: 'addr-id' })
+      repository.findOne.mockResolvedValue(existing)
+      repository.findOneOrFail.mockResolvedValue(makeOwnerRow())
+
+      await sut.update('owner-id', {
+        address: { ...baseAddressInput, street: 'Rua Nova' },
+        updatedBy: 'account-id',
+      })
+
+      expect(repository.save).toHaveBeenCalledWith(
+        expect.objectContaining({
+          address: expect.objectContaining({
+            id: 'addr-id',
+            street: 'Rua Nova',
+          }),
+        }),
+      )
+    })
+
+    it('should not touch the address when it is not part of the update payload', async () => {
+      const existing = makeOwnerRow({ id: 'owner-id' })
+      repository.findOne.mockResolvedValue(existing)
+      repository.findOneOrFail.mockResolvedValue(makeOwnerRow())
+
+      await sut.update('owner-id', {
+        maritalStatus: EMaritalStatus.DIVORCED,
+        updatedBy: 'account-id',
+      })
+
+      expect(repository.save).toHaveBeenCalledWith(
+        expect.objectContaining({ address: undefined }),
+      )
     })
   })
 

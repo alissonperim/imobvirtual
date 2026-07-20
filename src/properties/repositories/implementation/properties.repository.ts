@@ -5,12 +5,12 @@ import { Property } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
 import { PropertyEntity } from '@app/database/entities'
+import type { IPropertiesRepository } from '../domain'
 import type {
-  CreatePropertyRepositoryParams,
-  IPropertiesRepository,
-  UpdatePropertyRepositoryParams,
-} from '../domain'
-import type { FindAllPropertiesInput } from '../../dto'
+  CreatePropertyInput,
+  FindAllPropertiesInput,
+  UpdatePropertyInput,
+} from '../../dto'
 import { mapRow, relationsQuery } from '@app/properties/dto/domain'
 
 const MAX_PAGE_SIZE = 100
@@ -22,7 +22,7 @@ export class PropertiesRepository implements IPropertiesRepository {
     private readonly repository: Repository<PropertyEntity>,
   ) {}
 
-  async create(params: CreatePropertyRepositoryParams): Promise<Property> {
+  async create(params: CreatePropertyInput): Promise<Property> {
     const entity = this.repository.create({
       address: params.address,
       owner: {
@@ -86,7 +86,7 @@ export class PropertiesRepository implements IPropertiesRepository {
 
   async update(
     id: string,
-    params: UpdatePropertyRepositoryParams,
+    params: UpdatePropertyInput,
   ): Promise<Property | null> {
     const existing = await this.repository.findOne({
       where: { id, deletedAt: IsNull() },
@@ -94,8 +94,7 @@ export class PropertiesRepository implements IPropertiesRepository {
 
     if (!existing) return null
 
-    const definedParams =
-      removeUndefinedValues<UpdatePropertyRepositoryParams>(params)
+    const definedParams = removeUndefinedValues<UpdatePropertyInput>(params)
 
     const updateParams: DeepPartial<PropertyEntity> = {
       address: definedParams?.address

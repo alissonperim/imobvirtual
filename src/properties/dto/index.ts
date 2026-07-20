@@ -7,6 +7,7 @@ export type CreatePropertyInput = {
   status: EPropertyStatus
   ownerId: string
   address: Omit<Address, 'id'>
+  createdBy: string
 }
 
 export type UpdatePropertyInput = {
@@ -15,6 +16,7 @@ export type UpdatePropertyInput = {
   solarEnergyActive?: boolean
   status?: EPropertyStatus
   address?: Omit<Address, 'id'>
+  updatedBy: string
 }
 
 export type FindAllPropertiesInput = {

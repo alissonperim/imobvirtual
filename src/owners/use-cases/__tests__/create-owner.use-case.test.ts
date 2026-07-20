@@ -46,17 +46,31 @@ describe('CreateOwnerUseCase', () => {
   it('should create an owner and return it', async () => {
     const input = {
       name: 'John Doe',
+      lastName: 'Doe',
       document: '12345678900',
       phoneNumber: '62999999999',
       maritalStatus: EMaritalStatus.SINGLE,
       accountId: 'account-id',
-      addressId: 'addr-id',
-      createdBy: 'user-id',
+      address: {
+        street: 'Rua A',
+        neighborhood: 'Centro',
+        postalCode: '74000-000',
+        complement: 'Apto 1',
+        city: 'Goiânia',
+        state: 'GO',
+        number: '100',
+        createdAt: now,
+        updatedAt: now,
+      },
+      createdBy: 'placeholder',
     }
 
     const result = await sut.execute(input)
 
-    expect(repository.create).toHaveBeenCalledWith(input)
+    expect(repository.create).toHaveBeenCalledWith({
+      ...input,
+      createdBy: 'fix for while, change later',
+    })
     expect(result).toBe(owner)
   })
 })

@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Initial1784472658969 implements MigrationInterface {
-    name = 'Initial1784472658969'
+export class Initial1784506918409 implements MigrationInterface {
+    name = 'Initial1784506918409'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TYPE "public"."property_charges_charge_amount_type_enum" AS ENUM('percentage', 'absolute')`);
         await queryRunner.query(`CREATE TABLE "property_charges" ("created_by" character varying, "updated_by" character varying, "deleted_by" character varying, "id" character varying(21) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "amount" numeric(10,2) NOT NULL, "description" character varying(320) NOT NULL, "charge_amount_type" "public"."property_charges_charge_amount_type_enum" NOT NULL, "property_id" character varying(21) NOT NULL, CONSTRAINT "PK_a83ec85ae59eeda4a71f6084d92" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "public"."properties_status_enum" AS ENUM('AVAILABLE', 'RENTED', 'MAINTENANCE')`);
-        await queryRunner.query(`CREATE TABLE "properties" ("created_by" character varying, "updated_by" character varying, "deleted_by" character varying, "id" character varying(21) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "description" character varying, "rent_amount" numeric(10,2) NOT NULL, "solar_energy_active" boolean NOT NULL DEFAULT false, "status" "public"."properties_status_enum" NOT NULL, "owner_id" character varying(21) NOT NULL, "address_id" character varying(21), CONSTRAINT "REL_1467c863029590ab33d4104857" UNIQUE ("address_id"), CONSTRAINT "PK_2d83bfa0b9fcd45dee1785af44d" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "properties" ("created_by" character varying, "updated_by" character varying, "deleted_by" character varying, "id" character varying(21) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "description" character varying, "rent_amount" numeric(10,2) NOT NULL, "solar_energy_active" boolean NOT NULL DEFAULT false, "status" "public"."properties_status_enum" NOT NULL, "owner_id" character varying(21) NOT NULL, "address_id" character varying(21) NOT NULL, CONSTRAINT "REL_1467c863029590ab33d4104857" UNIQUE ("address_id"), CONSTRAINT "PK_2d83bfa0b9fcd45dee1785af44d" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE INDEX "IDX_cc8c6fb84d7ce4ffdb04975073" ON "properties"  ("owner_id", "status", "deleted_at") `);
         await queryRunner.query(`CREATE INDEX "IDX_8664ff094beddca3794025c571" ON "properties"  ("deleted_at", "created_at") `);
         await queryRunner.query(`CREATE INDEX "IDX_9cd2513cd04f57c9967f640b0a" ON "properties"  ("status") `);
