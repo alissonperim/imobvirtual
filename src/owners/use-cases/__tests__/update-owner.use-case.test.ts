@@ -10,7 +10,8 @@ describe('UpdateOwnerUseCase', () => {
   const now = new Date('2026-01-01T00:00:00.000Z')
   const owner = {
     id: 'owner-id',
-    name: 'John Doe',
+    name: 'John',
+    lastName: 'Doe',
     document: '12345678900',
     phoneNumber: '62999999999',
     maritalStatus: EMaritalStatus.SINGLE,

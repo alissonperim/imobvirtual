@@ -34,6 +34,7 @@ export const mapRow = (row: PropertyEntity): Property => {
     owner: {
       id: row.owner.id,
       name: row.owner.name,
+      lastName: row.owner.lastName,
       document: row.owner.document,
       phoneNumber: row.owner.phoneNumber,
       maritalStatus: row.owner.maritalStatus,
