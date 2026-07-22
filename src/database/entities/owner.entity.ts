@@ -15,8 +15,11 @@ import { BaseEntity } from './base.entity'
 
 @Entity('owners')
 export class OwnerEntity extends BaseEntity {
-  @Column()
+  @Column({ length: 120, type: 'varchar' })
   name!: string
+
+  @Column({ name: 'last_name', length: 120, type: 'varchar' })
+  lastName!: string
 
   @Column({ unique: true })
   document!: string
@@ -55,4 +58,8 @@ export class OwnerEntity extends BaseEntity {
 
   @OneToMany(() => ContractEntity, (contract) => contract.owner)
   contracts?: ContractEntity[]
+
+  get fullName(): string {
+    return `${this.name} ${this.lastName}`
+  }
 }

@@ -25,6 +25,7 @@ export class OwnersRepository implements IOwnersRepository {
   async create(params: CreateOwnerInput): Promise<Owner> {
     const entity = this.repository.create({
       name: params.name,
+      lastName: params.lastName,
       document: params.document,
       phoneNumber: params.phoneNumber,
       email: params.email,

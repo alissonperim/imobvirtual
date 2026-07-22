@@ -23,6 +23,7 @@ export function mapOwner(row: OwnerEntity): Owner {
   return {
     id: row.id,
     name: row.name,
+    lastName: row.name,
     document: row.document,
     phoneNumber: row.phoneNumber,
     email: row.email ?? undefined,

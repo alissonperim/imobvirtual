@@ -12,6 +12,7 @@ export enum EMaritalStatus {
 export type Owner = Base & {
   id: string
   name: string
+  lastName: string
   document: string
   phoneNumber: string
   properties: Property[]

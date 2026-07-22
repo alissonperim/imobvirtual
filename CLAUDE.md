@@ -39,24 +39,25 @@ pnpm jest src/auth/use-cases/__tests__/request-otp.use-case.test.ts
 
 ### Module structure
 
-Each domain (`auth`, `accounts`, `properties`, `owners`, `renters`, `addresses`, `rental-contracts`) is a self-contained NestJS module. The pattern inside each module:
+Each domain (`auth`, `accounts`, `properties`, `owners`, `renters`, `rental-contracts`) is a self-contained NestJS module. `owners` and `properties` are the current reference pattern — follow them for new modules:
 
 ```
 <domain>/
-  domain/        # Input/output types (no NestJS imports)
+  domain/                                # mapper functions (entity -> domain type), no NestJS imports
+  dto/                                   # use-case input/output types (index.ts, domain.ts)
+  schemas/                               # yup validation schemas, applied via YupValidationPipe in the controller
   repositories/
-    <name>.domain.ts                  # Repository interface
-    implementations/<name>.repository.ts  # In-memory implementation
-    implementations/__tests__/        # Repository tests
-  services/
-    <name>.service.ts                 # Domain service + interface
-    __tests__/                        # Service tests
+    domain.ts                            # Repository interface
+    implementation/<name>.repository.ts  # TypeORM-backed implementation
+    implementation/__tests__/            # Repository tests
   use-cases/
-    <name>.use-case.ts                # Use-case class + interface
-    __tests__/                        # Use-case tests
+    <name>.use-case.ts                   # Use-case class + interface
+    __tests__/                           # Use-case tests
   <domain>.module.ts
-  <domain>.controllers.ts
+  <domain>.controller.ts
 ```
+
+`auth` predates this pattern and still differs: it adds `services/`, `decorators/`, and `guards/` folders, uses `<domain>.controllers.ts` (plural) and `<name>.domain.ts` / `implementations/` (plural) naming, and validates its DTOs with `class-validator` decorators instead of yup. `accounts` is older still (`use-cases/domain.ts` + `use-cases/implementations/<name>.use-case.ts`, no controller yet). `renters` and `rental-contracts` are stub modules — only the `.module.ts` file exists, no repository implementation. There is no `addresses` module; `Address` is only reachable as a relation from `Owner`/`Property`.
 
 ### Dependency injection
 
@@ -84,9 +85,13 @@ OTP expiry is controlled by `MINUTES_TO_EXPIRE_OTP` env var (defaults to 6). OTP
 
 ### Repositories
 
-Repositories are backed by TypeORM (`@InjectRepository(XEntity)`), registered globally via `DatabaseModule` (`src/database/database.module.ts`) — no per-module `TypeOrmModule.forFeature` needed. The repository interface is defined separately from the implementation so the DB layer can be swapped without touching use-cases. `renters` and `rental-contracts` are still stub modules (no repository implementation yet); there is no `addresses` module — Address is only reachable as a relation from Owner/Property.
+Repositories are backed by TypeORM (`@InjectRepository(XEntity)`), registered globally via `DatabaseModule` (`src/database/database.module.ts`) — no per-module `TypeOrmModule.forFeature` needed. The repository interface is defined separately from the implementation so the DB layer can be swapped without touching use-cases.
 
 Not-found handling on `update`/`softDelete` uses `UpdateResult.affected` via `wasAffected()` (`packages/utils/error-utils.ts`), not exceptions.
+
+### Request validation
+
+`owners` and `properties` validate controller input with **yup** schemas (`<domain>/schemas/*.schema.ts`), applied per-route via `@Body(new YupValidationPipe(theSchema))` (`YupValidationPipe` lives in `packages/utils/schema-validator.ts`; it strips unknown keys and returns a 400 with per-field errors on failure). `auth` predates this and still validates with `class-validator` decorators on its domain classes (`src/auth/domain/otp.ts`, `session.ts`) — new modules should use the yup pattern.
 
 ### Migrations
 
@@ -102,7 +107,7 @@ pnpm run migration:revert                                       # roll back the 
 
 ### Shared types (`packages/types`)
 
-Domain entities and enums live here and are imported via `@pkg/types`. Key enums: `EOtpPurpose`, `EOtpChannel`, `EAccountRole`, `EAccountStatus`.
+Domain entities and enums live here and are imported via `@pkg/types`. Enums: `EOtpPurpose`, `EOtpChannel`, `EAccountRole`, `EAccountStatus`, `EMaritalStatus`, `EPropertyStatus`, `EPropertyChargeAmountType`, `ERentalContractStatus`.
 
 ### Testing conventions
 
