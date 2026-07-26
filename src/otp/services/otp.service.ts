@@ -5,12 +5,12 @@ import {
   GeneratedOtp,
   ValidateOtpInput,
 } from '../domain'
-import { EOtpPurpose } from '@pkg/types'
+import { EOtpPurpose, Otp } from '@pkg/types'
 import crypto from 'node:crypto'
 import type { IOtpRepository } from '../repository/otp.domain'
 
 export interface IOtpService {
-  validate(params: ValidateOtpInput): Promise<void>
+  getAndValidate(params: ValidateOtpInput): Promise<Otp>
   createOtp(params: CreateOtpInput): Promise<CreateOtpOutput>
 }
 
@@ -30,7 +30,7 @@ export class OtpService implements IOtpService {
     private readonly repository: IOtpRepository,
   ) {}
 
-  async validate(params: ValidateOtpInput): Promise<void> {
+  async getAndValidate(params: ValidateOtpInput): Promise<Otp> {
     const challengOtp = await this.repository.findActiveById(params.otpId)
 
     if (!challengOtp) {
@@ -46,7 +46,10 @@ export class OtpService implements IOtpService {
       throw new UnauthorizedException('Invalid OTP')
     }
 
-    const isOtpValid = this.validateOtp(params.otp, challengOtp.codeHash)
+    const isOtpValid = this.validateOtp({
+      otpReceived: params.otp,
+      challengOtpHash: challengOtp.codeHash,
+    })
 
     if (!isOtpValid) {
       await this.repository.incrementAttempts(challengOtp.id)
@@ -55,7 +58,7 @@ export class OtpService implements IOtpService {
 
     await this.repository.consume(challengOtp.id)
 
-    return
+    return challengOtp
   }
 
   async createOtp({
@@ -105,7 +108,13 @@ export class OtpService implements IOtpService {
     }
   }
 
-  private validateOtp(otpReceived: string, challengOtpHash: string): boolean {
+  private validateOtp({
+    otpReceived,
+    challengOtpHash,
+  }: {
+    otpReceived: string
+    challengOtpHash: string
+  }): boolean {
     const hash = this.hashCode(otpReceived)
 
     return challengOtpHash === hash

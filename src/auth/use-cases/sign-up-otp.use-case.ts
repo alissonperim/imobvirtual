@@ -32,18 +32,12 @@ export class SignUpOtpConsumeUseCase implements IVerifySignUpOtpUseCase {
   async execute(
     params: SignUpInput,
   ): Promise<{ accessToken: string; refreshToken: string }> {
-    await this.otpService.validate({
+    const otp = await this.otpService.getAndValidate({
       otp: params.otp,
       otpId: params.otpId,
     })
 
-    const account = await this.accountService.register({
-      email: params.email,
-      role: params.role,
-      name: params.name,
-      lastName: params.lastName,
-      phoneNumber: params.phoneNumber,
-    })
+    const account = await this.accountService.register(otp.id)
 
     const refreshTokenData = this.tokenService.generateRefreshToken()
 

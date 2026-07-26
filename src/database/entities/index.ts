@@ -7,6 +7,7 @@ import { ContractEntity } from './contract.entity'
 import { SessionEntity } from './session.entity'
 import { OtpChallengeEntity } from './otp-challenge.entity'
 import { PropertyChargeEntity } from './property-charge.entity'
+import { PendingRegistrationEntity } from './pending-registration.entity'
 
 export * from './account.entity'
 export * from './address.entity'
@@ -16,6 +17,7 @@ export * from './property.entity'
 export * from './contract.entity'
 export * from './session.entity'
 export * from './otp-challenge.entity'
+export * from './pending-registration.entity'
 
 export const entities = [
   AccountEntity,
@@ -27,4 +29,5 @@ export const entities = [
   SessionEntity,
   OtpChallengeEntity,
   PropertyChargeEntity,
+  PendingRegistrationEntity,
 ]

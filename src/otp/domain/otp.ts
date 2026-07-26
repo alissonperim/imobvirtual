@@ -5,6 +5,9 @@ export type RequestOtpInput = {
   channel: EOtpChannel
   phoneNumber: string
   role: EAccountRole
+  email?: string
+  name?: string
+  lastName?: string
 }
 
 export type RequestOtpOutput = {
@@ -30,6 +33,10 @@ export type OtpCreateRepositoryInput = {
   codeHash: string
   expiresAt: Date
   purpose: EOtpPurpose
+  name?: string
+  lastName?: string
+  email?: string
+  role?: EAccountRole
 }
 
 export type GeneratedOtp = {

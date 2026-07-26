@@ -2,7 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { IsNull, MoreThan, Repository } from 'typeorm'
 import { Otp } from '@pkg/types'
-import { AccountEntity, OtpChallengeEntity } from '@app/database/entities'
+import {
+  AccountEntity,
+  OtpChallengeEntity,
+  PendingRegistrationEntity,
+} from '@app/database/entities'
 import type { IOtpRepository } from '../otp.domain'
 import type { OtpCreateRepositoryInput } from '../../domain/otp'
 
@@ -11,6 +15,9 @@ export class OtpRepository implements IOtpRepository {
   constructor(
     @InjectRepository(OtpChallengeEntity)
     private readonly repository: Repository<OtpChallengeEntity>,
+
+    @InjectRepository(PendingRegistrationEntity)
+    private readonly pendingRegistrationRepository: Repository<PendingRegistrationEntity>,
   ) {}
 
   async create(params: OtpCreateRepositoryInput): Promise<Otp> {

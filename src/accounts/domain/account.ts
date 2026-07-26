@@ -6,6 +6,7 @@ export type RegisterAccountInput = {
   phoneNumber: string
   email: string
   role: EAccountRole
+  otpId: string
 }
 
 export type RegisterAccountOutput = {
@@ -18,11 +19,18 @@ export type RegisterAccountOutput = {
 }
 
 export type GetByDestinationInput = {
-  phoneNumber: string
-  role: EAccountRole
+  phoneNumber?: string
+  role?: EAccountRole
+  id?: string
 }
 
 export type GetAccountInput = {
-  phoneNumber: string
+  id?: string
+  phoneNumber?: string
+  role?: EAccountRole
+}
+
+export type CreateAccountInput = {
   role: EAccountRole
+  status: EAccountStatus
 }

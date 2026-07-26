@@ -49,6 +49,15 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
       accountId: account?.id,
     })
 
+    await this.accountService.createPendingRegistrationUser({
+      email: input.email,
+      phoneNumber: input.phoneNumber,
+      name: input.name,
+      lastName: input.lastName,
+      role: input.role,
+      otpId: otp.otpId,
+    })
+
     this.logger.log(`[DEV] OTP code: ${otp.code}`)
 
     return {

@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { IsNull, Repository } from 'typeorm'
-import { Account, EAccountRole } from '@pkg/types'
-import { AccountEntity } from '@app/database/entities'
+import { Account, EAccountRole, PendingRegistrationAccount } from '@pkg/types'
+import {
+  AccountEntity,
+  PendingRegistrationEntity,
+} from '@app/database/entities'
 import type { IAccountsRepository } from '../domain'
-import type { CreateAccountInput } from '@app/accounts/domain'
+import type {
+  CreateAccountInput,
+  CreatePendingRegistrationAccountInput,
+} from '@app/accounts/domain'
 import { GetByDestinationInput } from '@app/accounts/domain/account'
 
 @Injectable()
@@ -12,6 +18,9 @@ export class AccountsRepository implements IAccountsRepository {
   constructor(
     @InjectRepository(AccountEntity)
     private readonly repository: Repository<AccountEntity>,
+
+    @InjectRepository(PendingRegistrationEntity)
+    private readonly pendingRegistrationRepository: Repository<PendingRegistrationEntity>,
   ) {}
 
   async create(params: CreateAccountInput): Promise<Account> {
@@ -21,6 +30,29 @@ export class AccountsRepository implements IAccountsRepository {
     })
     const saved = await this.repository.save(entity)
     return this.toAccount(saved)
+  }
+
+  async createPendingRegistrationUser(
+    params: CreatePendingRegistrationAccountInput,
+  ): Promise<void> {
+    const entity = this.pendingRegistrationRepository.create({
+      email: params.email,
+      phoneNumber: params.phoneNumber,
+      role: params.role,
+      name: params.name,
+      lastName: params.lastName,
+      otpId: params.otpId,
+    })
+
+    await this.pendingRegistrationRepository.save(entity)
+  }
+
+  async getPendingRegistrationAccount(
+    otpId: string,
+  ): Promise<PendingRegistrationAccount> {
+    return await this.pendingRegistrationRepository.findOneByOrFail({
+      otpId,
+    })
   }
 
   async list(params: GetByDestinationInput): Promise<Account[] | undefined> {
@@ -42,9 +74,14 @@ export class AccountsRepository implements IAccountsRepository {
       })
     }
 
+    const idQuery = {
+      id: params.id,
+    }
+
     const rows = await this.repository.find({
       where: {
         ...userRoleQuery,
+        ...idQuery,
         deletedAt: IsNull(),
       },
     })
