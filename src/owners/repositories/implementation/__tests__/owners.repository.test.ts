@@ -2,7 +2,7 @@ import { EMaritalStatus } from '@pkg/types'
 import type { Repository, UpdateResult } from 'typeorm'
 import { OwnersRepository } from '../owners.repository'
 import type { AddressEntity, OwnerEntity } from '@app/database/entities'
-import type { CreateOwnerInput } from '../../../dto'
+import type { CreateOwnerInput } from '../../../domain/owner'
 
 const makeAddressRow = (
   overrides: Partial<AddressEntity> = {},
@@ -58,11 +58,8 @@ const baseAddressInput = {
 const baseCreateInput: CreateOwnerInput = {
   name: 'John Doe',
   lastName: 'Doe',
-  document: '12345678900',
   phoneNumber: '62999999999',
-  maritalStatus: EMaritalStatus.SINGLE,
-  accountId: 'account-id',
-  address: baseAddressInput,
+  email: 'john@example.com',
   createdBy: 'account-id',
 }
 
@@ -126,7 +123,10 @@ describe('OwnersRepository', () => {
 
     it('should map null address nullable fields to undefined', async () => {
       const row = makeOwnerRow({
-        address: makeAddressRow({ deletedAt: null, createdBy: null }),
+        address: makeAddressRow({
+          deletedAt: null,
+          createdBy: null,
+        } as unknown as Partial<AddressEntity>),
       })
       repository.create.mockReturnValue(row)
       repository.save.mockResolvedValue(row)
@@ -138,7 +138,7 @@ describe('OwnersRepository', () => {
       expect(result.address.createdBy).toBeUndefined()
     })
 
-    it('should build the entity with the account set as a relation reference', async () => {
+    it('should build the entity from the create input', async () => {
       const row = makeOwnerRow()
       repository.create.mockReturnValue(row)
       repository.save.mockResolvedValue(row)
@@ -146,13 +146,12 @@ describe('OwnersRepository', () => {
 
       await sut.create(baseCreateInput)
 
-      expect(repository.create).toHaveBeenCalledWith(
-        expect.objectContaining({
-          account: { id: 'account-id' },
-          address: baseAddressInput,
-          createdBy: 'account-id',
-        }),
-      )
+      expect(repository.create).toHaveBeenCalledWith({
+        name: baseCreateInput.name,
+        lastName: baseCreateInput.lastName,
+        phoneNumber: baseCreateInput.phoneNumber,
+        email: baseCreateInput.email,
+      })
     })
 
     it('should re-fetch the saved row with the address relation before mapping', async () => {

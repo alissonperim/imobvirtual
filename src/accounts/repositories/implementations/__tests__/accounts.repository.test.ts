@@ -6,7 +6,6 @@ import type { AccountEntity } from '@app/database/entities'
 const makeRow = (overrides: Partial<AccountEntity> = {}): AccountEntity =>
   ({
     id: 'account-id',
-    phoneNumber: '62999999999',
     role: EAccountRole.OWNER,
     status: EAccountStatus.PENDING,
     lastLoginAt: null,
@@ -21,7 +20,7 @@ const makeRow = (overrides: Partial<AccountEntity> = {}): AccountEntity =>
 
 describe('AccountsRepository', () => {
   let repository: jest.Mocked<
-    Pick<Repository<AccountEntity>, 'create' | 'save' | 'findOne'>
+    Pick<Repository<AccountEntity>, 'create' | 'save' | 'findOne' | 'find'>
   >
   let sut: AccountsRepository
 
@@ -30,6 +29,7 @@ describe('AccountsRepository', () => {
       create: jest.fn(),
       save: jest.fn(),
       findOne: jest.fn(),
+      find: jest.fn(),
     }
     sut = new AccountsRepository(
       repository as unknown as Repository<AccountEntity>,
@@ -42,45 +42,64 @@ describe('AccountsRepository', () => {
       repository.save.mockResolvedValue(makeRow())
 
       const result = await sut.create({
-        phoneNumber: '62999999999',
         role: EAccountRole.OWNER,
         status: EAccountStatus.PENDING,
-        name: 'John Doe',
       })
 
+      expect(repository.create).toHaveBeenCalledWith({
+        role: EAccountRole.OWNER,
+        status: EAccountStatus.PENDING,
+      })
       expect(result.id).toBe('account-id')
-      expect(result.phoneNumber).toBe('62999999999')
       expect(result.lastLoginAt).toBeUndefined()
     })
   })
 
-  describe('getByDestination', () => {
+  describe('list', () => {
     it('should return undefined when no account is found', async () => {
-      repository.findOne.mockResolvedValue(null)
+      repository.find.mockResolvedValue([])
 
-      const result = await sut.getByDestination({ phoneNumber: '62999999999' })
+      const result = await sut.list({
+        phoneNumber: '62999999999',
+        role: EAccountRole.OWNER,
+      })
 
       expect(result).toBeUndefined()
     })
 
-    it('should return the mapped account when found', async () => {
-      repository.findOne.mockResolvedValue(makeRow())
+    it('should return the mapped accounts when found', async () => {
+      repository.find.mockResolvedValue([makeRow()])
 
-      const result = await sut.getByDestination({ phoneNumber: '62999999999' })
+      const result = await sut.list({
+        phoneNumber: '62999999999',
+        role: EAccountRole.OWNER,
+      })
 
-      expect(result?.id).toBe('account-id')
+      expect(result?.[0]?.id).toBe('account-id')
     })
 
-    it('should query with phoneNumber and deletedAt filter', async () => {
-      repository.findOne.mockResolvedValue(null)
+    it('should query by owner phone number and deletedAt filter for OWNER role', async () => {
+      repository.find.mockResolvedValue([])
 
-      await sut.getByDestination({ phoneNumber: '62999999999' })
+      await sut.list({ phoneNumber: '62999999999', role: EAccountRole.OWNER })
 
-      expect(repository.findOne).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: expect.objectContaining({ phoneNumber: '62999999999' }),
+      expect(repository.find).toHaveBeenCalledWith({
+        where: expect.objectContaining({
+          owner: { phoneNumner: '62999999999' },
         }),
-      )
+      })
+    })
+
+    it('should query by renter phone number and deletedAt filter for RENTER role', async () => {
+      repository.find.mockResolvedValue([])
+
+      await sut.list({ phoneNumber: '62999999999', role: EAccountRole.RENTER })
+
+      expect(repository.find).toHaveBeenCalledWith({
+        where: expect.objectContaining({
+          renter: { phoneNumner: '62999999999' },
+        }),
+      })
     })
   })
 

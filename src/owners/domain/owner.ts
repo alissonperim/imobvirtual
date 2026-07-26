@@ -1,21 +1,17 @@
 import { Address, EMaritalStatus } from '@pkg/types'
 
-export type CreateOwnerInput = {
+export type RegisterOwnerInput = {
   name: string
   lastName: string
-  document: string
   phoneNumber: string
-  email?: string
-  maritalStatus: EMaritalStatus
-  accountId: string
-  address: Omit<Address, 'id'>
-  createdBy: string
+  email: string
 }
 
 export type UpdateOwnerInput = {
   name?: string
   lastName?: string
   maritalStatus?: EMaritalStatus
+  document?: string
   address?: Omit<Address, 'id'>
   updatedBy: string
 }
@@ -23,4 +19,12 @@ export type UpdateOwnerInput = {
 export type FindAllOwnersInput = {
   page?: number
   pageSize?: number
+}
+
+export type CreateOwnerInput = {
+  name: string
+  lastName: string
+  phoneNumber: string
+  email: string
+  createdBy?: string
 }

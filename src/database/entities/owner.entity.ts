@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   OneToMany,
   OneToOne,
@@ -15,13 +16,14 @@ import { BaseEntity } from './base.entity'
 
 @Entity('owners')
 export class OwnerEntity extends BaseEntity {
-  @Column({ length: 120, type: 'varchar' })
+  @Column({ length: 160, type: 'varchar' })
   name!: string
 
   @Column({ name: 'last_name', length: 120, type: 'varchar' })
   lastName!: string
 
   @Column({ unique: true })
+  @Index('idx_doument')
   document!: string
 
   @Column({ name: 'phone_number' })
@@ -30,11 +32,17 @@ export class OwnerEntity extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
   email!: string | null
 
-  @Column({ name: 'marital_status', type: 'enum', enum: EMaritalStatus })
+  @Column({
+    name: 'marital_status',
+    type: 'enum',
+    enum: EMaritalStatus,
+    nullable: true,
+  })
   maritalStatus!: EMaritalStatus
 
   @OneToOne(() => AccountEntity, (account) => account.owner, {
     nullable: false,
+    cascade: ['insert', 'update', 'soft-remove'],
   })
   @JoinColumn({ name: 'account_id' })
   account!: AccountEntity
@@ -43,7 +51,7 @@ export class OwnerEntity extends BaseEntity {
   accountId!: string
 
   @OneToOne(() => AddressEntity, (address) => address.owner, {
-    nullable: false,
+    nullable: true,
     eager: true,
     cascade: ['insert', 'update'],
   })
@@ -53,10 +61,14 @@ export class OwnerEntity extends BaseEntity {
   @RelationId((owner: OwnerEntity) => owner.address)
   addressId!: string
 
-  @OneToMany(() => PropertyEntity, (property) => property.owner)
+  @OneToMany(() => PropertyEntity, (property) => property.owner, {
+    nullable: true,
+  })
   properties?: PropertyEntity[]
 
-  @OneToMany(() => ContractEntity, (contract) => contract.owner)
+  @OneToMany(() => ContractEntity, (contract) => contract.owner, {
+    nullable: true,
+  })
   contracts?: ContractEntity[]
 
   get fullName(): string {

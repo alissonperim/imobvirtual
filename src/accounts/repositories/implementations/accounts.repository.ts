@@ -1,13 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { IsNull, Repository } from 'typeorm'
-import { Account } from '@pkg/types'
+import { Account, EAccountRole } from '@pkg/types'
 import { AccountEntity } from '@app/database/entities'
 import type { IAccountsRepository } from '../domain'
-import type {
-  CreateAccountInput,
-  GetByDestinationInput,
-} from '@app/accounts/domain'
+import type { CreateAccountInput } from '@app/accounts/domain'
+import { GetByDestinationInput } from '@app/accounts/domain/account'
 
 @Injectable()
 export class AccountsRepository implements IAccountsRepository {
@@ -18,7 +16,6 @@ export class AccountsRepository implements IAccountsRepository {
 
   async create(params: CreateAccountInput): Promise<Account> {
     const entity = this.repository.create({
-      phoneNumber: params.phoneNumber,
       role: params.role,
       status: params.status,
     })
@@ -26,13 +23,33 @@ export class AccountsRepository implements IAccountsRepository {
     return this.toAccount(saved)
   }
 
-  async getByDestination(
-    params: GetByDestinationInput,
-  ): Promise<Account | undefined> {
-    const row = await this.repository.findOne({
-      where: { phoneNumber: params.phoneNumber, deletedAt: IsNull() },
+  async list(params: GetByDestinationInput): Promise<Account[] | undefined> {
+    const userRoleQuery = {}
+
+    if (params.role === EAccountRole.OWNER) {
+      Object.assign(userRoleQuery, {
+        owner: {
+          phoneNumner: params.phoneNumber,
+        },
+      })
+    }
+
+    if (params.role === EAccountRole.RENTER) {
+      Object.assign(userRoleQuery, {
+        renter: {
+          phoneNumner: params.phoneNumber,
+        },
+      })
+    }
+
+    const rows = await this.repository.find({
+      where: {
+        ...userRoleQuery,
+        deletedAt: IsNull(),
+      },
     })
-    return row ? this.toAccount(row) : undefined
+
+    return rows.length ? rows.map(this.toAccount) : undefined
   }
 
   async getById(id: string): Promise<Account | undefined> {
@@ -43,7 +60,6 @@ export class AccountsRepository implements IAccountsRepository {
   private toAccount(row: AccountEntity): Account {
     return {
       id: row.id,
-      phoneNumber: row.phoneNumber,
       role: row.role,
       status: row.status,
       lastLoginAt: row.lastLoginAt ?? undefined,

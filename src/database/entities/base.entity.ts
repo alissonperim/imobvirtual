@@ -19,7 +19,7 @@ export class BaseEntity extends AuditEntity {
   updatedAt!: Date
 
   @Column({ name: 'deleted_at', type: 'timestamp', nullable: true })
-  deletedAt!: Date | null
+  deletedAt!: Date
 
   @BeforeInsert()
   assignGeneratedId() {

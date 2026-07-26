@@ -1,26 +1,17 @@
 import { Body, Controller, Inject, Injectable, Post } from '@nestjs/common'
 import { Public } from './decorators/public.decorator'
-import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
-import type { IVerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
-import type { IVerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
+import type { IVerifySignInOtpUseCase } from './use-cases/sign-in-otp.use-case'
+import type { IVerifySignUpOtpUseCase } from './use-cases/sign-up-otp.use-case'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 import { RefreshTokenInput } from './domain/session'
-import type { TokenPair } from './domain/session'
-import {
-  RequestOtpInput,
-  VerifySignInOtpInput,
-  VerifySignUpOtpInput,
-} from './domain/otp'
-import type { RequestOtpOutput, VerifyOtpOutput } from './domain/otp'
+import type { SignInInput, SignUpInput, TokenPair } from './domain/session'
+import type { VerifyOtpOutput } from '../otp/domain/otp'
 
 @Public()
 @Controller('auth')
 @Injectable()
 export class AuthController {
   constructor(
-    @Inject('REQUEST_OTP_USE_CASE')
-    private readonly requestOtpUseCase: IRequestOtpUseCase,
-
     @Inject('VERIFY_SIGN_IN_OTP_USE_CASE')
     private readonly verifySignInOtpUseCase: IVerifySignInOtpUseCase,
 
@@ -31,18 +22,10 @@ export class AuthController {
     private readonly refreshTokenUseCase: IRefreshTokenUseCase,
   ) {}
 
-  @Post('/otp')
-  async requestOtp(
-    @Body()
-    params: RequestOtpInput,
-  ): Promise<RequestOtpOutput> {
-    return this.requestOtpUseCase.execute(params)
-  }
-
   @Post('/signin/otp-challenge')
   async signInChallengeOtp(
     @Body()
-    params: VerifySignInOtpInput,
+    params: SignInInput,
   ): Promise<VerifyOtpOutput> {
     return this.verifySignInOtpUseCase.execute(params)
   }
@@ -50,7 +33,7 @@ export class AuthController {
   @Post('/signup/otp-challenge')
   async signUpChallengeOtp(
     @Body()
-    params: VerifySignUpOtpInput,
+    params: SignUpInput,
   ): Promise<VerifyOtpOutput> {
     return this.verifySignUpOtpUseCase.execute(params)
   }

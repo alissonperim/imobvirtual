@@ -1,13 +1,10 @@
-import { randomInt } from 'node:crypto'
+import { customAlphabet } from 'nanoid'
 
 const ALPHABET =
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_-'
-const ID_LENGTH = 21
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 export function generateId(): string {
-  let id = ''
-  for (let i = 0; i < ID_LENGTH; i++) {
-    id += ALPHABET[randomInt(ALPHABET.length)]
-  }
-  return id
+  const nanoid = customAlphabet(ALPHABET, 24)
+
+  return nanoid()
 }

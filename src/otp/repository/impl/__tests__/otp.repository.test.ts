@@ -1,6 +1,6 @@
 import { EOtpChannel, EOtpPurpose } from '@pkg/types'
 import type { Repository } from 'typeorm'
-import { OtpChallengesRepository } from '../otp.repository'
+import { OtpRepository } from '../otp.repository'
 import type { OtpChallengeEntity } from '@app/database/entities'
 
 const makeRow = (
@@ -21,14 +21,14 @@ const makeRow = (
     ...overrides,
   }) as OtpChallengeEntity
 
-describe('OtpChallengesRepository', () => {
+describe('OtpRepository', () => {
   let repository: jest.Mocked<
     Pick<
       Repository<OtpChallengeEntity>,
       'create' | 'save' | 'findOne' | 'update' | 'increment'
     >
   >
-  let sut: OtpChallengesRepository
+  let sut: OtpRepository
 
   beforeEach(() => {
     repository = {
@@ -38,7 +38,7 @@ describe('OtpChallengesRepository', () => {
       update: jest.fn(),
       increment: jest.fn(),
     }
-    sut = new OtpChallengesRepository(
+    sut = new OtpRepository(
       repository as unknown as Repository<OtpChallengeEntity>,
     )
   })
@@ -92,6 +92,15 @@ describe('OtpChallengesRepository', () => {
       { id: 'otp-id' },
       'attempts',
       1,
+    )
+  })
+
+  it('should call update with consumedAt on consume', async () => {
+    await sut.consume('otp-id')
+
+    expect(repository.update).toHaveBeenCalledWith(
+      { id: 'otp-id' },
+      expect.objectContaining({ consumedAt: expect.any(Date) }),
     )
   })
 

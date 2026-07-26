@@ -42,3 +42,24 @@ export type CreateSessionInput = {
   tokenHash: string
   expiresAt: Date
 }
+
+export type SignUpInput = {
+  role: EAccountRole
+  name: string
+  lastName: string
+  phoneNumber: string
+  email: string
+  otpId: string
+  otp: string
+}
+
+export type SignInInput = {
+  role: EAccountRole
+  name: string
+  lastName: string
+  phoneNumber: string
+  email: string
+  otpId: string
+  otp: string
+  customerId: string
+}

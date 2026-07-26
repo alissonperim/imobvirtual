@@ -3,11 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { IsNull, MoreThan, Repository } from 'typeorm'
 import { Otp } from '@pkg/types'
 import { AccountEntity, OtpChallengeEntity } from '@app/database/entities'
-import type { IOtpChallengesRepository } from '../otp.domain'
+import type { IOtpRepository } from '../otp.domain'
 import type { OtpCreateRepositoryInput } from '../../domain/otp'
 
 @Injectable()
-export class OtpChallengesRepository implements IOtpChallengesRepository {
+export class OtpRepository implements IOtpRepository {
   constructor(
     @InjectRepository(OtpChallengeEntity)
     private readonly repository: Repository<OtpChallengeEntity>,
@@ -66,6 +66,7 @@ export class OtpChallengesRepository implements IOtpChallengesRepository {
       consumedAt: row.consumedAt ?? undefined,
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
+      deletedAt: row.deletedAt,
     }
   }
 }

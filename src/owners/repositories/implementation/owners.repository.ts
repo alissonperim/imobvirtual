@@ -4,14 +4,14 @@ import { DeepPartial, IsNull, Repository } from 'typeorm'
 import type { Owner } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
-import { AccountEntity, OwnerEntity } from '@app/database/entities'
+import { OwnerEntity } from '@app/database/entities'
 import type { IOwnersRepository } from '../domain'
-import type {
+import { mapOwner } from '../../domain/mappers'
+import {
   CreateOwnerInput,
   FindAllOwnersInput,
   UpdateOwnerInput,
-} from '../../dto'
-import { mapOwner } from '../../domain/mappers'
+} from '@app/owners/domain/owner'
 
 const MAX_PAGE_SIZE = 100
 
@@ -26,13 +26,8 @@ export class OwnersRepository implements IOwnersRepository {
     const entity = this.repository.create({
       name: params.name,
       lastName: params.lastName,
-      document: params.document,
       phoneNumber: params.phoneNumber,
       email: params.email,
-      maritalStatus: params.maritalStatus,
-      account: { id: params.accountId } as AccountEntity,
-      address: params.address,
-      createdBy: params.createdBy,
     })
     const saved = await this.repository.save(entity)
 

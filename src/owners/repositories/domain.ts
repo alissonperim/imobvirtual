@@ -1,10 +1,10 @@
 import { Owner } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
-import type {
+import {
   CreateOwnerInput,
   FindAllOwnersInput,
   UpdateOwnerInput,
-} from '../dto'
+} from '../domain/owner'
 
 export interface IOwnersRepository {
   create(params: CreateOwnerInput): Promise<Owner>

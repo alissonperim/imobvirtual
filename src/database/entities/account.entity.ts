@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm'
+import { Column, Entity, OneToMany, OneToOne, RelationId } from 'typeorm'
 import { EAccountRole, EAccountStatus } from '@pkg/types'
 import { OwnerEntity } from './owner.entity'
 import { RenterEntity } from './renter.entity'
@@ -8,9 +8,6 @@ import { BaseEntity } from './base.entity'
 
 @Entity('accounts')
 export class AccountEntity extends BaseEntity {
-  @Column({ name: 'phone_number', unique: true })
-  phoneNumber!: string
-
   @Column({ type: 'enum', enum: EAccountRole })
   role!: EAccountRole
 
@@ -23,8 +20,14 @@ export class AccountEntity extends BaseEntity {
   @OneToOne(() => OwnerEntity, (owner) => owner.account)
   owner?: OwnerEntity
 
+  @RelationId((account: AccountEntity) => account.owner)
+  ownerId!: string
+
   @OneToOne(() => RenterEntity, (renter) => renter.account)
   renter?: RenterEntity
+
+  @RelationId((account: AccountEntity) => account.renter)
+  renterId?: RenterEntity
 
   @OneToMany(() => SessionEntity, (session) => session.account)
   sessions?: SessionEntity[]
