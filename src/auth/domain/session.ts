@@ -27,16 +27,6 @@ export class RefreshTokenInput {
   refreshToken!: string
 }
 
-export type Session = {
-  id: string
-  accountId: string
-  tokenHash: string
-  expiresAt: Date
-  createdAt: Date
-  updatedAt: Date
-  revokedAt: Date | null
-}
-
 export type CreateSessionInput = {
   accountId: string
   tokenHash: string
@@ -44,21 +34,11 @@ export type CreateSessionInput = {
 }
 
 export type SignUpInput = {
-  role: EAccountRole
-  name: string
-  lastName: string
-  phoneNumber: string
-  email: string
   otpId: string
   otp: string
 }
 
 export type SignInInput = {
-  role: EAccountRole
-  name: string
-  lastName: string
-  phoneNumber: string
-  email: string
   otpId: string
   otp: string
   customerId: string

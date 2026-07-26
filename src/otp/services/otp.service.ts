@@ -37,7 +37,7 @@ export class OtpService implements IOtpService {
       throw new UnauthorizedException('Invalid OTP')
     }
 
-    if (challengOtp.purpose !== EOtpPurpose.SIGN_UP || challengOtp.accountId) {
+    if (challengOtp.purpose !== EOtpPurpose.SIGN_UP && challengOtp.accountId) {
       throw new UnauthorizedException('Invalid OTP')
     }
 

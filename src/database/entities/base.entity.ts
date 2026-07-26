@@ -9,7 +9,7 @@ import { AuditEntity } from './audit.entity'
 import { generateId } from '../utils/generate-id'
 
 export class BaseEntity extends AuditEntity {
-  @PrimaryColumn({ type: 'varchar', length: 21 })
+  @PrimaryColumn({ type: 'varchar', length: 24 })
   id!: string
 
   @CreateDateColumn({ name: 'created_at' })
@@ -19,7 +19,7 @@ export class BaseEntity extends AuditEntity {
   updatedAt!: Date
 
   @Column({ name: 'deleted_at', type: 'timestamp', nullable: true })
-  deletedAt!: Date
+  deletedAt?: Date
 
   @BeforeInsert()
   assignGeneratedId() {

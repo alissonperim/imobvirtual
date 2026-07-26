@@ -20,7 +20,7 @@ export class RenterEntity extends BaseEntity {
   @Column()
   lastName!: string
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   document!: string
 
   @Column({ name: 'phone_number' })

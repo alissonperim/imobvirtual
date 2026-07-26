@@ -22,7 +22,7 @@ export class OwnerEntity extends BaseEntity {
   @Column({ name: 'last_name', length: 120, type: 'varchar' })
   lastName!: string
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   @Index('idx_doument')
   document!: string
 

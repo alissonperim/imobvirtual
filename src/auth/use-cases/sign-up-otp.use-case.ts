@@ -5,14 +5,14 @@ import type { IOtpService } from '@app/otp/services/otp.service'
 import type { SignUpInput } from '../domain/session'
 import type { IAccountService } from '@app/accounts/services/register.service'
 
-export interface IVerifySignUpOtpUseCase {
+export interface ISignUpOtpConsumeUseCase {
   execute(
     params: SignUpInput,
   ): Promise<{ accessToken: string; refreshToken: string }>
 }
 
 @Injectable()
-export class SignUpOtpConsumeUseCase implements IVerifySignUpOtpUseCase {
+export class SignUpOtpConsumeUseCase implements ISignUpOtpConsumeUseCase {
   private readonly logger = new Logger(SignUpOtpConsumeUseCase.name)
 
   constructor(
@@ -25,7 +25,7 @@ export class SignUpOtpConsumeUseCase implements IVerifySignUpOtpUseCase {
     @Inject('OTP_SERVICE')
     private readonly otpService: IOtpService,
 
-    @Inject('ACCOUNT_SERVICE')
+    @Inject('ACCOUNTS_SERVICE')
     private readonly accountService: IAccountService,
   ) {}
 
@@ -37,7 +37,7 @@ export class SignUpOtpConsumeUseCase implements IVerifySignUpOtpUseCase {
       otpId: params.otpId,
     })
 
-    const account = await this.accountService.register(otp.id)
+    const account = await this.accountService.register(otp)
 
     const refreshTokenData = this.tokenService.generateRefreshToken()
 

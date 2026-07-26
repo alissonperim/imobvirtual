@@ -1,10 +1,14 @@
-import { Address, EMaritalStatus } from '@pkg/types'
+import { Address, EAccountRole, EMaritalStatus, Otp } from '@pkg/types'
 
 export type RegisterOwnerInput = {
   name: string
   lastName: string
   phoneNumber: string
   email: string
+  account: {
+    role: EAccountRole
+    otps: Otp[]
+  }
 }
 
 export type UpdateOwnerInput = {
@@ -27,4 +31,8 @@ export type CreateOwnerInput = {
   phoneNumber: string
   email: string
   createdBy?: string
+  account: {
+    role: EAccountRole
+    otps: Otp[]
+  }
 }

@@ -1,4 +1,4 @@
-import { EAccountRole, EAccountStatus, Owner, Renter } from '@pkg/types'
+import { EAccountRole, EAccountStatus, Otp, Owner, Renter } from '@pkg/types'
 
 export type RegisterAccountInput = {
   name: string
@@ -7,6 +7,7 @@ export type RegisterAccountInput = {
   email: string
   role: EAccountRole
   otpId: string
+  otp: Otp
 }
 
 export type RegisterAccountOutput = {

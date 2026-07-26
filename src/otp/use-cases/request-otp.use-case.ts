@@ -22,7 +22,7 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
     @Inject('OTP_SERVICE')
     private readonly otpService: IOtpService,
 
-    @Inject('ACCOUNT_SERVICE')
+    @Inject('ACCOUNTS_SERVICE')
     private readonly accountService: IAccountService,
   ) {}
 

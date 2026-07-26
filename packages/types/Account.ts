@@ -1,4 +1,6 @@
+import { OtpChallengeEntity } from '@app/database/entities'
 import { Base } from './Base'
+import { Session } from './Session'
 
 export enum EAccountRole {
   OWNER = 'OWNER',
@@ -15,5 +17,6 @@ export type Account = Base & {
   id: string
   role: EAccountRole
   status: EAccountStatus
-  lastLoginAt?: Date
+  otps?: OtpChallengeEntity[]
+  sessions?: Session[]
 }

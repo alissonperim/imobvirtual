@@ -1,22 +1,24 @@
 import { Body, Controller, Inject, Injectable, Post } from '@nestjs/common'
 import { Public } from './decorators/public.decorator'
-import type { IVerifySignInOtpUseCase } from './use-cases/sign-in-otp.use-case'
-import type { IVerifySignUpOtpUseCase } from './use-cases/sign-up-otp.use-case'
+import type { SignInOtpConsumeUseCase } from './use-cases/sign-in-otp.use-case'
+import type { ISignUpOtpConsumeUseCase } from './use-cases/sign-up-otp.use-case'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 import { RefreshTokenInput } from './domain/session'
 import type { SignInInput, SignUpInput, TokenPair } from './domain/session'
 import type { VerifyOtpOutput } from '../otp/domain/otp'
+import { YupValidationPipe } from '@pkg/utils'
+import { SignInOtpChallengeInputSchema } from './schemas'
 
 @Public()
 @Controller('auth')
 @Injectable()
 export class AuthController {
   constructor(
-    @Inject('VERIFY_SIGN_IN_OTP_USE_CASE')
-    private readonly verifySignInOtpUseCase: IVerifySignInOtpUseCase,
+    @Inject('SIGN_IN_OTP_USE_CASE')
+    private readonly signInOtpUseCase: SignInOtpConsumeUseCase,
 
-    @Inject('VERIFY_SIGN_UP_OTP_USE_CASE')
-    private readonly verifySignUpOtpUseCase: IVerifySignUpOtpUseCase,
+    @Inject('SIGN_UP_OTP_USE_CASE')
+    private readonly signUpOtpUseCase: ISignUpOtpConsumeUseCase,
 
     @Inject('REFRESH_TOKEN_USE_CASE')
     private readonly refreshTokenUseCase: IRefreshTokenUseCase,
@@ -24,10 +26,10 @@ export class AuthController {
 
   @Post('/signin/otp-challenge')
   async signInChallengeOtp(
-    @Body()
+    @Body(new YupValidationPipe(SignInOtpChallengeInputSchema))
     params: SignInInput,
   ): Promise<VerifyOtpOutput> {
-    return this.verifySignInOtpUseCase.execute(params)
+    return this.signInOtpUseCase.execute(params)
   }
 
   @Post('/signup/otp-challenge')
@@ -35,7 +37,7 @@ export class AuthController {
     @Body()
     params: SignUpInput,
   ): Promise<VerifyOtpOutput> {
-    return this.verifySignUpOtpUseCase.execute(params)
+    return this.signUpOtpUseCase.execute(params)
   }
 
   @Post('/refresh')

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DeepPartial, IsNull, Repository } from 'typeorm'
-import type { Owner } from '@pkg/types'
+import { EAccountStatus, type Owner } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
 import { OwnerEntity } from '@app/database/entities'
@@ -28,6 +28,11 @@ export class OwnersRepository implements IOwnersRepository {
       lastName: params.lastName,
       phoneNumber: params.phoneNumber,
       email: params.email,
+      account: {
+        role: params.account.role,
+        status: EAccountStatus.ACTIVE,
+        otps: params.account.otps,
+      },
     })
     const saved = await this.repository.save(entity)
 

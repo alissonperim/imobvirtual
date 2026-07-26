@@ -1,4 +1,9 @@
-import { Account, EAccountRole, PendingRegistrationAccount } from '@pkg/types'
+import {
+  Account,
+  EAccountRole,
+  Otp,
+  PendingRegistrationAccount,
+} from '@pkg/types'
 import {
   GetAccountInput,
   RegisterAccountInput,
@@ -10,6 +15,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common'
 import { RenterService } from '@app/renters/services/renter.service'
 import { OwnerService } from '@app/owners/services/owner.service'
@@ -17,7 +23,7 @@ import { AccountsRepository } from '../repositories/implementations/accounts.rep
 import { CreatePendingRegistrationAccountInput } from '../domain'
 
 export interface IAccountService {
-  register(otpId: string): Promise<RegisterAccountOutput>
+  register(otp: Otp): Promise<RegisterAccountOutput>
   getAccount(params: GetAccountInput): Promise<Account>
   createPendingRegistrationUser(
     params: CreatePendingRegistrationAccountInput,
@@ -26,6 +32,8 @@ export interface IAccountService {
 
 @Injectable()
 export class AccountService implements IAccountService {
+  private readonly logger = new Logger(AccountService.name)
+
   constructor(
     @Inject('OWNER_SERVICE')
     private readonly ownerService: OwnerService,
@@ -33,13 +41,14 @@ export class AccountService implements IAccountService {
     @Inject('RENTER_SERVICE')
     private readonly renterService: RenterService,
 
-    @Inject('ACCOUNT_REPOSITORY')
+    @Inject('ACCOUNTS_REPOSITORY')
     private readonly accountsRepository: AccountsRepository,
   ) {}
 
-  async register(otpId: string): Promise<RegisterAccountOutput> {
-    const pendingRegistrationAccount =
-      await this.getPendingRegistrationsUse(otpId)
+  async register(otp: Otp): Promise<RegisterAccountOutput> {
+    const pendingRegistrationAccount = await this.getPendingRegistrationsUse(
+      otp.id,
+    )
 
     const registerUserAccountRoleStrategy = {
       [EAccountRole.OWNER]: this.registerOwnerAccount.bind(this),
@@ -59,6 +68,7 @@ export class AccountService implements IAccountService {
       email: pendingRegistrationAccount.email,
       role: pendingRegistrationAccount.role,
       phoneNumber: pendingRegistrationAccount.phoneNumber,
+      otp,
     })
   }
 
@@ -70,6 +80,12 @@ export class AccountService implements IAccountService {
 
       return
     } catch (error) {
+      this.logger.error(
+        'An error has occurred while creating pending registration user',
+        {
+          error,
+        },
+      )
       throw new InternalServerErrorException(
         'An error has occurred to create pending registration',
       )
@@ -84,6 +100,10 @@ export class AccountService implements IAccountService {
       lastName: params.lastName,
       name: params.name,
       phoneNumber: params.phoneNumber,
+      account: {
+        otps: [params.otp],
+        role: params.role,
+      },
     })
 
     const account = await this.getAccount(params)
@@ -102,6 +122,10 @@ export class AccountService implements IAccountService {
       lastName: params.lastName,
       name: params.name,
       phoneNumber: params.phoneNumber,
+      account: {
+        role: params.role,
+        otps: [params.otp],
+      },
     })
 
     const account = await this.getAccount(params)
@@ -121,6 +145,12 @@ export class AccountService implements IAccountService {
 
       return pendingRegistrationAccount
     } catch (error) {
+      this.logger.error(
+        'An error has occurred to get pending registration user',
+        {
+          error,
+        },
+      )
       throw new InternalServerErrorException(
         'An error has occured while getting pending registration account',
       )

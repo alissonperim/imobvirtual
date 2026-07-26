@@ -61,7 +61,7 @@ export class AccountsRepository implements IAccountsRepository {
     if (params.role === EAccountRole.OWNER) {
       Object.assign(userRoleQuery, {
         owner: {
-          phoneNumner: params.phoneNumber,
+          phoneNumber: params.phoneNumber,
         },
       })
     }
@@ -69,7 +69,7 @@ export class AccountsRepository implements IAccountsRepository {
     if (params.role === EAccountRole.RENTER) {
       Object.assign(userRoleQuery, {
         renter: {
-          phoneNumner: params.phoneNumber,
+          phoneNumber: params.phoneNumber,
         },
       })
     }
@@ -86,12 +86,16 @@ export class AccountsRepository implements IAccountsRepository {
       },
     })
 
-    return rows.length ? rows.map(this.toAccount) : undefined
+    if (!rows.length) {
+      return []
+    }
+
+    return rows.map(this.toAccount)
   }
 
-  async getById(id: string): Promise<Account | undefined> {
-    const row = await this.repository.findOne({ where: { id } })
-    return row ? this.toAccount(row) : undefined
+  async getById(id: string): Promise<Account> {
+    const row = await this.repository.findOneByOrFail({ id })
+    return this.toAccount(row)
   }
 
   private toAccount(row: AccountEntity): Account {
@@ -99,7 +103,8 @@ export class AccountsRepository implements IAccountsRepository {
       id: row.id,
       role: row.role,
       status: row.status,
-      lastLoginAt: row.lastLoginAt ?? undefined,
+      otps: row.otps,
+      sessions: row.sessions,
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
       deletedAt: row.deletedAt ?? undefined,

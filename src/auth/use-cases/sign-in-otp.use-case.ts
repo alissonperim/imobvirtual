@@ -5,15 +5,15 @@ import { SignInInput } from '../domain/session'
 import type { IOtpService } from '@app/otp/services/otp.service'
 import type { IAccountService } from '@app/accounts/services/register.service'
 
-export interface IVerifySignInOtpUseCase {
+export interface ISignInOtpConsumeUseCase {
   execute(
     params: SignInInput,
   ): Promise<{ accessToken: string; refreshToken: string }>
 }
 
 @Injectable()
-export class SignInOtpUseCase implements IVerifySignInOtpUseCase {
-  private readonly logger = new Logger(SignInOtpUseCase.name)
+export class SignInOtpConsumeUseCase implements ISignInOtpConsumeUseCase {
+  private readonly logger = new Logger(SignInOtpConsumeUseCase.name)
 
   constructor(
     @Inject('OTP_SERVICE')
@@ -22,7 +22,7 @@ export class SignInOtpUseCase implements IVerifySignInOtpUseCase {
     @Inject('ACCESS_TOKEN_SERVICE')
     private readonly tokenService: ITokenService,
 
-    @Inject('ACCOUNT_SERVICE')
+    @Inject('ACCOUNTS_SERVICE')
     private readonly accountService: IAccountService,
 
     @Inject('REFRESH_TOKEN_SESSIONS_REPOSITORY')
@@ -44,6 +44,11 @@ export class SignInOtpUseCase implements IVerifySignInOtpUseCase {
       accountId: account.id,
       tokenHash: refreshTokenData.tokenHash,
       expiresAt: refreshTokenData.expiresAt,
+    })
+
+    await this.accountService.setAccountSession({
+      accountId: account.id,
+      sessionParams: session,
     })
 
     const { accessToken } = await this.tokenService.generate({

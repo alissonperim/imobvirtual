@@ -1,10 +1,14 @@
-import { EMaritalStatus } from '@pkg/types'
+import { EAccountRole, EMaritalStatus, Otp } from '@pkg/types'
 
 export type RenterRegisterInput = {
   name: string
   lastName: string
   phoneNumber: string
   email: string
+  account: {
+    role: EAccountRole
+    otps: Otp[]
+  }
 }
 
 export type CreateRenterRepositoryInput = {
@@ -12,6 +16,10 @@ export type CreateRenterRepositoryInput = {
   lastName: string
   phoneNumber: string
   email: string
+  account: {
+    role: EAccountRole
+    otps: Otp[]
+  }
 }
 
 export type AddressDto = {

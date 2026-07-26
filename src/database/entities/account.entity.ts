@@ -14,24 +14,21 @@ export class AccountEntity extends BaseEntity {
   @Column({ type: 'enum', enum: EAccountStatus })
   status!: EAccountStatus
 
-  @Column({ name: 'last_login_at', type: 'timestamp', nullable: true })
-  lastLoginAt!: Date | null
-
-  @OneToOne(() => OwnerEntity, (owner) => owner.account)
-  owner?: OwnerEntity
+  @OneToOne(() => OwnerEntity, (owner) => owner.account, { nullable: true })
+  owner!: OwnerEntity
 
   @RelationId((account: AccountEntity) => account.owner)
-  ownerId!: string
+  ownerId?: string
 
-  @OneToOne(() => RenterEntity, (renter) => renter.account)
-  renter?: RenterEntity
+  @OneToOne(() => RenterEntity, (renter) => renter.account, { nullable: true })
+  renter!: RenterEntity
 
   @RelationId((account: AccountEntity) => account.renter)
-  renterId?: RenterEntity
+  renterId?: string
 
   @OneToMany(() => SessionEntity, (session) => session.account)
-  sessions?: SessionEntity[]
+  sessions!: SessionEntity[]
 
   @OneToMany(() => OtpChallengeEntity, (otp) => otp.account)
-  otps?: OtpChallengeEntity[]
+  otps!: OtpChallengeEntity[]
 }
