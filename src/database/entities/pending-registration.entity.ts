@@ -3,12 +3,11 @@ import { BaseEntity } from './base.entity'
 import { EAccountRole } from '@pkg/types'
 
 @Entity('pending_registration_users')
-@Index(['email', 'phoneNumber', 'otpId'], { unique: true })
 export class PendingRegistrationEntity extends BaseEntity {
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   email!: string
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   phoneNumber!: string
 
   @Column({ nullable: false })
