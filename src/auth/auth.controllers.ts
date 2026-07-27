@@ -1,58 +1,46 @@
 import { Body, Controller, Inject, Injectable, Post } from '@nestjs/common'
 import { Public } from './decorators/public.decorator'
-import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
-import type { IVerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
-import type { IVerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
+import type { SignInOtpConsumeUseCase } from './use-cases/sign-in-otp.use-case'
+import type { ISignUpOtpConsumeUseCase } from './use-cases/sign-up-otp.use-case'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
 import { RefreshTokenInput } from './domain/session'
-import type { TokenPair } from './domain/session'
+import type { SignInInput, SignUpInput, TokenPair } from './domain/session'
+import type { VerifyOtpOutput } from '../otp/domain/otp'
+import { YupValidationPipe } from '@pkg/utils'
 import {
-  RequestOtpInput,
-  VerifySignInOtpInput,
-  VerifySignUpOtpInput,
-} from './domain/otp'
-import type { RequestOtpOutput, VerifyOtpOutput } from './domain/otp'
+  signInOtpChallengeInputSchema,
+  SignUpOtpChallengeInputSchema,
+} from './schemas'
 
 @Public()
 @Controller('auth')
 @Injectable()
 export class AuthController {
   constructor(
-    @Inject('REQUEST_OTP_USE_CASE')
-    private readonly requestOtpUseCase: IRequestOtpUseCase,
+    @Inject('SIGN_IN_OTP_USE_CASE')
+    private readonly signInOtpUseCase: SignInOtpConsumeUseCase,
 
-    @Inject('VERIFY_SIGN_IN_OTP_USE_CASE')
-    private readonly verifySignInOtpUseCase: IVerifySignInOtpUseCase,
-
-    @Inject('VERIFY_SIGN_UP_OTP_USE_CASE')
-    private readonly verifySignUpOtpUseCase: IVerifySignUpOtpUseCase,
+    @Inject('SIGN_UP_OTP_USE_CASE')
+    private readonly signUpOtpUseCase: ISignUpOtpConsumeUseCase,
 
     @Inject('REFRESH_TOKEN_USE_CASE')
     private readonly refreshTokenUseCase: IRefreshTokenUseCase,
   ) {}
 
-  @Post('/otp')
-  async requestOtp(
-    @Body()
-    params: RequestOtpInput,
-  ): Promise<RequestOtpOutput> {
-    return this.requestOtpUseCase.execute(params)
-  }
-
   @Post('/signin/otp-challenge')
   async signInChallengeOtp(
-    @Body()
-    params: VerifySignInOtpInput,
+    @Body(new YupValidationPipe(signInOtpChallengeInputSchema))
+    params: SignInInput,
   ): Promise<VerifyOtpOutput> {
-    return this.verifySignInOtpUseCase.execute(params)
+    return this.signInOtpUseCase.execute(params)
   }
 
   @Post('/signup/otp-challenge')
   async signUpChallengeOtp(
-    @Body()
-    params: VerifySignUpOtpInput,
+    @Body(new YupValidationPipe(SignUpOtpChallengeInputSchema))
+    params: SignUpInput,
   ): Promise<VerifyOtpOutput> {
-    return this.verifySignUpOtpUseCase.execute(params)
+    return this.signUpOtpUseCase.execute(params)
   }
 
   @Post('/refresh')

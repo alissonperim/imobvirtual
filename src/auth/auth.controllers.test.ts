@@ -1,26 +1,24 @@
-import { EAccountRole, EOtpChannel, EOtpPurpose } from '@pkg/types'
 import type { IRefreshTokenUseCase } from './use-cases/refresh-token.use-case'
-import type { IRequestOtpUseCase } from './use-cases/request-otp.use-case'
-import type { IVerifySignInOtpUseCase } from './use-cases/verify-sign-in-otp.use-case'
-import type { IVerifySignUpOtpUseCase } from './use-cases/verify-sign-up-otp.use-case'
+import type {
+  ISignInOtpConsumeUseCase,
+  SignInOtpConsumeUseCase,
+} from './use-cases/sign-in-otp.use-case'
+import type { ISignUpOtpConsumeUseCase } from './use-cases/sign-up-otp.use-case'
 import { AuthController } from './auth.controllers'
 
 describe('AuthController', () => {
-  let requestOtpUseCase: jest.Mocked<IRequestOtpUseCase>
-  let verifySignInOtpUseCase: jest.Mocked<IVerifySignInOtpUseCase>
-  let verifySignUpOtpUseCase: jest.Mocked<IVerifySignUpOtpUseCase>
+  let signInOtpUseCase: jest.Mocked<ISignInOtpConsumeUseCase>
+  let signUpOtpUseCase: jest.Mocked<ISignUpOtpConsumeUseCase>
   let refreshTokenUseCase: jest.Mocked<IRefreshTokenUseCase>
   let controller: AuthController
 
   beforeEach(() => {
-    requestOtpUseCase = { execute: jest.fn() }
-    verifySignInOtpUseCase = { execute: jest.fn() }
-    verifySignUpOtpUseCase = { execute: jest.fn() }
+    signInOtpUseCase = { execute: jest.fn() }
+    signUpOtpUseCase = { execute: jest.fn() }
     refreshTokenUseCase = { execute: jest.fn() }
     controller = new AuthController(
-      requestOtpUseCase,
-      verifySignInOtpUseCase,
-      verifySignUpOtpUseCase,
+      signInOtpUseCase as unknown as SignInOtpConsumeUseCase,
+      signUpOtpUseCase,
       refreshTokenUseCase,
     )
   })
@@ -28,42 +26,29 @@ describe('AuthController', () => {
   it('should delegate sign-in verification to its use case', async () => {
     const input = { otpId: 'otp-id', otp: '123456' }
     const output = { accessToken: 'access', refreshToken: 'refresh' }
-    verifySignInOtpUseCase.execute.mockResolvedValue(output)
+    signInOtpUseCase.execute.mockResolvedValue(output)
 
     await expect(controller.signInChallengeOtp(input)).resolves.toEqual(output)
-    expect(verifySignInOtpUseCase.execute).toHaveBeenCalledWith(input)
-    expect(verifySignUpOtpUseCase.execute).not.toHaveBeenCalled()
+    expect(signInOtpUseCase.execute).toHaveBeenCalledWith(input)
+    expect(signUpOtpUseCase.execute).not.toHaveBeenCalled()
   })
 
   it('should delegate sign-up verification to its use case', async () => {
-    const input = {
-      otpId: 'otp-id',
-      otp: '123456',
-      name: 'Maria',
-      role: EAccountRole.RENTER,
-    }
+    const input = { otpId: 'otp-id', otp: '123456' }
     const output = { accessToken: 'access', refreshToken: 'refresh' }
-    verifySignUpOtpUseCase.execute.mockResolvedValue(output)
+    signUpOtpUseCase.execute.mockResolvedValue(output)
 
     await expect(controller.signUpChallengeOtp(input)).resolves.toEqual(output)
-    expect(verifySignUpOtpUseCase.execute).toHaveBeenCalledWith(input)
-    expect(verifySignInOtpUseCase.execute).not.toHaveBeenCalled()
+    expect(signUpOtpUseCase.execute).toHaveBeenCalledWith(input)
+    expect(signInOtpUseCase.execute).not.toHaveBeenCalled()
   })
 
-  it('should delegate OTP requests with their purpose', async () => {
-    const input = {
-      destination: '+5562999824266',
-      channel: EOtpChannel.SMS,
-      purpose: EOtpPurpose.SIGN_UP,
-    }
-    const output = {
-      otpChallengeId: 'otp-id',
-      expiresIn: 360,
-      purpose: EOtpPurpose.SIGN_UP,
-    }
-    requestOtpUseCase.execute.mockResolvedValue(output)
+  it('should delegate refresh requests to its use case', async () => {
+    const input = { refreshToken: 'refresh-token' }
+    const output = { accessToken: 'access', refreshToken: 'refresh' }
+    refreshTokenUseCase.execute.mockResolvedValue(output)
 
-    await expect(controller.requestOtp(input)).resolves.toEqual(output)
-    expect(requestOtpUseCase.execute).toHaveBeenCalledWith(input)
+    await expect(controller.refresh(input)).resolves.toEqual(output)
+    expect(refreshTokenUseCase.execute).toHaveBeenCalledWith(input)
   })
 })

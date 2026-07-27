@@ -7,31 +7,23 @@ import {
   HttpStatus,
   Param,
   Patch,
-  Post,
   Query,
 } from '@nestjs/common'
 import { Owner } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
 import { CurrentUser } from '@app/auth/decorators/current-user.decorator'
 import type { AccessToken } from '@app/auth/domain/session'
-import type {
-  FindAllOwnersInput,
-  CreateOwnerInput,
-  UpdateOwnerInput,
-} from './dto'
-import { CreateOwnerUseCase } from './use-cases/create-owner.use-case'
 import { FindAllOwnersUseCase } from './use-cases/find-all-owners.use-case'
 import { FindOwnerByIdUseCase } from './use-cases/find-owner-by-id.use-case'
 import { UpdateOwnerUseCase } from './use-cases/update-owner.use-case'
 import { DeleteOwnerUseCase } from './use-cases/delete-owner.use-case'
 import { YupValidationPipe } from '@pkg/utils/schema-validator'
-import { createOwnerSchema } from './schemas/create-owner.schema'
 import { updateOwnerSchema } from './schemas/update-owner.schema'
+import type { FindAllOwnersInput, UpdateOwnerInput } from './domain/owner'
 
 @Controller('owners')
 export class OwnersController {
   constructor(
-    private readonly createUseCase: CreateOwnerUseCase,
     private readonly findAllUseCase: FindAllOwnersUseCase,
     private readonly findByIdUseCase: FindOwnerByIdUseCase,
     private readonly updateUseCase: UpdateOwnerUseCase,
@@ -48,15 +40,6 @@ export class OwnersController {
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Owner> {
     return this.findByIdUseCase.execute(id)
-  }
-
-  @Post()
-  async create(
-    @Body(new YupValidationPipe(createOwnerSchema))
-    body: CreateOwnerInput,
-    @CurrentUser() user: AccessToken,
-  ): Promise<Owner> {
-    return this.createUseCase.execute({ ...body, createdBy: user.sub })
   }
 
   @Patch(':id')

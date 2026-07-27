@@ -1,4 +1,5 @@
-import type { CreateSessionInput, Session } from '../domain/session'
+import { Session } from '@pkg/types'
+import type { CreateSessionInput } from '../domain/session'
 
 export interface ISessionsRepository {
   create(params: CreateSessionInput): Promise<Session>

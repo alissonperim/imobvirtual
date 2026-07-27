@@ -17,29 +17,35 @@ export class RenterEntity extends BaseEntity {
   @Column()
   name!: string
 
-  @Column({ unique: true })
+  @Column()
+  lastName!: string
+
+  @Column({ unique: true, nullable: true })
   document!: string
 
   @Column({ name: 'phone_number' })
   phoneNumber!: string
 
   @Column({ type: 'varchar', nullable: true })
-  email!: string | null
+  email!: string
 
   @Column({ name: 'marital_status', type: 'enum', enum: EMaritalStatus })
   maritalStatus!: EMaritalStatus
 
   @OneToOne(() => AccountEntity, (account) => account.renter, {
-    nullable: true,
+    nullable: false,
+    cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'account_id' })
-  account!: AccountEntity | null
+  account!: AccountEntity
 
   @RelationId((renter: RenterEntity) => renter.account)
-  accountId!: string | null
+  accountId!: string
 
   @OneToOne(() => AddressEntity, (address) => address.renter, {
-    nullable: false,
+    nullable: true,
+    cascade: ['insert', 'update'],
+    eager: true,
   })
   @JoinColumn({ name: 'address_id' })
   address!: AddressEntity

@@ -29,7 +29,7 @@ export function mapOwner(row: OwnerEntity): Owner {
     email: row.email ?? undefined,
     maritalStatus: row.maritalStatus,
     accountId: row.accountId,
-    address: mapAddress(row.address),
+    address: row.address ? mapAddress(row.address) : undefined,
     properties: [],
     createdAt: row.createdAt,
     updatedAt: row.updatedAt,

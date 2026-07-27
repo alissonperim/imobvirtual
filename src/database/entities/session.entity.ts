@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm'
 import { AccountEntity } from './account.entity'
 import { BaseEntity } from './base.entity'
+import { ESessionStatus } from '@pkg/types/Session'
 
 @Entity('sessions')
 export class SessionEntity extends BaseEntity {
@@ -8,22 +9,22 @@ export class SessionEntity extends BaseEntity {
   tokenHash!: string
 
   @Column({ name: 'user_agent', type: 'varchar', nullable: true })
-  userAgent!: string | null
+  userAgent!: string
 
   @Column({ name: 'ip_address', type: 'varchar', nullable: true })
-  ipAddress!: string | null
+  ipAddress!: string
 
   @Column({ name: 'last_logged_at', type: 'timestamp', nullable: true })
-  lastLoggedAt!: Date | null
+  lastLoggedAt!: Date
 
   @Column({ name: 'device_id', type: 'varchar', nullable: true })
-  deviceId!: string | null
+  deviceId!: string
 
   @Column({ name: 'expires_at', type: 'timestamp' })
   expiresAt!: Date
 
   @Column({ name: 'revoked_at', type: 'timestamp', nullable: true })
-  revokedAt!: Date | null
+  revokedAt!: Date
 
   @ManyToOne(() => AccountEntity, (account) => account.sessions, {
     nullable: false,
@@ -33,4 +34,7 @@ export class SessionEntity extends BaseEntity {
 
   @RelationId((session: SessionEntity) => session.account)
   accountId!: string
+
+  @Column({ nullable: false, type: 'enum', enum: ESessionStatus })
+  status!: ESessionStatus
 }

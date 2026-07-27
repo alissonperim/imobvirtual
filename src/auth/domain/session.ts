@@ -27,18 +27,18 @@ export class RefreshTokenInput {
   refreshToken!: string
 }
 
-export type Session = {
-  id: string
-  accountId: string
-  tokenHash: string
-  expiresAt: Date
-  createdAt: Date
-  updatedAt: Date
-  revokedAt: Date | null
-}
-
 export type CreateSessionInput = {
   accountId: string
   tokenHash: string
   expiresAt: Date
+}
+
+export type SignUpInput = {
+  otpId: string
+  otp: string
+}
+
+export type SignInInput = {
+  otpId: string
+  otp: string
 }

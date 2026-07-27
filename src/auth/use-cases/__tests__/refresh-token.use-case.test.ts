@@ -1,6 +1,12 @@
 import { UnauthorizedException } from '@nestjs/common'
 import type { IAccountsRepository } from '@app/accounts/repositories/domain'
-import { EAccountRole, EAccountStatus, type Account } from '@pkg/types'
+import {
+  EAccountRole,
+  EAccountStatus,
+  ESessionStatus,
+  type Account,
+  type Session,
+} from '@pkg/types'
 import type { ISessionsRepository } from '../../repositories/session.domain'
 import type { ITokenService } from '../../services/token.service'
 import { RefreshTokenUseCase } from '../refresh-token.use-case'
@@ -14,15 +20,16 @@ describe('RefreshTokenUseCase', () => {
   const account: Account = {
     id: 'account-id',
     role: EAccountRole.OWNER,
-    phoneNumber: '5562900000000',
     status: EAccountStatus.ACTIVE,
     createdAt: new Date('2026-01-01T00:00:00.000Z'),
     updatedAt: new Date('2026-01-01T00:00:00.000Z'),
   }
 
-  const session = {
+  const session: Session = {
     id: 'session-id',
     accountId: account.id,
+    account,
+    status: ESessionStatus.ACTIVE,
     tokenHash: 'current-hash',
     expiresAt: new Date('2026-07-01T00:00:00.000Z'),
     createdAt: new Date('2026-06-01T00:00:00.000Z'),
@@ -44,8 +51,10 @@ describe('RefreshTokenUseCase', () => {
     }
     accountsRepository = {
       create: jest.fn(),
-      getByDestination: jest.fn(),
+      createPendingRegistrationUser: jest.fn(),
+      list: jest.fn(),
       getById: jest.fn(),
+      getPendingRegistrationAccount: jest.fn(),
     }
     sut = new RefreshTokenUseCase(
       sessionsRepository,
@@ -68,6 +77,7 @@ describe('RefreshTokenUseCase', () => {
 
     const result = await sut.execute({ refreshToken: 'current-token' })
 
+    expect(accountsRepository.getById).toHaveBeenCalledWith(account.id)
     expect(sessionsRepository.rotate).toHaveBeenCalledWith(
       session.id,
       'current-hash',
@@ -91,6 +101,21 @@ describe('RefreshTokenUseCase', () => {
 
     await expect(
       sut.execute({ refreshToken: 'invalid-token' }),
+    ).rejects.toThrow(new UnauthorizedException('Invalid refresh token'))
+
+    expect(accountsRepository.getById).not.toHaveBeenCalled()
+    expect(sessionsRepository.rotate).not.toHaveBeenCalled()
+  })
+
+  it('should reject when the session has no account bound to it', async () => {
+    tokenService.hashRefreshToken.mockReturnValue('current-hash')
+    sessionsRepository.findActiveByTokenHash.mockResolvedValue({
+      ...session,
+      accountId: undefined,
+    })
+
+    await expect(
+      sut.execute({ refreshToken: 'current-token' }),
     ).rejects.toThrow(new UnauthorizedException('Invalid refresh token'))
 
     expect(accountsRepository.getById).not.toHaveBeenCalled()

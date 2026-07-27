@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Owner } from '@pkg/types'
 import type { Pagination } from '@pkg/utils'
 import type { IOwnersRepository } from '../repositories/domain'
-import type { FindAllOwnersInput } from '../dto'
+import type { FindAllOwnersInput } from '../domain/owner'
 
 export interface IFindAllOwnersUseCase {
   execute(filters: FindAllOwnersInput): Promise<Pagination<Owner>>

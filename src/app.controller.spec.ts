@@ -1,3 +1,0 @@
-describe('AppController', () => {
-  describe('root', () => {})
-})

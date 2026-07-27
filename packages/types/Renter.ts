@@ -6,11 +6,12 @@ import { RentalContract } from './RentalContract'
 export type Renter = Base & {
   id: string
   name: string
+  lastName: string
   document: string
   phoneNumber: string
-  email?: string
-  address: Address
-  maritalStatus: EMaritalStatus
+  email: string
+  address?: Address
+  maritalStatus?: EMaritalStatus
   rentalContracts?: RentalContract[]
   accountId?: string
 }

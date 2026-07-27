@@ -11,7 +11,7 @@ export const createPropertySchema = yup
       .mixed<EPropertyStatus>()
       .oneOf(Object.values(EPropertyStatus))
       .required(),
-    ownerId: yup.string().length(21).required(),
+    ownerId: yup.string().length(24).required(),
     address: addressSchema.required(),
   })
   .noUnknown()

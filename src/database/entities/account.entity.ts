@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm'
+import { Column, Entity, OneToMany, OneToOne, RelationId } from 'typeorm'
 import { EAccountRole, EAccountStatus } from '@pkg/types'
 import { OwnerEntity } from './owner.entity'
 import { RenterEntity } from './renter.entity'
@@ -8,27 +8,27 @@ import { BaseEntity } from './base.entity'
 
 @Entity('accounts')
 export class AccountEntity extends BaseEntity {
-  @Column({ name: 'phone_number', unique: true })
-  phoneNumber!: string
-
   @Column({ type: 'enum', enum: EAccountRole })
   role!: EAccountRole
 
   @Column({ type: 'enum', enum: EAccountStatus })
   status!: EAccountStatus
 
-  @Column({ name: 'last_login_at', type: 'timestamp', nullable: true })
-  lastLoginAt!: Date | null
+  @OneToOne(() => OwnerEntity, (owner) => owner.account, { nullable: true })
+  owner!: OwnerEntity
 
-  @OneToOne(() => OwnerEntity, (owner) => owner.account)
-  owner?: OwnerEntity
+  @RelationId((account: AccountEntity) => account.owner)
+  ownerId?: string
 
-  @OneToOne(() => RenterEntity, (renter) => renter.account)
-  renter?: RenterEntity
+  @OneToOne(() => RenterEntity, (renter) => renter.account, { nullable: true })
+  renter!: RenterEntity
+
+  @RelationId((account: AccountEntity) => account.renter)
+  renterId?: string
 
   @OneToMany(() => SessionEntity, (session) => session.account)
-  sessions?: SessionEntity[]
+  sessions!: SessionEntity[]
 
   @OneToMany(() => OtpChallengeEntity, (otp) => otp.account)
-  otps?: OtpChallengeEntity[]
+  otps!: OtpChallengeEntity[]
 }

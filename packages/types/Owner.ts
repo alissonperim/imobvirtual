@@ -16,7 +16,7 @@ export type Owner = Base & {
   document: string
   phoneNumber: string
   properties: Property[]
-  address: Address
+  address?: Address
   addressId?: string
   maritalStatus: EMaritalStatus
   email?: string

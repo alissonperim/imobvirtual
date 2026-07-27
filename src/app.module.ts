@@ -9,6 +9,7 @@ import { RentalContractsModule } from './rental-contracts/rental-contracts.modul
 import { RentersModule } from './renters/renters.module'
 import { AuthModule } from './auth/auth.module'
 import { AccountsModule } from './accounts/accounts.module'
+import { OtpModule } from './otp/otp.module'
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AccountsModule } from './accounts/accounts.module'
     RentersModule,
     AuthModule,
     AccountsModule,
+    OtpModule,
   ],
   controllers: [AppController],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }],
