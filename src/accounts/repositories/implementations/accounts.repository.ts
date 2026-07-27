@@ -81,7 +81,7 @@ export class AccountsRepository implements IAccountsRepository {
     const rows = await this.repository.find({
       where: {
         ...userRoleQuery,
-        ...idQuery,
+        ...(params.id ? idQuery : {}),
         deletedAt: IsNull(),
       },
     })

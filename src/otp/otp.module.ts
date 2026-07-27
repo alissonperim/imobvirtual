@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common'
 import { RequestOtpUseCase } from './use-cases/request-otp.use-case'
 import { OtpService } from './services/otp.service'
-import { AccountService } from '@app/accounts/services/register.service'
+import { AccountsModule } from '@app/accounts/accounts.module'
+import { OtpRepository } from './repository/impl/otp.repository'
+import { OtpController } from './otp.controller'
 
 @Module({
   providers: [
@@ -13,8 +15,13 @@ import { AccountService } from '@app/accounts/services/register.service'
       provide: 'OTP_SERVICE',
       useClass: OtpService,
     },
+    {
+      provide: 'OTP_REPOSITORY',
+      useClass: OtpRepository,
+    },
   ],
-  exports: [OtpService],
-  imports: [AccountService],
+  controllers: [OtpController],
+  exports: ['OTP_SERVICE'],
+  imports: [AccountsModule],
 })
 export class OtpModule {}

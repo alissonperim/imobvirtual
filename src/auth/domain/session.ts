@@ -41,5 +41,4 @@ export type SignUpInput = {
 export type SignInInput = {
   otpId: string
   otp: string
-  customerId: string
 }

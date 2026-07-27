@@ -13,5 +13,6 @@ import { RenterService } from './services/renter.service'
       useClass: RenterService,
     },
   ],
+  exports: ['RENTER_SERVICE'],
 })
 export class RentersModule {}

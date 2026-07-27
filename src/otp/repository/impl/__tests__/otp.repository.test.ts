@@ -1,7 +1,10 @@
 import { EOtpChannel, EOtpPurpose } from '@pkg/types'
 import type { Repository } from 'typeorm'
 import { OtpRepository } from '../otp.repository'
-import type { OtpChallengeEntity } from '@app/database/entities'
+import type {
+  OtpChallengeEntity,
+  PendingRegistrationEntity,
+} from '@app/database/entities'
 
 const makeRow = (
   overrides: Partial<OtpChallengeEntity> = {},
@@ -28,6 +31,7 @@ describe('OtpRepository', () => {
       'create' | 'save' | 'findOne' | 'update' | 'increment'
     >
   >
+  let pendingRegistrationRepository: Repository<PendingRegistrationEntity>
   let sut: OtpRepository
 
   beforeEach(() => {
@@ -38,8 +42,11 @@ describe('OtpRepository', () => {
       update: jest.fn(),
       increment: jest.fn(),
     }
+    pendingRegistrationRepository =
+      {} as unknown as Repository<PendingRegistrationEntity>
     sut = new OtpRepository(
       repository as unknown as Repository<OtpChallengeEntity>,
+      pendingRegistrationRepository,
     )
   })
 

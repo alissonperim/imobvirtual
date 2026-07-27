@@ -35,37 +35,68 @@ describe('OtpService', () => {
     jest.restoreAllMocks()
   })
 
-  describe('validate', () => {
-    it('should consume the challenge when the OTP is valid', async () => {
+  describe('getAndValidate', () => {
+    it('should consume the challenge when a SIGN_UP OTP is valid', async () => {
       repository.findActiveById.mockResolvedValue(otpChallenge)
 
-      await sut.validate({ otp: '123456', otpId: otpChallenge.id })
+      await sut.getAndValidate({
+        otp: '123456',
+        otpId: otpChallenge.id,
+        purpose: EOtpPurpose.SIGN_UP,
+      })
 
       expect(repository.findActiveById).toHaveBeenCalledWith(otpChallenge.id)
       expect(repository.consume).toHaveBeenCalledWith(otpChallenge.id)
       expect(repository.incrementAttempts).not.toHaveBeenCalled()
     })
 
+    it('should consume the challenge when a SIGN_IN OTP with an account bound is valid', async () => {
+      repository.findActiveById.mockResolvedValue({
+        ...otpChallenge,
+        purpose: EOtpPurpose.SIGN_IN,
+        accountId: 'account-id',
+      })
+
+      await sut.getAndValidate({
+        otp: '123456',
+        otpId: otpChallenge.id,
+        purpose: EOtpPurpose.SIGN_IN,
+      })
+
+      expect(repository.consume).toHaveBeenCalledWith(otpChallenge.id)
+    })
+
     it('should reject when the challenge is not active', async () => {
       repository.findActiveById.mockResolvedValue(undefined)
 
       await expect(
-        sut.validate({ otp: '123456', otpId: 'missing-id' }),
+        sut.getAndValidate({
+          otp: '123456',
+          otpId: 'missing-id',
+          purpose: EOtpPurpose.SIGN_IN,
+        }),
       ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
 
       expect(repository.consume).not.toHaveBeenCalled()
       expect(repository.incrementAttempts).not.toHaveBeenCalled()
     })
 
-    it('should reject a challenge that already has an account bound to it', async () => {
+    it('should reject a SIGN_IN challenge without an account bound to it', async () => {
       repository.findActiveById.mockResolvedValue({
         ...otpChallenge,
-        accountId: 'account-id',
+        purpose: EOtpPurpose.SIGN_IN,
+        accountId: undefined,
       })
 
       await expect(
-        sut.validate({ otp: '123456', otpId: otpChallenge.id }),
+        sut.getAndValidate({
+          otp: '123456',
+          otpId: otpChallenge.id,
+          purpose: EOtpPurpose.SIGN_IN,
+        }),
       ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
+
+      expect(repository.consume).not.toHaveBeenCalled()
     })
 
     it('should consume and reject a challenge at the attempt limit', async () => {
@@ -75,7 +106,11 @@ describe('OtpService', () => {
       })
 
       await expect(
-        sut.validate({ otp: '123456', otpId: otpChallenge.id }),
+        sut.getAndValidate({
+          otp: '123456',
+          otpId: otpChallenge.id,
+          purpose: EOtpPurpose.SIGN_UP,
+        }),
       ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
 
       expect(repository.consume).toHaveBeenCalledWith(otpChallenge.id)
@@ -85,12 +120,14 @@ describe('OtpService', () => {
       repository.findActiveById.mockResolvedValue(otpChallenge)
 
       await expect(
-        sut.validate({ otp: '654321', otpId: otpChallenge.id }),
+        sut.getAndValidate({
+          otp: '654321',
+          otpId: otpChallenge.id,
+          purpose: EOtpPurpose.SIGN_UP,
+        }),
       ).rejects.toThrow(new UnauthorizedException('Invalid OTP'))
 
-      expect(repository.incrementAttempts).toHaveBeenCalledWith(
-        otpChallenge.id,
-      )
+      expect(repository.incrementAttempts).toHaveBeenCalledWith(otpChallenge.id)
       expect(repository.consume).not.toHaveBeenCalled()
     })
   })

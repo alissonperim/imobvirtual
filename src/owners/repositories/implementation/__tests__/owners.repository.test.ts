@@ -1,4 +1,4 @@
-import { EMaritalStatus } from '@pkg/types'
+import { EAccountRole, EAccountStatus, EMaritalStatus } from '@pkg/types'
 import type { Repository, UpdateResult } from 'typeorm'
 import { OwnersRepository } from '../owners.repository'
 import type { AddressEntity, OwnerEntity } from '@app/database/entities'
@@ -61,6 +61,10 @@ const baseCreateInput: CreateOwnerInput = {
   phoneNumber: '62999999999',
   email: 'john@example.com',
   createdBy: 'account-id',
+  account: {
+    role: EAccountRole.OWNER,
+    otps: [],
+  },
 }
 
 describe('OwnersRepository', () => {
@@ -134,8 +138,8 @@ describe('OwnersRepository', () => {
 
       const result = await sut.create(baseCreateInput)
 
-      expect(result.address.deletedAt).toBeUndefined()
-      expect(result.address.createdBy).toBeUndefined()
+      expect(result.address?.deletedAt).toBeUndefined()
+      expect(result.address?.createdBy).toBeUndefined()
     })
 
     it('should build the entity from the create input', async () => {
@@ -151,6 +155,11 @@ describe('OwnersRepository', () => {
         lastName: baseCreateInput.lastName,
         phoneNumber: baseCreateInput.phoneNumber,
         email: baseCreateInput.email,
+        account: {
+          role: baseCreateInput.account.role,
+          status: EAccountStatus.ACTIVE,
+          otps: baseCreateInput.account.otps,
+        },
       })
     })
 

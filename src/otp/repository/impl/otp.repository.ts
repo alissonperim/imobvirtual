@@ -35,8 +35,9 @@ export class OtpRepository implements IOtpRepository {
   }
 
   async findActiveById(id: string): Promise<Otp | undefined> {
+    const query = { id, expiresAt: MoreThan(new Date()), consumedAt: IsNull() }
     const row = await this.repository.findOne({
-      where: { id, expiresAt: MoreThan(new Date()), consumedAt: IsNull() },
+      where: query,
     })
     return row ? this.toOtp(row) : undefined
   }

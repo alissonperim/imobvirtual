@@ -25,17 +25,18 @@ describe('RequestOtpUseCase', () => {
 
   beforeEach(() => {
     otpService = {
-      validate: jest.fn(),
+      getAndValidate: jest.fn(),
       createOtp: jest.fn(),
     }
     accountService = {
       register: jest.fn(),
       getAccount: jest.fn(),
+      createPendingRegistrationUser: jest.fn(),
     }
     sut = new RequestOtpUseCase(otpService, accountService)
   })
 
-  it('should create a sign-in challenge linked to an existing account', async () => {
+  it('should create a sign-in challenge linked to an existing account without a pending registration', async () => {
     accountService.getAccount.mockResolvedValue(account)
     otpService.createOtp.mockResolvedValue({
       code: '123456',
@@ -63,6 +64,7 @@ describe('RequestOtpUseCase', () => {
       purpose: EOtpPurpose.SIGN_IN,
       accountId: account.id,
     })
+    expect(accountService.createPendingRegistrationUser).not.toHaveBeenCalled()
     expect(result).toEqual({
       otpChallengeId: 'otp-challenge-id',
       expiresIn: 360,
@@ -70,7 +72,7 @@ describe('RequestOtpUseCase', () => {
     })
   })
 
-  it('should create a sign-up challenge without an account', async () => {
+  it('should create a sign-up challenge without an account and register the pending user', async () => {
     accountService.getAccount.mockResolvedValue(undefined as unknown as Account)
     otpService.createOtp.mockResolvedValue({
       code: '123456',
@@ -86,6 +88,9 @@ describe('RequestOtpUseCase', () => {
       channel: EOtpChannel.WHATSAPP,
       purpose: EOtpPurpose.SIGN_UP,
       role: EAccountRole.RENTER,
+      name: 'Maria',
+      lastName: 'Silva',
+      email: 'maria@silva.com',
     })
 
     expect(otpService.createOtp).toHaveBeenCalledWith(
@@ -95,6 +100,14 @@ describe('RequestOtpUseCase', () => {
         purpose: EOtpPurpose.SIGN_UP,
       }),
     )
+    expect(accountService.createPendingRegistrationUser).toHaveBeenCalledWith({
+      email: 'maria@silva.com',
+      phoneNumber: '62999824266',
+      name: 'Maria',
+      lastName: 'Silva',
+      role: EAccountRole.RENTER,
+      otpId: 'otp-challenge-id',
+    })
     expect(result.purpose).toBe(EOtpPurpose.SIGN_UP)
   })
 

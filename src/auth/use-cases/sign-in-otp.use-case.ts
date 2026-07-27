@@ -4,6 +4,7 @@ import type { ISessionsRepository } from '../repositories/session.domain'
 import { SignInInput } from '../domain/session'
 import type { IOtpService } from '@app/otp/services/otp.service'
 import type { IAccountService } from '@app/accounts/services/register.service'
+import { EOtpPurpose } from '@pkg/types'
 
 export interface ISignInOtpConsumeUseCase {
   execute(
@@ -35,6 +36,7 @@ export class SignInOtpConsumeUseCase implements ISignInOtpConsumeUseCase {
     const otp = await this.otpService.getAndValidate({
       otp: params.otp,
       otpId: params.otpId,
+      purpose: EOtpPurpose.SIGN_IN,
     })
 
     const account = await this.accountService.getAccount({ id: otp.accountId })
@@ -44,11 +46,6 @@ export class SignInOtpConsumeUseCase implements ISignInOtpConsumeUseCase {
       accountId: account.id,
       tokenHash: refreshTokenData.tokenHash,
       expiresAt: refreshTokenData.expiresAt,
-    })
-
-    await this.accountService.setAccountSession({
-      accountId: account.id,
-      sessionParams: session,
     })
 
     const { accessToken } = await this.tokenService.generate({

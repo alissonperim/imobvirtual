@@ -49,14 +49,16 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
       accountId: account?.id,
     })
 
-    await this.accountService.createPendingRegistrationUser({
-      email: input.email,
-      phoneNumber: input.phoneNumber,
-      name: input.name,
-      lastName: input.lastName,
-      role: input.role,
-      otpId: otp.otpId,
-    })
+    if (input.purpose === EOtpPurpose.SIGN_UP) {
+      await this.accountService.createPendingRegistrationUser({
+        email: input.email,
+        phoneNumber: input.phoneNumber,
+        name: input.name,
+        lastName: input.lastName,
+        role: input.role,
+        otpId: otp.otpId,
+      })
+    }
 
     this.logger.log(`[DEV] OTP code: ${otp.code}`)
 
@@ -64,6 +66,7 @@ export class RequestOtpUseCase implements IRequestOtpUseCase {
       otpChallengeId: otp.otpId,
       expiresIn: otp.expiresInSeconds,
       purpose: otp.purpose,
+      code: otp.code,
     }
   }
 }

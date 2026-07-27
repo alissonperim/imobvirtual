@@ -1,5 +1,6 @@
-import { EMaritalStatus } from '@pkg/types'
+import { EAccountRole, EMaritalStatus } from '@pkg/types'
 import type { IOwnersRepository } from '../../repositories/domain'
+import type { RegisterOwnerInput } from '../../domain/owner'
 import { OwnerService } from '../owner.service'
 
 describe('OwnerService', () => {
@@ -47,11 +48,15 @@ describe('OwnerService', () => {
     it('should create an owner and return it', async () => {
       repository.create.mockResolvedValue(owner)
 
-      const input = {
+      const input: RegisterOwnerInput = {
         name: 'John',
         lastName: 'Doe',
         phoneNumber: '62999999999',
         email: 'john@doe.com',
+        account: {
+          role: EAccountRole.OWNER,
+          otps: [],
+        },
       }
 
       const result = await sut.register(input)

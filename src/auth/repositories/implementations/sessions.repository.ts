@@ -5,7 +5,7 @@ import type { ISessionsRepository } from '../session.domain'
 import type { CreateSessionInput } from '../../domain/session'
 import { AccountEntity, SessionEntity } from '@app/database/entities'
 import { wasAffected } from '@pkg/utils/error-utils'
-import { Session } from '@pkg/types'
+import { ESessionStatus, Session } from '@pkg/types'
 
 @Injectable()
 export class SessionsRepository implements ISessionsRepository {
@@ -19,6 +19,7 @@ export class SessionsRepository implements ISessionsRepository {
       account: { id: params.accountId } as AccountEntity,
       tokenHash: params.tokenHash,
       expiresAt: params.expiresAt,
+      status: ESessionStatus.ACTIVE,
     })
     const saved = await this.repository.save(entity)
     saved.accountId = params.accountId

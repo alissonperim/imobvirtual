@@ -22,6 +22,7 @@ describe('OtpController', () => {
       otpChallengeId: 'otp-id',
       expiresIn: 360,
       purpose: EOtpPurpose.SIGN_UP,
+      code: '123456',
     }
     requestOtpUseCase.execute.mockResolvedValue(output)
 

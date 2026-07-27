@@ -5,9 +5,9 @@ import { AuthController } from './auth.controllers'
 import { AccountsModule } from '@app/accounts/accounts.module'
 import { SessionsRepository } from './repositories/implementations/sessions.repository'
 import { RefreshTokenUseCase } from './use-cases/refresh-token.use-case'
-import { AccountService } from '@app/accounts/services/register.service'
 import { SignInOtpConsumeUseCase } from './use-cases/sign-in-otp.use-case'
 import { SignUpOtpConsumeUseCase } from './use-cases/sign-up-otp.use-case'
+import { OtpModule } from '@app/otp/otp.module'
 
 @Module({
   providers: [
@@ -24,10 +24,6 @@ import { SignUpOtpConsumeUseCase } from './use-cases/sign-up-otp.use-case'
       useClass: RefreshTokenUseCase,
     },
     {
-      provide: 'ACCOUNTS_SERVICE',
-      useClass: AccountService,
-    },
-    {
       provide: 'SIGN_IN_OTP_USE_CASE',
       useClass: SignInOtpConsumeUseCase,
     },
@@ -38,7 +34,7 @@ import { SignUpOtpConsumeUseCase } from './use-cases/sign-up-otp.use-case'
     JwtAuthGuard,
   ],
   controllers: [AuthController],
-  imports: [AccountsModule],
+  imports: [AccountsModule, OtpModule],
   exports: [JwtAuthGuard],
 })
 export class AuthModule {}

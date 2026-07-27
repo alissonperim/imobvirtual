@@ -11,11 +11,12 @@ import { OwnerService } from './services/owner.service'
   controllers: [OwnersController],
   providers: [
     { provide: 'OWNERS_REPOSITORY', useClass: OwnersRepository },
-    { provide: 'OWNERS_SERVICE', useClass: OwnerService },
+    { provide: 'OWNER_SERVICE', useClass: OwnerService },
     FindAllOwnersUseCase,
     FindOwnerByIdUseCase,
     UpdateOwnerUseCase,
     DeleteOwnerUseCase,
   ],
+  exports: ['OWNER_SERVICE'],
 })
 export class OwnersModule {}

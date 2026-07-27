@@ -14,11 +14,13 @@ export type RequestOtpOutput = {
   otpChallengeId: string
   expiresIn: number
   purpose: EOtpPurpose
+  code: string
 }
 
 export type ValidateOtpInput = {
   otp: string
   otpId: string
+  purpose: EOtpPurpose
 }
 
 export type VerifyOtpOutput = {

@@ -5,8 +5,8 @@ import { YupValidationPipe } from '@pkg/utils'
 import { requestOtpSchema } from './schemas/request-otp.schema'
 import type { RequestOtpInput, RequestOtpOutput } from './domain'
 
-@Public()
 @Controller('otp')
+@Public()
 @Injectable()
 export class OtpController {
   constructor(

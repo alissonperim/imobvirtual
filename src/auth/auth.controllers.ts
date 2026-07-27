@@ -7,7 +7,10 @@ import { RefreshTokenInput } from './domain/session'
 import type { SignInInput, SignUpInput, TokenPair } from './domain/session'
 import type { VerifyOtpOutput } from '../otp/domain/otp'
 import { YupValidationPipe } from '@pkg/utils'
-import { SignInOtpChallengeInputSchema } from './schemas'
+import {
+  signInOtpChallengeInputSchema,
+  SignUpOtpChallengeInputSchema,
+} from './schemas'
 
 @Public()
 @Controller('auth')
@@ -26,7 +29,7 @@ export class AuthController {
 
   @Post('/signin/otp-challenge')
   async signInChallengeOtp(
-    @Body(new YupValidationPipe(SignInOtpChallengeInputSchema))
+    @Body(new YupValidationPipe(signInOtpChallengeInputSchema))
     params: SignInInput,
   ): Promise<VerifyOtpOutput> {
     return this.signInOtpUseCase.execute(params)
@@ -34,7 +37,7 @@ export class AuthController {
 
   @Post('/signup/otp-challenge')
   async signUpChallengeOtp(
-    @Body()
+    @Body(new YupValidationPipe(SignUpOtpChallengeInputSchema))
     params: SignUpInput,
   ): Promise<VerifyOtpOutput> {
     return this.signUpOtpUseCase.execute(params)

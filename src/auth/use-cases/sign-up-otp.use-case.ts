@@ -4,6 +4,7 @@ import type { ISessionsRepository } from '../repositories/session.domain'
 import type { IOtpService } from '@app/otp/services/otp.service'
 import type { SignUpInput } from '../domain/session'
 import type { IAccountService } from '@app/accounts/services/register.service'
+import { EOtpPurpose } from '@pkg/types'
 
 export interface ISignUpOtpConsumeUseCase {
   execute(
@@ -35,6 +36,7 @@ export class SignUpOtpConsumeUseCase implements ISignUpOtpConsumeUseCase {
     const otp = await this.otpService.getAndValidate({
       otp: params.otp,
       otpId: params.otpId,
+      purpose: EOtpPurpose.SIGN_UP,
     })
 
     const account = await this.accountService.register(otp)

@@ -29,7 +29,7 @@ export class RefreshTokenUseCase implements IRefreshTokenUseCase {
     const session =
       await this.sessionsRepository.findActiveByTokenHash(currentTokenHash)
 
-    if (!session) {
+    if (!session || !session.accountId) {
       throw new UnauthorizedException('Invalid refresh token')
     }
 

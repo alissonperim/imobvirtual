@@ -1,12 +1,19 @@
 import { UnauthorizedException } from '@nestjs/common'
 import type { IAccountService } from '@app/accounts/services/register.service'
 import type { RegisterAccountOutput } from '@app/accounts/domain/account'
-import { EAccountRole, EAccountStatus } from '@pkg/types'
+import {
+  EAccountRole,
+  EAccountStatus,
+  EOtpChannel,
+  EOtpPurpose,
+  type Otp,
+  type Session,
+} from '@pkg/types'
 import type { ISessionsRepository } from '../../repositories/session.domain'
 import type { IOtpService } from '@app/otp/services/otp.service'
 import type { ITokenService } from '../../services/token.service'
 import { SignUpOtpConsumeUseCase } from '../sign-up-otp.use-case'
-import type { Session, SignUpInput } from '../../domain/session'
+import type { SignUpInput } from '../../domain/session'
 
 describe('SignUpOtpConsumeUseCase', () => {
   let otpService: jest.Mocked<IOtpService>
@@ -21,19 +28,26 @@ describe('SignUpOtpConsumeUseCase', () => {
     status: EAccountStatus.ACTIVE,
   }
 
+  const validatedOtp: Otp = {
+    id: 'otp-challenge-id',
+    destination: '62999824266',
+    purpose: EOtpPurpose.SIGN_UP,
+    channel: EOtpChannel.SMS,
+    codeHash: 'otp-hash',
+    expiresAt: new Date('2026-01-01T00:15:00.000Z'),
+    attempts: 0,
+    createdAt: new Date('2026-01-01T00:00:00.000Z'),
+    updatedAt: new Date('2026-01-01T00:00:00.000Z'),
+  }
+
   const input: SignUpInput = {
-    role: EAccountRole.RENTER,
-    name: 'Maria',
-    lastName: 'Silva',
-    phoneNumber: '62999824266',
-    email: 'maria@silva.com',
     otpId: 'otp-challenge-id',
     otp: '123456',
   }
 
   beforeEach(() => {
     otpService = {
-      validate: jest.fn(),
+      getAndValidate: jest.fn(),
       createOtp: jest.fn(),
     }
     tokenService = {
@@ -44,6 +58,7 @@ describe('SignUpOtpConsumeUseCase', () => {
     accountService = {
       register: jest.fn(),
       getAccount: jest.fn(),
+      createPendingRegistrationUser: jest.fn(),
     }
     sessionsRepository = {
       create: jest.fn(),
@@ -60,7 +75,7 @@ describe('SignUpOtpConsumeUseCase', () => {
   })
 
   it('should validate the OTP, register the account and return a token pair', async () => {
-    otpService.validate.mockResolvedValue(undefined)
+    otpService.getAndValidate.mockResolvedValue(validatedOtp)
     accountService.register.mockResolvedValue(account)
     sessionsRepository.create.mockResolvedValue({ id: 'session-id' } as Session)
     tokenService.generateRefreshToken.mockReturnValue({
@@ -72,17 +87,11 @@ describe('SignUpOtpConsumeUseCase', () => {
 
     const result = await sut.execute(input)
 
-    expect(otpService.validate).toHaveBeenCalledWith({
+    expect(otpService.getAndValidate).toHaveBeenCalledWith({
       otp: input.otp,
       otpId: input.otpId,
     })
-    expect(accountService.register).toHaveBeenCalledWith({
-      email: input.email,
-      role: input.role,
-      name: input.name,
-      lastName: input.lastName,
-      phoneNumber: input.phoneNumber,
-    })
+    expect(accountService.register).toHaveBeenCalledWith(validatedOtp)
     expect(sessionsRepository.create).toHaveBeenCalledWith({
       accountId: account.id,
       tokenHash: 'refresh-token-hash',
@@ -100,7 +109,7 @@ describe('SignUpOtpConsumeUseCase', () => {
   })
 
   it('should propagate the error and not register an account when the OTP is invalid', async () => {
-    otpService.validate.mockRejectedValue(
+    otpService.getAndValidate.mockRejectedValue(
       new UnauthorizedException('Invalid OTP'),
     )
 
