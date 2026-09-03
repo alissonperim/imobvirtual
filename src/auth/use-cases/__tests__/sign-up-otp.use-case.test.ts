@@ -90,6 +90,7 @@ describe('SignUpOtpConsumeUseCase', () => {
     expect(otpService.getAndValidate).toHaveBeenCalledWith({
       otp: input.otp,
       otpId: input.otpId,
+      purpose: EOtpPurpose.SIGN_UP,
     })
     expect(accountService.register).toHaveBeenCalledWith(validatedOtp)
     expect(sessionsRepository.create).toHaveBeenCalledWith({

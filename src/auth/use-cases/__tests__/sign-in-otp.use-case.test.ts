@@ -93,6 +93,7 @@ describe('SignInOtpConsumeUseCase', () => {
     expect(otpService.getAndValidate).toHaveBeenCalledWith({
       otp: input.otp,
       otpId: input.otpId,
+      purpose: EOtpPurpose.SIGN_IN,
     })
     expect(accountService.getAccount).toHaveBeenCalledWith({
       id: validatedOtp.accountId,

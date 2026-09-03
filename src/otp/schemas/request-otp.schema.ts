@@ -14,16 +14,27 @@ export const requestOtpSchema = yup.object({
     .oneOf(Object.values(EOtpPurpose))
     .required(),
   role: yup.mixed<EAccountRole>().oneOf(Object.values(EAccountRole)).required(),
-  name: yup.string().min(3).max(120).when('purpose', {
-    is: isSignUp,
-    then: (schema) => schema.required(),
-  }),
-  lastName: yup.string().min(3).max(120).when('purpose', {
-    is: isSignUp,
-    then: (schema) => schema.required(),
-  }),
-  email: yup.string().email().when('purpose', {
-    is: isSignUp,
-    then: (schema) => schema.required(),
-  }),
+  name: yup
+    .string()
+    .min(3)
+    .max(120)
+    .when('purpose', {
+      is: isSignUp,
+      then: (schema) => schema.required(),
+    }),
+  lastName: yup
+    .string()
+    .min(3)
+    .max(120)
+    .when('purpose', {
+      is: isSignUp,
+      then: (schema) => schema.required(),
+    }),
+  email: yup
+    .string()
+    .email()
+    .when('purpose', {
+      is: isSignUp,
+      then: (schema) => schema.required(),
+    }),
 })

@@ -100,7 +100,7 @@ export class PropertiesRepository implements IPropertiesRepository {
       address: definedParams?.address
         ? {
             ...definedParams?.address,
-            id: existing.addressId!,
+            id: existing.addressId,
           }
         : undefined,
       description: definedParams?.description,

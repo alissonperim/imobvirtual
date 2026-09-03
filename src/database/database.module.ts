@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { entities } from './entities'
+import { TypeOrmTransactionManager } from './transaction/implementation/typeorm-transaction-manager'
 
 @Global()
 @Module({
@@ -15,6 +16,9 @@ import { entities } from './entities'
     }),
     TypeOrmModule.forFeature(entities),
   ],
-  exports: [TypeOrmModule],
+  providers: [
+    { provide: 'TRANSACTION_MANAGER', useClass: TypeOrmTransactionManager },
+  ],
+  exports: [TypeOrmModule, 'TRANSACTION_MANAGER'],
 })
 export class DatabaseModule {}

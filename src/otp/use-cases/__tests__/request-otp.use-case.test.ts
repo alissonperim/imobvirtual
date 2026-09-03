@@ -69,6 +69,7 @@ describe('RequestOtpUseCase', () => {
       otpChallengeId: 'otp-challenge-id',
       expiresIn: 360,
       purpose: EOtpPurpose.SIGN_IN,
+      code: '123456',
     })
   })
 

@@ -1,6 +1,7 @@
 import { EAccountRole, EAccountStatus, EMaritalStatus } from '@pkg/types'
-import type { Repository, UpdateResult } from 'typeorm'
+import type { EntityManager, Repository, UpdateResult } from 'typeorm'
 import { OwnersRepository } from '../owners.repository'
+import { activeManagerStorage } from '@app/database/transaction/implementation/typeorm-transaction-manager'
 import type { AddressEntity, OwnerEntity } from '@app/database/entities'
 import type { CreateOwnerInput } from '../../../domain/owner'
 
@@ -177,6 +178,26 @@ describe('OwnersRepository', () => {
           relations: { address: true },
         }),
       )
+    })
+
+    it('should use the active transaction manager repository when one is set', async () => {
+      const row = makeOwnerRow()
+      const managedRepository = {
+        create: jest.fn().mockReturnValue(row),
+        save: jest.fn().mockResolvedValue(row),
+        findOneOrFail: jest.fn().mockResolvedValue(row),
+      }
+      const manager = {
+        getRepository: jest.fn().mockReturnValue(managedRepository),
+      } as unknown as EntityManager
+
+      await activeManagerStorage.run(manager, () => sut.create(baseCreateInput))
+
+      expect(manager.getRepository).toHaveBeenCalled()
+      expect(managedRepository.create).toHaveBeenCalled()
+      expect(managedRepository.save).toHaveBeenCalled()
+      expect(managedRepository.findOneOrFail).toHaveBeenCalled()
+      expect(repository.create).not.toHaveBeenCalled()
     })
   })
 

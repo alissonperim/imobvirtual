@@ -1,6 +1,7 @@
 import {
   Account,
   EAccountRole,
+  EAccountStatus,
   Otp,
   PendingRegistrationAccount,
 } from '@pkg/types'
@@ -17,6 +18,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common'
+import type { ITransactionManager } from '@app/database/transaction/domain'
 import { RenterService } from '@app/renters/services/renter.service'
 import { OwnerService } from '@app/owners/services/owner.service'
 import { AccountsRepository } from '../repositories/implementations/accounts.repository'
@@ -43,6 +45,9 @@ export class AccountService implements IAccountService {
 
     @Inject('ACCOUNTS_REPOSITORY')
     private readonly accountsRepository: AccountsRepository,
+
+    @Inject('TRANSACTION_MANAGER')
+    private readonly transactionManager: ITransactionManager,
   ) {}
 
   async register(otp: Otp): Promise<RegisterAccountOutput> {
@@ -68,6 +73,7 @@ export class AccountService implements IAccountService {
       email: pendingRegistrationAccount.email,
       role: pendingRegistrationAccount.role,
       phoneNumber: pendingRegistrationAccount.phoneNumber,
+      otpId: otp.id,
       otp,
     })
   }
@@ -95,45 +101,57 @@ export class AccountService implements IAccountService {
   private async registerOwnerAccount(
     params: RegisterAccountInput,
   ): Promise<RegisterAccountOutput> {
-    const owner = await this.ownerService.register({
-      email: params.email,
-      lastName: params.lastName,
-      name: params.name,
-      phoneNumber: params.phoneNumber,
-      account: {
-        otps: [params.otp],
+    // Owner+Account creation (via cascade) and the pending-registration
+    // cleanup happen inside one transaction: if either step fails, nothing
+    // is left half-created and the pending registration stays in place so
+    // the user can retry.
+    return this.transactionManager.run(async () => {
+      const owner = await this.ownerService.register({
+        email: params.email,
+        lastName: params.lastName,
+        name: params.name,
+        phoneNumber: params.phoneNumber,
+        account: {
+          otps: [params.otp],
+          role: params.role,
+        },
+      })
+
+      await this.accountsRepository.deletePendingRegistrationUser(params.otp.id)
+
+      return {
+        owner,
+        id: owner.accountId,
         role: params.role,
-      },
+        status: EAccountStatus.ACTIVE,
+      }
     })
-
-    const account = await this.getAccount(params)
-
-    return {
-      owner,
-      ...account,
-    }
   }
 
   private async registerRenterAccount(
     params: RegisterAccountInput,
   ): Promise<RegisterAccountOutput> {
-    const renter = await this.renterService.register({
-      email: params.email,
-      lastName: params.lastName,
-      name: params.name,
-      phoneNumber: params.phoneNumber,
-      account: {
+    return this.transactionManager.run(async () => {
+      const renter = await this.renterService.register({
+        email: params.email,
+        lastName: params.lastName,
+        name: params.name,
+        phoneNumber: params.phoneNumber,
+        account: {
+          role: params.role,
+          otps: [params.otp],
+        },
+      })
+
+      await this.accountsRepository.deletePendingRegistrationUser(params.otp.id)
+
+      return {
+        renter,
+        id: renter.accountId,
         role: params.role,
-        otps: [params.otp],
-      },
+        status: EAccountStatus.ACTIVE,
+      }
     })
-
-    const account = await this.getAccount(params)
-
-    return {
-      renter,
-      ...account,
-    }
   }
 
   private async getPendingRegistrationsUse(

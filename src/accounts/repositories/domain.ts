@@ -8,6 +8,7 @@ export interface IAccountsRepository {
   createPendingRegistrationUser(
     params: CreatePendingRegistrationAccountInput,
   ): Promise<void>
+  deletePendingRegistrationUser(otpId: string): Promise<void>
   list(params: GetByDestinationInput): Promise<Account[] | undefined>
   getById(id: string): Promise<Account | undefined>
   getPendingRegistrationAccount(

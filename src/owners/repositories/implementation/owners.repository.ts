@@ -5,6 +5,7 @@ import { EAccountStatus, type Owner } from '@pkg/types'
 import { removeUndefinedValues, type Pagination } from '@pkg/utils'
 import { wasAffected } from '@pkg/utils/error-utils'
 import { OwnerEntity } from '@app/database/entities'
+import { resolveRepository } from '@app/database/transaction/resolve-repository'
 import type { IOwnersRepository } from '../domain'
 import { mapOwner } from '../../domain/mappers'
 import {
@@ -23,7 +24,9 @@ export class OwnersRepository implements IOwnersRepository {
   ) {}
 
   async create(params: CreateOwnerInput): Promise<Owner> {
-    const entity = this.repository.create({
+    const repository = resolveRepository(this.repository, OwnerEntity)
+
+    const entity = repository.create({
       name: params.name,
       lastName: params.lastName,
       phoneNumber: params.phoneNumber,
@@ -34,9 +37,9 @@ export class OwnersRepository implements IOwnersRepository {
         otps: params.account.otps,
       },
     })
-    const saved = await this.repository.save(entity)
+    const saved = await repository.save(entity)
 
-    const fullEntity = await this.repository.findOneOrFail({
+    const fullEntity = await repository.findOneOrFail({
       where: {
         id: saved.id,
       },

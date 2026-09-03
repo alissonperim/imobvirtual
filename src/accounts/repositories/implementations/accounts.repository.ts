@@ -6,6 +6,7 @@ import {
   AccountEntity,
   PendingRegistrationEntity,
 } from '@app/database/entities'
+import { resolveRepository } from '@app/database/transaction/resolve-repository'
 import type { IAccountsRepository } from '../domain'
 import type {
   CreateAccountInput,
@@ -35,6 +36,27 @@ export class AccountsRepository implements IAccountsRepository {
   async createPendingRegistrationUser(
     params: CreatePendingRegistrationAccountInput,
   ): Promise<void> {
+    const existing = await this.pendingRegistrationRepository.findOne({
+      where: [
+        { email: params.email, role: params.role },
+        { phoneNumber: params.phoneNumber, role: params.role },
+      ],
+    })
+
+    if (existing) {
+      await this.pendingRegistrationRepository.update(
+        { id: existing.id },
+        {
+          email: params.email,
+          phoneNumber: params.phoneNumber,
+          name: params.name,
+          lastName: params.lastName,
+          otpId: params.otpId,
+        },
+      )
+      return
+    }
+
     const entity = this.pendingRegistrationRepository.create({
       email: params.email,
       phoneNumber: params.phoneNumber,
@@ -45,6 +67,15 @@ export class AccountsRepository implements IAccountsRepository {
     })
 
     await this.pendingRegistrationRepository.save(entity)
+  }
+
+  async deletePendingRegistrationUser(otpId: string): Promise<void> {
+    const repository = resolveRepository(
+      this.pendingRegistrationRepository,
+      PendingRegistrationEntity,
+    )
+
+    await repository.delete({ otpId })
   }
 
   async getPendingRegistrationAccount(

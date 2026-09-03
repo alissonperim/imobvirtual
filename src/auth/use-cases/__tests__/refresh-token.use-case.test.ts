@@ -52,6 +52,7 @@ describe('RefreshTokenUseCase', () => {
     accountsRepository = {
       create: jest.fn(),
       createPendingRegistrationUser: jest.fn(),
+      deletePendingRegistrationUser: jest.fn(),
       list: jest.fn(),
       getById: jest.fn(),
       getPendingRegistrationAccount: jest.fn(),
